@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPPG KOTA SERANG SERANG SERANG 2</title>
+    <style>
+        :root {
+            --bgn-dark: #0b3c7b;
+            --bgn-blue: #0066c0;
+            --bgn-light: #e8f2fc;
+            --bgn-gold: #ffb703;
+            --text: #1a202c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0b132b;
+            color: var(--text);
+            padding-bottom: 40px;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- EFEK LATAR BELAKANG: CAHAYA & KELOPAK BUNGA BERJATUHAN --- */
+        .magic-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: linear-gradient(135deg, #071026 0%, #112244 50%, #1c315e 100%);
+            overflow: hidden;
+        }
+
+        /* Kelopak Bunga / Partikel Estetik */
+        .petal {
+            position: absolute;
+            background: rgba(255, 183, 3, 0.45);
+            border-radius: 150% 0 150% 0;
+            animation: fallAnimation linear infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fallAnimation {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) translateX(80px) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Titik Cahaya Berkilau */
+        .sparkle-light {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,183,3,0.2) 60%, transparent 100%);
+            border-radius: 50%;
+            animation: floatLight infinite ease-in-out;
+        }
+
+        @keyframes floatLight {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-40px) scale(1.5);
+                opacity: 0.8;
+            }
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--bgn-dark), var(--bgn-blue));
+            color: #ffffff;
+            text-align: center;
+            padding: 24px 16px;
+            box-shadow: 0 4px 20px rgba(0, 51, 102, 0.4);
+            position: relative;
+            z-index: 10;
+        }
+
+        .sub-header {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #b0d7ff;
+            margin-bottom: 4px;
+        }
+
+        .main-header {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .clock-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 10px 16px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--bgn-dark);
+            border-bottom: 2px solid rgba(208, 226, 245, 0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 24px auto;
+            padding: 0 16px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Kotak Pilih Tanggal dengan Background Biru Elegan */
+        .date-picker-wrapper {
+            background: linear-gradient(135deg, var(--bgn-dark), var(--bgn-blue));
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 51, 102, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .date-picker-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #e0f2fe;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .date-picker-wrapper input[type="date"] {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: #ffffff;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+        }
+
+        .date-picker-wrapper input[type="date"]:focus {
+            box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.6);
+        }
+
+        .menu-card {
+            background: #ffffff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(220, 231, 245, 0.8);
+        }
+
+        .menu-header {
+            background-color: var(--bgn-light);
+            padding: 18px 20px;
+            text-align: center;
+            border-bottom: 1px solid #d0e2f5;
+        }
+
+        .menu-title-tag {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--bgn-blue);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .today-indicator {
+            display: inline-block;
+            background: #dbeafe;
+            color: var(--bgn-dark);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 14px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #bfdbfe;
+        }
+
+        .today-indicator:hover {
+            background: var(--bgn-blue);
+            color: #ffffff;
+        }
+
+        .menu-date-display {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--bgn-dark);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            max-height: 600px;
+            overflow: hidden;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: contain;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Container Efek Visual Kelopak Bunga dan Cahaya Berkerlip -->
+    <div class="magic-bg-container" id="magicBg"></div>
+
+    <header>
+        <div class="sub-header">Badan Gizi Nasional</div>
+        <h1 class="main-header">SPPG KOTA SERANG SERANG SERANG 2</h1>
+    </header>
+
+    <div class="clock-bar" id="liveClock">Memuat hari, tanggal, dan waktu...</div>
+
+    <main class="container">
+        <!-- Kotak Pilih Tanggal -->
+        <div class="date-picker-wrapper">
+            <span class="date-picker-label">Cari Menu Tanggal Lain</span>
+            <input type="date" id="pilihTanggal" onchange="gantiMenuBerdasarkanPilihan(this.value)">
+        </div>
+
+        <div class="menu-card">
+            <div class="menu-header">
+                <span class="menu-title-tag">Menu Makanan Bergizi</span>
+                <div id="todayBadgeContainer"></div>
+                <div class="menu-date-display" id="menuDateText">Memuat Tanggal...</div>
+            </div>
+
+            <div class="image-wrapper">
+                <img id="menuImage" src="" alt="Menu Makanan Bergizi" 
+                     onerror="handleImageError(this)">
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Generator Otomatis Kelopak Bunga dan Cahaya Bergerak
+        function generateMagicElements() {
+            const container = document.getElementById('magicBg');
+            
+            // Membuat kelopak bunga estetik
+            for (let i = 0; i < 18; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                const size = Math.random() * 12 + 8; // ukuran kelopak
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size * 1.4}px`;
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.animationDuration = `${Math.random() * 8 + 6}s`; // kecepatan jatuh
+                petal.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(petal);
+            }
+
+            // Membuat titik-titik cahaya yang bergerak lembut
+            for (let j = 0; j < 15; j++) {
+                const light = document.createElement('div');
+                light.classList.add('sparkle-light');
+                const size = Math.random() * 30 + 10;
+                light.style.width = `${size}px`;
+                light.style.height = `${size}px`;
+                light.style.left = `${Math.random() * 100}vw`;
+                light.style.top = `${Math.random() * 100}vh`;
+                light.style.animationDuration = `${Math.random() * 5 + 3}s`;
+                light.style.animationDelay = `${Math.random() * 3}s`;
+                container.appendChild(light);
+            }
+        }
+        generateMagicElements();
+
+        const kamusBulan = {
+            "jan": "Januari", "feb": "Februari", "mar": "Maret", 
+            "apr": "April", "mei": "Mei", "may": "Mei", 
+            "jun": "Juni", "jul": "Juli", "agu": "Agustus", 
+            "aug": "Agustus", "sep": "September", "okt": "Oktober", 
+            "oct": "Oktober", "nov": "November", "des": "Desember", "dec": "Desember"
+        };
+
+        const listBulanSingkat = ["jan", "feb", "mar", "apr", "mei", "jun", "jul", "agu", "sep", "okt", "nov", "des"];
+        const namaBulanPanjang = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+        let targetNamaFileAktif = "";
+        let mencobaPng = false;
+
+        function muatMenuHariIni() {
+            const now = new Date();
+            setTanggalKeInput(now);
+            prosesTampilkanMenuDariDate(now);
+        }
+
+        function setTanggalKeInput(dateObj) {
+            const yyyy = dateObj.getFullYear();
+            const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const dd = String(dateObj.getDate()).padStart(2, '0');
+            document.getElementById('pilihTanggal').value = `${yyyy}-${mm}-${dd}`;
+        }
+
+        function gantiMenuBerdasarkanPilihan(valString) {
+            if (!valString) return;
+            const selectedDate = new Date(valString);
+            mencobaPng = false;
+            prosesTampilkanMenuDariDate(selectedDate);
+        }
+
+        function resetKeHariIni() {
+            const now = new Date();
+            setTanggalKeInput(now);
+            mencobaPng = false;
+            prosesTampilkanMenuDariDate(now);
+        }
+
+        function prosesTampilkanMenuDariDate(dateObj) {
+            const tgl = dateObj.getDate();
+            const blnIndex = dateObj.getMonth();
+            const blnSingkat = listBulanSingkat[blnIndex];
+            
+            targetNamaFileAktif = blnSingkat + tgl + ".jpg";
+
+            const imgEl = document.getElementById('menuImage');
+            const dateTextEl = document.getElementById('menuDateText');
+            const todayBadgeContainer = document.getElementById('todayBadgeContainer');
+
+            imgEl.src = targetNamaFileAktif;
+
+            const namaBulanTeks = namaBulanPanjang[blnIndex];
+            dateTextEl.textContent = `${tgl} ${namaBulanTeks}`;
+
+            const now = new Date();
+            const isToday = dateObj.getDate() === now.getDate() && 
+                            dateObj.getMonth() === now.getMonth() && 
+                            dateObj.getFullYear() === now.getFullYear();
+
+            if (isToday) {
+                todayBadgeContainer.innerHTML = '<div class="today-indicator" title="Menu Hari Ini">Hari Ini</div>';
+            } else {
+                todayBadgeContainer.innerHTML = '<div class="today-indicator" onclick="resetKeHariIni()" title="Klik untuk kembali ke hari ini">Kembali ke Hari Ini</div>';
+            }
+        }
+
+        function handleImageError(img) {
+            if (!mencobaPng) {
+                mencobaPng = true;
+                const namaFilePng = targetNamaFileAktif.replace('.jpg', '.png');
+                img.src = namaFilePng;
+            } else {
+                img.src = 'https://via.placeholder.com/700x450/0b3c7b/ffffff?text=Foto+Menu+Tanggal+Ini+Belum+Di-upload';
+            }
+        }
+
+        muatMenuHariIni();
+
+        function updateClock() {
+            const now = new Date();
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+            const dName = days[now.getDay()];
+            const d = now.getDate();
+            const m = namaBulanPanjang[now.getMonth()];
+            const y = now.getFullYear();
+
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            const ss = String(now.getSeconds()).padStart(2, '0');
+
+            document.getElementById('liveClock').textContent = 
+                `${dName}, ${d} ${m} ${y} | ${hh}:${mm}:${ss} WIB`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
