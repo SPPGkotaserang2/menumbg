@@ -306,12 +306,6 @@
             outline: none;
         }
 
-        .form-group input[readonly] {
-            background-color: #f1f5f9;
-            color: #64748b;
-            cursor: not-allowed;
-        }
-
         .btn-submit {
             background: linear-gradient(135deg, var(--bgn-dark), var(--bgn-blue));
             color: #ffffff;
@@ -420,11 +414,7 @@
             <form class="review-form" id="reviewForm" onsubmit="kirimUlasan(event)">
                 <div class="form-group">
                     <label for="inputNama">Nama / Identitas Pengguna</label>
-                    <input type="text" id="inputNama" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail">Email Pengguna</label>
-                    <input type="text" id="inputEmail" readonly>
+                    <input type="text" id="inputNama" placeholder="Masukkan nama Anda..." required>
                 </div>
                 <div class="form-group">
                     <label for="inputPesan">Tulis Ulasan atau Saran Anda:</label>
@@ -460,24 +450,7 @@
 
         let targetNamaFileAktif = "";
         let mencobaPng = false;
-        let currentUser = {};
         let databaseMenu = {}; // Data akan dimuat dari data_3.json
-
-        function inisialisasiPengguna() {
-            let savedUser = localStorage.getItem('sppg_user_profile');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-            } else {
-                const randomId = Math.floor(Math.random() * 9000) + 1000;
-                currentUser = {
-                    nama: `Pengguna Tamu #${randomId}`,
-                    email: `tamu${randomId}@sppg-serang.id`
-                };
-                localStorage.setItem('sppg_user_profile', JSON.stringify(currentUser));
-            }
-            document.getElementById('inputNama').value = currentUser.nama;
-            document.getElementById('inputEmail').value = currentUser.email;
-        }
 
         // Fungsi untuk mengambil data dari file eksternal data_3.json
         function muatDatabaseJson() {
@@ -619,7 +592,7 @@
             container.innerHTML = storedReviews.map(rev => `
                 <div class="review-item">
                     <div class="review-user">
-                        <span>${escapeHtml(rev.nama)} <span style="font-size: 0.75rem; color: #64748b; font-weight: normal;">(${escapeHtml(rev.email)})</span></span>
+                        <span>${escapeHtml(rev.nama)}</span>
                         <span class="review-time">${escapeHtml(rev.waktu)}</span>
                     </div>
                     <div class="review-text">${escapeHtml(rev.pesan)}</div>
@@ -629,16 +602,18 @@
 
         function kirimUlasan(event) {
             event.preventDefault();
+            const namaInput = document.getElementById('inputNama');
             const pesanInput = document.getElementById('inputPesan');
+            
+            const nama = namaInput.value.trim();
             const pesan = pesanInput.value.trim();
-            if (!pesan) return;
+            if (!nama || !pesan) return;
 
             const now = new Date();
             const waktuStr = `${now.getDate()} ${namaBulanPanjang[now.getMonth()]} ${now.getFullYear()}, ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
             const ulasanBaru = {
-                nama: currentUser.nama,
-                email: currentUser.email,
+                nama: nama,
                 pesan: pesan,
                 waktu: waktuStr
             };
@@ -655,7 +630,6 @@
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        inisialisasiPengguna();
         muatDatabaseJson(); // Memuat data dari data_3.json saat halaman dibuka
 
         function updateClock() {
