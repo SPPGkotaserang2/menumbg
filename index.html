@@ -4,6 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPPG KOTA SERANG SERANG SERANG 2</title>
+    
+    <!-- Import Firebase SDK v11 (Modular Version) via CDN -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-analytics.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAF_JbbOQ9xgpNc3nT2ZPq5EJPGsEEm0Gw",
+            authDomain: "menu-baa2c.firebaseapp.com",
+            projectId: "menu-baa2c",
+            storageBucket: "menu-baa2c.firebasestorage.app",
+            messagingSenderId: "596692233115",
+            appId: "1:596692233115:web:48b01412fa06a7a9824f3e",
+            measurementId: "G-YF1FV0Q4X3"
+        };
+
+        // Inisialisasi Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+
+        // Ekspor ke variabel global agar fungsi-fungsi di luar script module dapat mengaksesnya
+        window.db = db;
+        window.collection = collection;
+        window.addDoc = addDoc;
+        window.query = query;
+        window.orderBy = orderBy;
+        window.onSnapshot = onSnapshot;
+        window.serverTimestamp = serverTimestamp;
+    </script>
+    
     <style>
         :root {
             --bgn-dark: #0b3c7b;
@@ -450,9 +482,9 @@
 
         let targetNamaFileAktif = "";
         let mencobaPng = false;
-        let databaseMenu = {}; // Data akan dimuat dari data_3.json
+        let databaseMenu = {}; 
+        let unsubscribeListener = null;
 
-        // Fungsi untuk mengambil data dari file eksternal data_3.json
         function muatDatabaseJson() {
             fetch('data_3.json')
                 .then(response => {
@@ -523,7 +555,7 @@
             }
 
             muatKontenInformasiMenu(blnSingkat, tgl);
-            muatUlasanPublik();
+            muatUlasanPublikRealtime();
         }
 
         function muatKontenInformasiMenu(bln, tgl) {
@@ -576,28 +608,50 @@
             }
         }
 
-        function getStorageKey() {
-            return `sppg_reviews_${targetNamaFileAktif}`;
-        }
-
-        function muatUlasanPublik() {
+        function muatUlasanPublikRealtime() {
             const container = document.getElementById('reviewsListContainer');
-            let storedReviews = JSON.parse(localStorage.getItem(getStorageKey())) || [];
-
-            if (storedReviews.length === 0) {
-                container.innerHTML = `<div class="no-review">Belum ada ulasan untuk menu tanggal ini. Jadilah yang pertama memberikan masukan!</div>`;
-                return;
+            
+            if (unsubscribeListener) {
+                unsubscribeListener();
             }
 
-            container.innerHTML = storedReviews.map(rev => `
-                <div class="review-item">
-                    <div class="review-user">
-                        <span>${escapeHtml(rev.nama)}</span>
-                        <span class="review-time">${escapeHtml(rev.waktu)}</span>
-                    </div>
-                    <div class="review-text">${escapeHtml(rev.pesan)}</div>
-                </div>
-            `).join('');
+            // Pastikan objek window.db sudah siap terinisialisasi dari modul
+            const checkDbInterval = setInterval(() => {
+                if (window.db) {
+                    clearInterval(checkDbInterval);
+                    subcribeFirestoreData(container);
+                }
+            }, 100);
+        }
+
+        function subcribeFirestoreData(container) {
+            const koleksiNama = `reviews_${targetNamaFileAktif.replace('.', '_')}`;
+            const q = window.query(window.collection(window.db, koleksiNama), window.orderBy('timestamp', 'desc'));
+
+            unsubscribeListener = window.onSnapshot(q, (snapshot) => {
+                if (snapshot.empty) {
+                    container.innerHTML = `<div class="no-review">Belum ada ulasan untuk menu tanggal ini. Jadilah yang pertama memberikan masukan!</div>`;
+                    return;
+                }
+
+                let reviewsHtml = '';
+                snapshot.forEach((doc) => {
+                    const rev = doc.data();
+                    reviewsHtml += `
+                        <div class="review-item">
+                            <div class="review-user">
+                                <span>${escapeHtml(rev.nama)}</span>
+                                <span class="review-time">${escapeHtml(rev.waktu)}</span>
+                            </div>
+                            <div class="review-text">${escapeHtml(rev.pesan)}</div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = reviewsHtml;
+            }, (error) => {
+                console.error("Gagal memuat ulasan realtime: ", error);
+                container.innerHTML = `<div class="no-review">Gagal memuat ulasan online. Periksa konfigurasi Firebase Anda.</div>`;
+            });
         }
 
         function kirimUlasan(event) {
@@ -612,25 +666,28 @@
             const now = new Date();
             const waktuStr = `${now.getDate()} ${namaBulanPanjang[now.getMonth()]} ${now.getFullYear()}, ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-            const ulasanBaru = {
+            const koleksiNama = `reviews_${targetNamaFileAktif.replace('.', '_')}`;
+
+            window.addDoc(window.collection(window.db, koleksiNama), {
                 nama: nama,
                 pesan: pesan,
-                waktu: waktuStr
-            };
-
-            let storedReviews = JSON.parse(localStorage.getItem(getStorageKey())) || [];
-            storedReviews.unshift(ulasanBaru);
-            localStorage.setItem(getStorageKey(), JSON.stringify(storedReviews));
-
-            pesanInput.value = '';
-            muatUlasanPublik();
+                waktu: waktuStr,
+                timestamp: window.serverTimestamp()
+            })
+            .then(() => {
+                pesanInput.value = '';
+            })
+            .catch((error) => {
+                console.error("Gagal mengirim ulasan: ", error);
+                alert("Gagal mengirim ulasan. Coba lagi nanti.");
+            });
         }
 
         function escapeHtml(str) {
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        muatDatabaseJson(); // Memuat data dari data_3.json saat halaman dibuka
+        muatDatabaseJson(); 
 
         function updateClock() {
             const now = new Date();
