@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPPG KOTA SERANG SERANG SERANG 2</title>
     
-    <!-- Import Firebase SDK v11 (Modular Version) via CDN -->
+    <!-- Import Firebase SDK v11 (Modular Version) via CDN - Realtime Database -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-analytics.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAF_JbbOQ9xgpNc3nT2ZPq5EJPGsEEm0Gw",
             authDomain: "menu-baa2c.firebaseapp.com",
             projectId: "menu-baa2c",
+            databaseURL: "https://menu-baa2c-default-rtdb.firebaseio.com",
             storageBucket: "menu-baa2c.firebasestorage.app",
             messagingSenderId: "596692233115",
             appId: "1:596692233115:web:48b01412fa06a7a9824f3e",
@@ -24,16 +25,17 @@
         // Inisialisasi Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-        const db = getFirestore(app);
+        const database = getDatabase(app);
 
-        // Ekspor ke variabel global agar fungsi-fungsi di luar script module dapat mengaksesnya
-        window.db = db;
-        window.collection = collection;
-        window.addDoc = addDoc;
-        window.query = query;
-        window.orderBy = orderBy;
-        window.onSnapshot = onSnapshot;
-        window.serverTimestamp = serverTimestamp;
+        // Ekspor ke variabel global agar fungsi di luar modul script dapat mengaksesnya secara aman
+        window.database = database;
+        window.dbRef = ref;
+        window.dbPush = push;
+        window.dbSet = set;
+        window.dbOnValue = onValue;
+
+        // Tandai bahwa modul Firebase sudah siap
+        window.isFirebaseReady = true;
     </script>
     
     <style>
@@ -483,7 +485,6 @@
         let targetNamaFileAktif = "";
         let mencobaPng = false;
         let databaseMenu = {}; 
-        let unsubscribeListener = null;
 
         function muatDatabaseJson() {
             fetch('data_3.json')
@@ -611,32 +612,33 @@
         function muatUlasanPublikRealtime() {
             const container = document.getElementById('reviewsListContainer');
             
-            if (unsubscribeListener) {
-                unsubscribeListener();
-            }
-
-            // Pastikan objek window.db sudah siap terinisialisasi dari modul
             const checkDbInterval = setInterval(() => {
-                if (window.db) {
+                if (window.database && targetNamaFileAktif) {
                     clearInterval(checkDbInterval);
-                    subcribeFirestoreData(container);
+                    subcribeRealtimeDatabaseData(container);
                 }
             }, 100);
         }
 
-        function subcribeFirestoreData(container) {
-            const koleksiNama = `reviews_${targetNamaFileAktif.replace('.', '_')}`;
-            const q = window.query(window.collection(window.db, koleksiNama), window.orderBy('timestamp', 'desc'));
+        function subcribeRealtimeDatabaseData(container) {
+            const nodeNama = `reviews_${targetNamaFileAktif.replace(/[\.]/g, '_')}`;
+            const reviewsRef = window.dbRef(window.database, nodeNama);
 
-            unsubscribeListener = window.onSnapshot(q, (snapshot) => {
-                if (snapshot.empty) {
+            window.dbOnValue(reviewsRef, (snapshot) => {
+                if (!snapshot.exists()) {
                     container.innerHTML = `<div class="no-review">Belum ada ulasan untuk menu tanggal ini. Jadilah yang pertama memberikan masukan!</div>`;
                     return;
                 }
 
                 let reviewsHtml = '';
-                snapshot.forEach((doc) => {
-                    const rev = doc.data();
+                const dataUlasan = snapshot.val();
+                
+                const listArray = Object.keys(dataUlasan).map(key => ({
+                    id: key,
+                    ...dataUlasan[key]
+                })).reverse();
+
+                listArray.forEach((rev) => {
                     reviewsHtml += `
                         <div class="review-item">
                             <div class="review-user">
@@ -650,12 +652,13 @@
                 container.innerHTML = reviewsHtml;
             }, (error) => {
                 console.error("Gagal memuat ulasan realtime: ", error);
-                container.innerHTML = `<div class="no-review">Gagal memuat ulasan online. Periksa konfigurasi Firebase Anda.</div>`;
+                container.innerHTML = `<div class="no-review">Gagal memuat ulasan online. Periksa konfigurasi Realtime Database Anda.</div>`;
             });
         }
 
         function kirimUlasan(event) {
             event.preventDefault();
+            
             const namaInput = document.getElementById('inputNama');
             const pesanInput = document.getElementById('inputPesan');
             
@@ -663,27 +666,35 @@
             const pesan = pesanInput.value.trim();
             if (!nama || !pesan) return;
 
+            if (!window.database) {
+                alert("Koneksi database belum siap. Mohon tunggu sebentar.");
+                return;
+            }
+
             const now = new Date();
             const waktuStr = `${now.getDate()} ${namaBulanPanjang[now.getMonth()]} ${now.getFullYear()}, ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-            const koleksiNama = `reviews_${targetNamaFileAktif.replace('.', '_')}`;
+            const nodeNama = `reviews_${targetNamaFileAktif.replace(/[\.]/g, '_')}`;
+            const reviewsRef = window.dbRef(window.database, nodeNama);
+            const newReviewRef = window.dbPush(reviewsRef);
 
-            window.addDoc(window.collection(window.db, koleksiNama), {
+            window.dbSet(newReviewRef, {
                 nama: nama,
                 pesan: pesan,
                 waktu: waktuStr,
-                timestamp: window.serverTimestamp()
+                timestamp: Date.now()
             })
             .then(() => {
                 pesanInput.value = '';
             })
             .catch((error) => {
                 console.error("Gagal mengirim ulasan: ", error);
-                alert("Gagal mengirim ulasan. Coba lagi nanti.");
+                alert("Gagal mengirim ulasan. Periksa koneksi atau rules database Anda.");
             });
         }
 
         function escapeHtml(str) {
+            if (!str) return '';
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
