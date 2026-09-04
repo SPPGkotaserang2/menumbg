@@ -1,0 +1,37 @@
+{
+    "sep1": {
+        "items": ["Ayam Saus Bolognese", "Kebab", "Selada Timun", "Buah Kelengkeng", "Tahu Goreng"],
+        "nutrition": {
+            "besar": { "energi": "496.35 Kkl", "protein": "15.16 Gr", "lemak": "25.725 Gr", "karbo": "102.9 Gr", "serat": "5.375 Gr" },
+            "kecil": { "energi": "453.25 kkl", "protein": "15.16 Gr", "lemak": "21.725 Gr", "karbo": "56.14 Gr", "serat": "5.375 Gr" }
+        },
+        "benefits": ["Kombinasi karbohidrat dan protein seimbang untuk energi harian."]
+    },
+    "sep2": {
+        "items": ["Nasi Putih", "Ayam Tariyaki", "Cah Labu Siam", "Tahu Kecap", "Buah Jeruk"],
+        "nutrition": {
+            "besar": { "energi": "747.7 Kkl", "protein": "29.5 Gr", "lemak": "23.4 Gr", "karbo": "104.7 Gr", "serat": "7.5 Gr" },
+            "kecil": { "energi": "614.7 kkl", "protein": "26.5 Gr", "lemak": "23.2 Gr", "karbo": "73.1 Gr", "serat": "6.9 Gr" }
+        },
+        "benefits": ["Sumber energi dan karbohidrat kompleks."]
+    },
+    "sep3": {
+        "items": ["Roti Tawar + Susu Full Cream", "Ketan Hitam / Kacang Hijau", "Telur Puyuh", "Buah Kelengkeng"],
+        "nutrition": {
+            "besar": { "energi": "468.9 Kkl", "protein": "18.7 Gr", "lemak": "12.4 Gr", "karbo": "73.1 Gr", "serat": "6.5 Gr" },
+            "kecil": { "energi": "468.9 Kkl", "protein": "18.7 Gr", "lemak": "12.4 Gr", "karbo": "73.1 Gr", "serat": "6.5 Gr" }
+        },
+        "benefits": ["Kandungan kalsium dan protein mendukung kesehatan tulang."]
+    },
+    "sep4": {
+        "items": ["Nasi Putih", "Tumis Wortel Jagung", "Tempe Orek", "Telur Pindang", "Buah Jeruk"],
+        "nutrition": {
+            "besar": { "energi": "703.1 Kkl", "protein": "24.9 Gr", "lemak": "17.8 Gr", "karbo": "98.8 Gr", "serat": "5.7 Gr" },
+            "kecil": { "energi": "523.4 Kkl", "protein": "21.9 Gr", "lemak": "17.6 Gr", "karbo": "59 Gr", "serat": "5.1 Gr" }
+        },
+        "benefits": [
+            "Kombinasi karbohidrat dan protein lengkap untuk energi dan daya tahan tubuh.",
+            "Kandungan vitamin C dari buah jeruk serta serat dari tumis wortel jagung baik untuk pencernaan."
+        ]
+    }
+}
