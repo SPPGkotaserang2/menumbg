@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* --- EFEK LATAR BELAKANG: CAHAYA & KELOPAK BUNGA BERJATUHAN --- */
         .magic-bg-container {
             position: fixed;
             top: 0;
@@ -42,7 +41,6 @@
             overflow: hidden;
         }
 
-        /* Kelopak Bunga / Partikel Estetik */
         .petal {
             position: absolute;
             background: rgba(255, 183, 3, 0.45);
@@ -62,25 +60,6 @@
             100% {
                 transform: translateY(110vh) translateX(80px) rotate(360deg) scale(1.2);
                 opacity: 0;
-            }
-        }
-
-        /* Titik Cahaya Berkilau */
-        .sparkle-light {
-            position: absolute;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,183,3,0.2) 60%, transparent 100%);
-            border-radius: 50%;
-            animation: floatLight infinite ease-in-out;
-        }
-
-        @keyframes floatLight {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-                opacity: 0.3;
-            }
-            50% {
-                transform: translateY(-40px) scale(1.5);
-                opacity: 0.8;
             }
         }
 
@@ -129,7 +108,6 @@
             z-index: 10;
         }
 
-        /* Kotak Pilih Tanggal dengan Background Biru Elegan */
         .date-picker-wrapper {
             background: linear-gradient(135deg, var(--bgn-dark), var(--bgn-blue));
             padding: 20px;
@@ -138,7 +116,6 @@
             text-align: center;
             box-shadow: 0 10px 25px rgba(0, 51, 102, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
         }
 
         .date-picker-label {
@@ -161,11 +138,6 @@
             outline: none;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: all 0.2s;
-        }
-
-        .date-picker-wrapper input[type="date"]:focus {
-            box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.6);
         }
 
         .menu-card {
@@ -174,6 +146,7 @@
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
             border: 1px solid rgba(220, 231, 245, 0.8);
+            margin-bottom: 24px;
         }
 
         .menu-header {
@@ -238,11 +211,166 @@
             object-fit: contain;
             display: block;
         }
+
+        .info-section {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            margin-bottom: 24px;
+            border: 1px solid rgba(220, 231, 245, 0.8);
+        }
+
+        .info-section h3 {
+            font-size: 1.1rem;
+            color: var(--bgn-dark);
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--bgn-light);
+            padding-bottom: 6px;
+        }
+
+        .menu-items-list, .menu-benefits-list {
+            margin-left: 20px;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .nutrition-box {
+            background: var(--bgn-light);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .nutrition-box h4 {
+            font-size: 0.9rem;
+            color: var(--bgn-dark);
+            margin-bottom: 6px;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 4px;
+        }
+
+        .nutrition-item {
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            color: #334155;
+        }
+
+        .nutrition-item span {
+            font-weight: 700;
+            color: var(--bgn-blue);
+        }
+
+        .empty-desc {
+            font-style: italic;
+            color: #94a3b8;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #475569;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-group input[readonly] {
+            background-color: #f1f5f9;
+            color: #64748b;
+            cursor: not-allowed;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--bgn-dark), var(--bgn-blue));
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.2);
+        }
+
+        .reviews-list-container {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .review-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .review-user {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--bgn-dark);
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .review-time {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .review-text {
+            font-size: 0.9rem;
+            color: #334155;
+        }
+
+        .no-review {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-align: center;
+            font-style: italic;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Container Efek Visual Kelopak Bunga dan Cahaya Berkerlip -->
     <div class="magic-bg-container" id="magicBg"></div>
 
     <header>
@@ -253,7 +381,6 @@
     <div class="clock-bar" id="liveClock">Memuat hari, tanggal, dan waktu...</div>
 
     <main class="container">
-        <!-- Kotak Pilih Tanggal -->
         <div class="date-picker-wrapper">
             <span class="date-picker-label">Cari Menu Tanggal Lain</span>
             <input type="date" id="pilihTanggal" onchange="gantiMenuBerdasarkanPilihan(this.value)">
@@ -267,64 +394,110 @@
             </div>
 
             <div class="image-wrapper">
-                <img id="menuImage" src="" alt="Menu Makanan Bergizi" 
-                     onerror="handleImageError(this)">
+                <img id="menuImage" src="" alt="Menu Makanan Bergizi" onerror="handleImageError(this)">
             </div>
+        </div>
+
+        <div class="info-section">
+            <h3>🍽️ Komponen Menu Hari Ini</h3>
+            <div id="containerDescItems">
+                <div class="empty-desc">Belum ada keterangan komponen menu untuk tanggal ini.</div>
+            </div>
+
+            <h3>📊 Analisis Kandungan Gizi</h3>
+            <div id="containerNutrition">
+                <div class="empty-desc">Belum ada data analisis kandungan gizi.</div>
+            </div>
+
+            <h3>💡 Manfaat Kesehatan Menu</h3>
+            <div id="containerBenefits">
+                <div class="empty-desc">Belum ada catatan manfaat kesehatan.</div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>💬 Ulasan & Saran Publik</h3>
+            <form class="review-form" id="reviewForm" onsubmit="kirimUlasan(event)">
+                <div class="form-group">
+                    <label for="inputNama">Nama / Identitas Pengguna</label>
+                    <input type="text" id="inputNama" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail">Email Pengguna</label>
+                    <input type="text" id="inputEmail" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="inputPesan">Tulis Ulasan atau Saran Anda:</label>
+                    <textarea id="inputPesan" rows="3" placeholder="Bagikan tanggapan Anda mengenai menu hari ini..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Kirim Ulasan</button>
+            </form>
+
+            <h3 style="margin-top: 20px; font-size: 1rem;">Daftar Ulasan & Masukan Lainnya</h3>
+            <div class="reviews-list-container" id="reviewsListContainer"></div>
         </div>
     </main>
 
     <script>
-        // Generator Otomatis Kelopak Bunga dan Cahaya Bergerak
         function generateMagicElements() {
             const container = document.getElementById('magicBg');
-            
-            // Membuat kelopak bunga estetik
-            for (let i = 0; i < 18; i++) {
+            for (let i = 0; i < 15; i++) {
                 const petal = document.createElement('div');
                 petal.classList.add('petal');
-                const size = Math.random() * 12 + 8; // ukuran kelopak
+                const size = Math.random() * 12 + 8;
                 petal.style.width = `${size}px`;
                 petal.style.height = `${size * 1.4}px`;
                 petal.style.left = `${Math.random() * 100}vw`;
-                petal.style.animationDuration = `${Math.random() * 8 + 6}s`; // kecepatan jatuh
+                petal.style.animationDuration = `${Math.random() * 8 + 6}s`;
                 petal.style.animationDelay = `${Math.random() * 5}s`;
                 container.appendChild(petal);
             }
-
-            // Membuat titik-titik cahaya yang bergerak lembut
-            for (let j = 0; j < 15; j++) {
-                const light = document.createElement('div');
-                light.classList.add('sparkle-light');
-                const size = Math.random() * 30 + 10;
-                light.style.width = `${size}px`;
-                light.style.height = `${size}px`;
-                light.style.left = `${Math.random() * 100}vw`;
-                light.style.top = `${Math.random() * 100}vh`;
-                light.style.animationDuration = `${Math.random() * 5 + 3}s`;
-                light.style.animationDelay = `${Math.random() * 3}s`;
-                container.appendChild(light);
-            }
         }
         generateMagicElements();
-
-        const kamusBulan = {
-            "jan": "Januari", "feb": "Februari", "mar": "Maret", 
-            "apr": "April", "mei": "Mei", "may": "Mei", 
-            "jun": "Juni", "jul": "Juli", "agu": "Agustus", 
-            "aug": "Agustus", "sep": "September", "okt": "Oktober", 
-            "oct": "Oktober", "nov": "November", "des": "Desember", "dec": "Desember"
-        };
 
         const listBulanSingkat = ["jan", "feb", "mar", "apr", "mei", "jun", "jul", "agu", "sep", "okt", "nov", "des"];
         const namaBulanPanjang = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
         let targetNamaFileAktif = "";
         let mencobaPng = false;
+        let currentUser = {};
+        let databaseMenu = {}; // Data akan dimuat dari data_3.json
 
-        function muatMenuHariIni() {
-            const now = new Date();
-            setTanggalKeInput(now);
-            prosesTampilkanMenuDariDate(now);
+        function inisialisasiPengguna() {
+            let savedUser = localStorage.getItem('sppg_user_profile');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+            } else {
+                const randomId = Math.floor(Math.random() * 9000) + 1000;
+                currentUser = {
+                    nama: `Pengguna Tamu #${randomId}`,
+                    email: `tamu${randomId}@sppg-serang.id`
+                };
+                localStorage.setItem('sppg_user_profile', JSON.stringify(currentUser));
+            }
+            document.getElementById('inputNama').value = currentUser.nama;
+            document.getElementById('inputEmail').value = currentUser.email;
+        }
+
+        // Fungsi untuk mengambil data dari file eksternal data_3.json
+        function muatDatabaseJson() {
+            fetch('data_3.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Gagal memuat file data_3.json');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    databaseMenu = data;
+                    const now = new Date();
+                    setTanggalKeInput(now);
+                    prosesTampilkanMenuDariDate(now);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('containerDescItems').innerHTML = `<div class="empty-desc">Gagal memuat file database JSON. Pastikan file data_3.json ada di satu folder.</div>`;
+                });
         }
 
         function setTanggalKeInput(dateObj) {
@@ -336,7 +509,8 @@
 
         function gantiMenuBerdasarkanPilihan(valString) {
             if (!valString) return;
-            const selectedDate = new Date(valString);
+            const parts = valString.split('-');
+            const selectedDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
             mencobaPng = false;
             prosesTampilkanMenuDariDate(selectedDate);
         }
@@ -362,7 +536,7 @@
             imgEl.src = targetNamaFileAktif;
 
             const namaBulanTeks = namaBulanPanjang[blnIndex];
-            dateTextEl.textContent = `${tgl} ${namaBulanTeks}`;
+            dateTextEl.textContent = `${tgl} ${namaBulanTeks} ${dateObj.getFullYear()}`;
 
             const now = new Date();
             const isToday = dateObj.getDate() === now.getDate() && 
@@ -372,39 +546,124 @@
             if (isToday) {
                 todayBadgeContainer.innerHTML = '<div class="today-indicator" title="Menu Hari Ini">Hari Ini</div>';
             } else {
-                todayBadgeContainer.innerHTML = '<div class="today-indicator" onclick="resetKeHariIni()" title="Klik untuk kembali ke hari ini">Kembali ke Hari Ini</div>';
+                todayBadgeContainer.innerHTML = '<div class="today-indicator" onclick="resetKeHariIni()" title="Kembali ke hari ini">Kembali ke Hari Ini</div>';
             }
+
+            muatKontenInformasiMenu(blnSingkat, tgl);
+            muatUlasanPublik();
+        }
+
+        function muatKontenInformasiMenu(bln, tgl) {
+            const containerDescItems = document.getElementById('containerDescItems');
+            const containerNutrition = document.getElementById('containerNutrition');
+            const containerBenefits = document.getElementById('containerBenefits');
+
+            const kunciMenu = `${bln}${tgl}`;
+            let dataMenu = databaseMenu[kunciMenu];
+
+            if (!dataMenu) {
+                containerDescItems.innerHTML = `<div class="empty-desc">Belum ada keterangan komponen menu untuk tanggal ini.</div>`;
+                containerNutrition.innerHTML = `<div class="empty-desc">Belum ada data analisis kandungan gizi.</div>`;
+                containerBenefits.innerHTML = `<div class="empty-desc">Belum ada catatan manfaat kesehatan.</div>`;
+                return;
+            }
+
+            containerDescItems.innerHTML = `<ul class="menu-items-list">${dataMenu.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+            
+            containerNutrition.innerHTML = `
+                <div class="nutrition-grid">
+                    <div class="nutrition-box">
+                        <h4>Porsi Besar</h4>
+                        <div class="nutrition-item">Energi: <span>${dataMenu.nutrition.besar.energi}</span></div>
+                        <div class="nutrition-item">Protein: <span>${dataMenu.nutrition.besar.protein}</span></div>
+                        <div class="nutrition-item">Lemak: <span>${dataMenu.nutrition.besar.lemak}</span></div>
+                        <div class="nutrition-item">Karbohidrat: <span>${dataMenu.nutrition.besar.karbo}</span></div>
+                        <div class="nutrition-item">Serat: <span>${dataMenu.nutrition.besar.serat}</span></div>
+                    </div>
+                    <div class="nutrition-box">
+                        <h4>Porsi Kecil</h4>
+                        <div class="nutrition-item">Energi: <span>${dataMenu.nutrition.kecil.energi}</span></div>
+                        <div class="nutrition-item">Protein: <span>${dataMenu.nutrition.kecil.protein}</span></div>
+                        <div class="nutrition-item">Lemak: <span>${dataMenu.nutrition.kecil.lemak}</span></div>
+                        <div class="nutrition-item">Karbohidrat: <span>${dataMenu.nutrition.kecil.karbo}</span></div>
+                        <div class="nutrition-item">Serat: <span>${dataMenu.nutrition.kecil.serat}</span></div>
+                    </div>
+                </div>
+            `;
+
+            containerBenefits.innerHTML = `<ul class="menu-benefits-list">${dataMenu.benefits.map(b => `<li>${b}</li>`).join('')}</ul>`;
         }
 
         function handleImageError(img) {
             if (!mencobaPng) {
                 mencobaPng = true;
-                const namaFilePng = targetNamaFileAktif.replace('.jpg', '.png');
-                img.src = namaFilePng;
+                img.src = targetNamaFileAktif.replace('.jpg', '.png');
             } else {
-                img.src = 'https://via.placeholder.com/700x450/0b3c7b/ffffff?text=Foto+Menu+Tanggal+Ini+Belum+Di-upload';
+                img.src = 'https://via.placeholder.com/700x450/0b3c7b/ffffff?text=Foto+Menu+' + targetNamaFileAktif.toUpperCase() + '+Belum+Tersedia';
             }
         }
 
-        muatMenuHariIni();
+        function getStorageKey() {
+            return `sppg_reviews_${targetNamaFileAktif}`;
+        }
+
+        function muatUlasanPublik() {
+            const container = document.getElementById('reviewsListContainer');
+            let storedReviews = JSON.parse(localStorage.getItem(getStorageKey())) || [];
+
+            if (storedReviews.length === 0) {
+                container.innerHTML = `<div class="no-review">Belum ada ulasan untuk menu tanggal ini. Jadilah yang pertama memberikan masukan!</div>`;
+                return;
+            }
+
+            container.innerHTML = storedReviews.map(rev => `
+                <div class="review-item">
+                    <div class="review-user">
+                        <span>${escapeHtml(rev.nama)} <span style="font-size: 0.75rem; color: #64748b; font-weight: normal;">(${escapeHtml(rev.email)})</span></span>
+                        <span class="review-time">${escapeHtml(rev.waktu)}</span>
+                    </div>
+                    <div class="review-text">${escapeHtml(rev.pesan)}</div>
+                </div>
+            `).join('');
+        }
+
+        function kirimUlasan(event) {
+            event.preventDefault();
+            const pesanInput = document.getElementById('inputPesan');
+            const pesan = pesanInput.value.trim();
+            if (!pesan) return;
+
+            const now = new Date();
+            const waktuStr = `${now.getDate()} ${namaBulanPanjang[now.getMonth()]} ${now.getFullYear()}, ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+            const ulasanBaru = {
+                nama: currentUser.nama,
+                email: currentUser.email,
+                pesan: pesan,
+                waktu: waktuStr
+            };
+
+            let storedReviews = JSON.parse(localStorage.getItem(getStorageKey())) || [];
+            storedReviews.unshift(ulasanBaru);
+            localStorage.setItem(getStorageKey(), JSON.stringify(storedReviews));
+
+            pesanInput.value = '';
+            muatUlasanPublik();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        inisialisasiPengguna();
+        muatDatabaseJson(); // Memuat data dari data_3.json saat halaman dibuka
 
         function updateClock() {
             const now = new Date();
             const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-
-            const dName = days[now.getDay()];
-            const d = now.getDate();
-            const m = namaBulanPanjang[now.getMonth()];
-            const y = now.getFullYear();
-
-            const hh = String(now.getHours()).padStart(2, '0');
-            const mm = String(now.getMinutes()).padStart(2, '0');
-            const ss = String(now.getSeconds()).padStart(2, '0');
-
             document.getElementById('liveClock').textContent = 
-                `${dName}, ${d} ${m} ${y} | ${hh}:${mm}:${ss} WIB`;
+                `${days[now.getDay()]}, ${now.getDate()} ${namaBulanPanjang[now.getMonth()]} ${now.getFullYear()} | ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')} WIB`;
         }
-
         setInterval(updateClock, 1000);
         updateClock();
     </script>
