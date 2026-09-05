@@ -709,5 +709,30 @@
         setInterval(updateClock, 1000);
         updateClock();
     </script>
+
+    <!-- SKRIP UNTUK MENCEGAH LAYAR TV TIDUR / SLEEP (WAKE LOCK API) -->
+    <script>
+        let wakeLock = null;
+        async function requestWakeLock() {
+            if ('wakeLock' in navigator) {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    console.log('Screen Wake Lock berhasil diaktifkan!');
+                } catch (err) {
+                    console.error(`Gagal mengaktifkan Wake Lock: ${err.name}, ${err.message}`);
+                }
+            }
+        }
+
+        // Panggil fungsi saat halaman dimuat
+        requestWakeLock();
+
+        // Aktifkan kembali secara otomatis jika tab/halaman kembali aktif/terlihat
+        document.addEventListener('visibilitychange', async () => {
+            if (wakeLock !== null && document.visibilityState === 'visible') {
+                await requestWakeLock();
+            }
+        });
+    </script>
 </body>
 </html>
