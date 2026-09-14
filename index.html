@@ -134,6 +134,24 @@
             z-index: 10;
         }
 
+        /* TAMBAHAN CSS UNTUK ELEMEN TAMPILAN PENGUNJUNG */
+        .visitor-stats-bar {
+            background: rgba(11, 60, 123, 0.85);
+            backdrop-filter: blur(10px);
+            color: #e0f2fe;
+            text-align: center;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-bottom: 2px solid rgba(255, 183, 3, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+        .visitor-stats-bar span {
+            color: var(--bgn-gold);
+            font-weight: 700;
+        }
+
         .container {
             max-width: 720px;
             margin: 24px auto;
@@ -407,6 +425,11 @@
     </header>
 
     <div class="clock-bar" id="liveClock">Memuat hari, tanggal, dan waktu...</div>
+
+    <!-- ELEMEN HTML BARU UNTUK MENAMPILKAN JUMLAH DAN JAM AKSES DI LAYAR -->
+    <div class="visitor-stats-bar" id="visitorStatsBar">
+        Total Pengunjung: <span id="totalVisitorCount">...</span> | Akses Terakhir Anda: <span id="lastAccessTime">...</span>
+    </div>
 
     <main class="container">
         <div class="date-picker-wrapper">
@@ -733,6 +756,50 @@
                 await requestWakeLock();
             }
         });
+    </script>
+
+    <!-- SKRIP UNTUK MEREKAM DAN MENAMPILKAN JUMLAH & JAM AKSES KE ELEMEN HTML -->
+    <script>
+        (function() {
+            const checkAndLogVisitor = setInterval(() => {
+                if (window.database && window.dbRef && window.dbPush && window.dbSet && window.dbOnValue) {
+                    clearInterval(checkAndLogVisitor);
+
+                    const now = new Date();
+                    const tanggalFormat = `${now.getDate()} ${namaBulanPanjang[now.getMonth()]} ${now.getFullYear()}`;
+                    const jamFormat = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')} WIB`;
+
+                    // Tampilkan jam akses langsung di layar untuk pengunjung ini
+                    document.getElementById('lastAccessTime').textContent = `${tanggalFormat}, ${jamFormat}`;
+
+                    const counterRef = window.dbRef(window.database, "statistik_kunjungan/total_count");
+                    const logBaruRef = window.dbPush(window.dbRef(window.database, "statistik_kunjungan/riwayat_akses"));
+                    
+                    // Simpan data jam akses baru ke database
+                    window.dbSet(logBaruRef, {
+                        tanggal: tanggalFormat,
+                        jam: jamFormat,
+                        timestamp: Date.now()
+                    });
+
+                    // Update total hit di database sekaligus tampilkan secara live di HTML
+                    import("https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js").then(({ runTransaction }) => {
+                        runTransaction(counterRef, (currentData) => {
+                            return (currentData || 0) + 1;
+                        }).catch(err => console.log("Gagal memperbarui total hit:", err));
+                    }).catch(() => {});
+
+                    // Pantau total pengunjung secara live di elemen HTML
+                    window.dbOnValue(counterRef, (snapshot) => {
+                        if (snapshot.exists()) {
+                            document.getElementById('totalVisitorCount').textContent = snapshot.val() + " Orang";
+                        } else {
+                            document.getElementById('totalVisitorCount').textContent = "1 Orang";
+                        }
+                    });
+                }
+            }, 500);
+        })();
     </script>
 </body>
 </html>
