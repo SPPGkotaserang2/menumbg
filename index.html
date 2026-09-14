@@ -52,16 +52,16 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Arial, sans-serif;
-            scroll-behavior: smooth; /* Membuat gerakan geser halaman jadi halus */
         }
 
         body {
             background-color: #0b132b;
             color: var(--text);
-            padding-bottom: 40px;
             position: relative;
-            min-height: 100vh;
-            overflow-x: hidden;
+            height: 100vh;
+            overflow: hidden; /* Mengunci scroll bawan utama body agar bagian atas freeze */
+            display: flex;
+            flex-direction: column;
         }
 
         .magic-bg-container {
@@ -98,13 +98,14 @@
             }
         }
 
+        /* Bagian Atas yang Freeze (Tetap Diam) */
         header {
             background: linear-gradient(135deg, var(--bgn-dark), var(--bgn-blue));
             color: #ffffff;
             text-align: center;
-            padding: 24px 16px;
+            padding: 20px 16px;
             box-shadow: 0 4px 20px rgba(0, 51, 102, 0.4);
-            position: relative;
+            flex-shrink: 0;
             z-index: 10;
         }
 
@@ -131,7 +132,7 @@
             font-weight: 600;
             color: var(--bgn-dark);
             border-bottom: 2px solid rgba(208, 226, 245, 0.5);
-            position: relative;
+            flex-shrink: 0;
             z-index: 10;
         }
 
@@ -144,7 +145,7 @@
             font-size: 0.85rem;
             font-weight: 500;
             border-bottom: 2px solid rgba(255, 183, 3, 0.3);
-            position: relative;
+            flex-shrink: 0;
             z-index: 10;
         }
         .visitor-stats-bar span {
@@ -152,12 +153,19 @@
             font-weight: 700;
         }
 
+        /* Area Konten yang Bisa Scroll Sendiri */
+        .scrollable-content-area {
+            flex-grow: 1;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding: 24px 0 40px 0;
+            z-index: 5;
+        }
+
         .container {
             max-width: 720px;
-            margin: 24px auto;
+            margin: 0 auto;
             padding: 0 16px;
-            position: relative;
-            z-index: 10;
         }
 
         .date-picker-wrapper {
@@ -419,6 +427,7 @@
 
     <div class="magic-bg-container" id="magicBg"></div>
 
+    <!-- BAGIAN ATAS (FREEZE / TETAP DIAM) -->
     <header>
         <div class="sub-header">Badan Gizi Nasional</div>
         <h1 class="main-header">SPPG KOTA SERANG SERANG SERANG 2</h1>
@@ -427,62 +436,65 @@
     <div class="clock-bar" id="liveClock">Memuat hari, tanggal, dan waktu...</div>
 
     <div class="visitor-stats-bar" id="visitorStatsBar">
-        Pengunjung (<span id="statsDateLabel">Hari Ini</span>): <span id="totalVisitorCount">...</span> | Akses Terakhir Anda: <span id="lastAccessTime">...</span>
+        Pengunjung <span id="statsDateLabel">Hari Ini</span> : <span id="totalVisitorCount">...</span>
     </div>
 
-    <main class="container">
-        <div class="date-picker-wrapper">
-            <span class="date-picker-label">Cari Menu & Statistik Tanggal Lain</span>
-            <input type="date" id="pilihTanggal" onchange="gantiMenuBerdasarkanPilihan(this.value)">
-        </div>
-
-        <div class="menu-card">
-            <div class="menu-header">
-                <span class="menu-title-tag">Menu Makanan Bergizi</span>
-                <div id="todayBadgeContainer"></div>
-                <div class="menu-date-display" id="menuDateText">Memuat Tanggal...</div>
+    <!-- BAGIAN KONTEN UTAMA (BISA BERGERAK/SCROLL OTOMATIS) -->
+    <div class="scrollable-content-area" id="scrollArea">
+        <main class="container">
+            <div class="date-picker-wrapper">
+                <span class="date-picker-label">Cari Menu & Statistik Tanggal Lain</span>
+                <input type="date" id="pilihTanggal" onchange="gantiMenuBerdasarkanPilihan(this.value)">
             </div>
 
-            <div class="image-wrapper">
-                <img id="menuImage" src="" alt="Menu Makanan Bergizi" onerror="handleImageError(this)">
-            </div>
-        </div>
-
-        <div class="info-section">
-            <h3>🍽️ Komponen Menu Hari Ini</h3>
-            <div id="containerDescItems">
-                <div class="empty-desc">Belum ada keterangan komponen menu untuk tanggal ini.</div>
-            </div>
-
-            <h3>📊 Analisis Kandungan Gizi</h3>
-            <div id="containerNutrition">
-                <div class="empty-desc">Belum ada data analisis kandungan gizi.</div>
-            </div>
-
-            <h3>💡 Manfaat Kesehatan Menu</h3>
-            <div id="containerBenefits">
-                <div class="empty-desc">Belum ada catatan manfaat kesehatan.</div>
-            </div>
-        </div>
-
-        <div class="info-section">
-            <h3>💬 Ulasan & Saran Publik</h3>
-            <form class="review-form" id="reviewForm" onsubmit="kirimUlasan(event)">
-                <div class="form-group">
-                    <label for="inputNama">Nama / Identitas Pengguna</label>
-                    <input type="text" id="inputNama" placeholder="Masukkan nama Anda..." required>
+            <div class="menu-card">
+                <div class="menu-header">
+                    <span class="menu-title-tag">Menu Makanan Bergizi</span>
+                    <div id="todayBadgeContainer"></div>
+                    <div class="menu-date-display" id="menuDateText">Memuat Tanggal...</div>
                 </div>
-                <div class="form-group">
-                    <label for="inputPesan">Tulis Ulasan atau Saran Anda:</label>
-                    <textarea id="inputPesan" rows="3" placeholder="Bagikan tanggapan Anda mengenai menu hari ini..." required></textarea>
-                </div>
-                <button type="submit" class="btn-submit">Kirim Ulasan</button>
-            </form>
 
-            <h3 style="margin-top: 20px; font-size: 1rem;">Daftar Ulasan & Masukan Lainnya</h3>
-            <div class="reviews-list-container" id="reviewsListContainer"></div>
-        </div>
-    </main>
+                <div class="image-wrapper">
+                    <img id="menuImage" src="" alt="Menu Makanan Bergizi" onerror="handleImageError(this)">
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>🍽️ Komponen Menu Hari Ini</h3>
+                <div id="containerDescItems">
+                    <div class="empty-desc">Belum ada keterangan komponen menu untuk tanggal ini.</div>
+                </div>
+
+                <h3>📊 Analisis Kandungan Gizi</h3>
+                <div id="containerNutrition">
+                    <div class="empty-desc">Belum ada data analisis kandungan gizi.</div>
+                </div>
+
+                <h3>💡 Manfaat Kesehatan Menu</h3>
+                <div id="containerBenefits">
+                    <div class="empty-desc">Belum ada catatan manfaat kesehatan.</div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>💬 Ulasan & Saran Publik</h3>
+                <form class="review-form" id="reviewForm" onsubmit="kirimUlasan(event)">
+                    <div class="form-group">
+                        <label for="inputNama">Nama / Identitas Pengguna</label>
+                        <input type="text" id="inputNama" placeholder="Masukkan nama Anda..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPesan">Tulis Ulasan atau Saran Anda:</label>
+                        <textarea id="inputPesan" rows="3" placeholder="Bagikan tanggapan Anda mengenai menu hari ini..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Kirim Ulasan</button>
+                </form>
+
+                <h3 style="margin-top: 20px; font-size: 1rem;">Daftar Ulasan & Masukan Lainnya</h3>
+                <div class="reviews-list-container" id="reviewsListContainer"></div>
+            </div>
+        </main>
+    </div>
 
     <script>
         function generateMagicElements() {
@@ -813,7 +825,7 @@
         })();
     </script>
 
-    <!-- SKRIP AUTO-SCROLL OTOMATIS KE ATAS DAN KE BAWAH BERULANG-ULANG -->
+    <!-- SKRIP AUTO-SCROLL KHUSUS PADA KONTEN AREA -->
     <script>
         let isAutoScrolling = true;
         let scrollDirection = 1; // 1 = ke bawah, -1 = ke atas
@@ -821,35 +833,30 @@
         function autoScrollPage() {
             if (!isAutoScrolling) return;
 
-            const maxScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const currentScrollPos = window.pageYOffset;
+            const scrollArea = document.getElementById('scrollArea');
+            const maxScrollHeight = scrollArea.scrollHeight - scrollArea.clientHeight;
+            const currentScrollPos = scrollArea.scrollTop;
 
-            // Jika sudah sampai paling bawah, jeda sebentar lalu ubah arah ke atas
             if (currentScrollPos >= maxScrollHeight - 10) {
                 scrollDirection = -1;
-                setTimeout(() => {}, 2000); 
-            } 
-            // Jika sudah sampai paling atas, jeda sebentar lalu ubah arah ke bawah lagi
-            else if (currentScrollPos <= 10) {
+            } else if (currentScrollPos <= 10) {
                 scrollDirection = 1;
-                setTimeout(() => {}, 2000);
             }
 
-            window.scrollBy({
-                top: scrollDirection * 1.5, // Kecepatan gerak (bisa dikecilkan/besarkan)
+            scrollArea.scrollBy({
+                top: scrollDirection * 1.5,
                 behavior: 'smooth'
             });
         }
 
-        // Jalankan interval auto scroll setiap 30 milidetik agar gerakannya mulus
         let autoScrollInterval = setInterval(autoScrollPage, 30);
 
-        // Berhenti otomatis jika pengguna berniat menyentuh atau menggulir manual lewat mouse/touchscreen
-        window.addEventListener('wheel', () => {
+        const scrollAreaEl = document.getElementById('scrollArea');
+        scrollAreaEl.addEventListener('wheel', () => {
             isAutoScrolling = false;
-            setTimeout(() => { isAutoScrolling = true; }, 15000); // Aktif kembali setelah 15 detik tidak ada interaksi manual
+            setTimeout(() => { isAutoScrolling = true; }, 15000);
         });
-        window.addEventListener('touchstart', () => {
+        scrollAreaEl.addEventListener('touchstart', () => {
             isAutoScrolling = false;
             setTimeout(() => { isAutoScrolling = true; }, 15000);
         });
