@@ -52,6 +52,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Arial, sans-serif;
+            scroll-behavior: smooth; /* Membuat gerakan geser halaman jadi halus */
         }
 
         body {
@@ -134,7 +135,6 @@
             z-index: 10;
         }
 
-        /* TAMBAHAN CSS UNTUK ELEMEN TAMPILAN PENGUNJUNG */
         .visitor-stats-bar {
             background: rgba(11, 60, 123, 0.85);
             backdrop-filter: blur(10px);
@@ -426,14 +426,13 @@
 
     <div class="clock-bar" id="liveClock">Memuat hari, tanggal, dan waktu...</div>
 
-    <!-- ELEMEN HTML BARU UNTUK MENAMPILKAN JUMLAH DAN JAM AKSES DI LAYAR -->
     <div class="visitor-stats-bar" id="visitorStatsBar">
-        Total Pengunjung: <span id="totalVisitorCount">...</span> | Akses Terakhir Anda: <span id="lastAccessTime">...</span>
+        Pengunjung (<span id="statsDateLabel">Hari Ini</span>): <span id="totalVisitorCount">...</span> | Akses Terakhir Anda: <span id="lastAccessTime">...</span>
     </div>
 
     <main class="container">
         <div class="date-picker-wrapper">
-            <span class="date-picker-label">Cari Menu Tanggal Lain</span>
+            <span class="date-picker-label">Cari Menu & Statistik Tanggal Lain</span>
             <input type="date" id="pilihTanggal" onchange="gantiMenuBerdasarkanPilihan(this.value)">
         </div>
 
@@ -522,6 +521,7 @@
                     const now = new Date();
                     setTanggalKeInput(now);
                     prosesTampilkanMenuDariDate(now);
+                    muatStatistikPengunjungPerTanggal(now);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -542,6 +542,7 @@
             const selectedDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
             mencobaPng = false;
             prosesTampilkanMenuDariDate(selectedDate);
+            muatStatistikPengunjungPerTanggal(selectedDate);
         }
 
         function resetKeHariIni() {
@@ -549,6 +550,7 @@
             setTanggalKeInput(now);
             mencobaPng = false;
             prosesTampilkanMenuDariDate(now);
+            muatStatistikPengunjungPerTanggal(now);
         }
 
         function prosesTampilkanMenuDariDate(dateObj) {
@@ -731,9 +733,32 @@
         }
         setInterval(updateClock, 1000);
         updateClock();
+
+        function muatStatistikPengunjungPerTanggal(dateObj) {
+            const tglKey = `${dateObj.getDate()}_${listBulanSingkat[dateObj.getMonth()]}_${dateObj.getFullYear()}`;
+            const tanggalFormat = `${dateObj.getDate()} ${namaBulanPanjang[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+            
+            document.getElementById('statsDateLabel').textContent = tanggalFormat;
+
+            const checkDbReady = setInterval(() => {
+                if (window.database && window.dbRef && window.dbOnValue) {
+                    clearInterval(checkDbReady);
+
+                    const counterRef = window.dbRef(window.database, `statistik_harian/${tglKey}/total_count`);
+
+                    window.dbOnValue(counterRef, (snapshot) => {
+                        if (snapshot.exists()) {
+                            document.getElementById('totalVisitorCount').textContent = snapshot.val() + " Orang";
+                        } else {
+                            document.getElementById('totalVisitorCount').textContent = "0 Orang";
+                        }
+                    });
+                }
+            }, 100);
+        }
     </script>
 
-    <!-- SKRIP UNTUK MENCEGAH LAYAR TV TIDUR / SLEEP (WAKE LOCK API) -->
+    <!-- SKRIP UNTUK MENCEGAH LAYAR TIDUR / SLEEP (WAKE LOCK API) -->
     <script>
         let wakeLock = null;
         async function requestWakeLock() {
@@ -747,10 +772,8 @@
             }
         }
 
-        // Panggil fungsi saat halaman dimuat
         requestWakeLock();
 
-        // Aktifkan kembali secara otomatis jika tab/halaman kembali aktif/terlihat
         document.addEventListener('visibilitychange', async () => {
             if (wakeLock !== null && document.visibilityState === 'visible') {
                 await requestWakeLock();
@@ -758,48 +781,78 @@
         });
     </script>
 
-    <!-- SKRIP UNTUK MEREKAM DAN MENAMPILKAN JUMLAH & JAM AKSES KE ELEMEN HTML -->
+    <!-- SKRIP PENGHITUNG PENGUNJUNG HARIAN -->
     <script>
         (function() {
             const checkAndLogVisitor = setInterval(() => {
-                if (window.database && window.dbRef && window.dbPush && window.dbSet && window.dbOnValue) {
+                if (window.database && window.dbRef && window.dbPush && window.dbSet) {
                     clearInterval(checkAndLogVisitor);
 
                     const now = new Date();
+                    const tglKey = `${now.getDate()}_${listBulanSingkat[now.getMonth()]}_${now.getFullYear()}`;
                     const tanggalFormat = `${now.getDate()} ${namaBulanPanjang[now.getMonth()]} ${now.getFullYear()}`;
                     const jamFormat = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')} WIB`;
 
-                    // Tampilkan jam akses langsung di layar untuk pengunjung ini
                     document.getElementById('lastAccessTime').textContent = `${tanggalFormat}, ${jamFormat}`;
 
-                    const counterRef = window.dbRef(window.database, "statistik_kunjungan/total_count");
-                    const logBaruRef = window.dbPush(window.dbRef(window.database, "statistik_kunjungan/riwayat_akses"));
+                    const counterRef = window.dbRef(window.database, `statistik_harian/${tglKey}/total_count`);
+                    const logBaruRef = window.dbPush(window.dbRef(window.database, `statistik_harian/${tglKey}/riwayat_akses`));
                     
-                    // Simpan data jam akses baru ke database
                     window.dbSet(logBaruRef, {
-                        tanggal: tanggalFormat,
                         jam: jamFormat,
                         timestamp: Date.now()
                     });
 
-                    // Update total hit di database sekaligus tampilkan secara live di HTML
                     import("https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js").then(({ runTransaction }) => {
                         runTransaction(counterRef, (currentData) => {
                             return (currentData || 0) + 1;
                         }).catch(err => console.log("Gagal memperbarui total hit:", err));
                     }).catch(() => {});
-
-                    // Pantau total pengunjung secara live di elemen HTML
-                    window.dbOnValue(counterRef, (snapshot) => {
-                        if (snapshot.exists()) {
-                            document.getElementById('totalVisitorCount').textContent = snapshot.val() + " Orang";
-                        } else {
-                            document.getElementById('totalVisitorCount').textContent = "1 Orang";
-                        }
-                    });
                 }
             }, 500);
         })();
+    </script>
+
+    <!-- SKRIP AUTO-SCROLL OTOMATIS KE ATAS DAN KE BAWAH BERULANG-ULANG -->
+    <script>
+        let isAutoScrolling = true;
+        let scrollDirection = 1; // 1 = ke bawah, -1 = ke atas
+
+        function autoScrollPage() {
+            if (!isAutoScrolling) return;
+
+            const maxScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const currentScrollPos = window.pageYOffset;
+
+            // Jika sudah sampai paling bawah, jeda sebentar lalu ubah arah ke atas
+            if (currentScrollPos >= maxScrollHeight - 10) {
+                scrollDirection = -1;
+                setTimeout(() => {}, 2000); 
+            } 
+            // Jika sudah sampai paling atas, jeda sebentar lalu ubah arah ke bawah lagi
+            else if (currentScrollPos <= 10) {
+                scrollDirection = 1;
+                setTimeout(() => {}, 2000);
+            }
+
+            window.scrollBy({
+                top: scrollDirection * 1.5, // Kecepatan gerak (bisa dikecilkan/besarkan)
+                behavior: 'smooth'
+            });
+        }
+
+        // Jalankan interval auto scroll setiap 30 milidetik agar gerakannya mulus
+        let autoScrollInterval = setInterval(autoScrollPage, 30);
+
+        // Berhenti otomatis jika pengguna berniat menyentuh atau menggulir manual lewat mouse/touchscreen
+        window.addEventListener('wheel', () => {
+            isAutoScrolling = false;
+            setTimeout(() => { isAutoScrolling = true; }, 15000); // Aktif kembali setelah 15 detik tidak ada interaksi manual
+        });
+        window.addEventListener('touchstart', () => {
+            isAutoScrolling = false;
+            setTimeout(() => { isAutoScrolling = true; }, 15000);
+        });
     </script>
 </body>
 </html>
