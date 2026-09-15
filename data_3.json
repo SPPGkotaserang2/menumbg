@@ -55,5 +55,16 @@
             "Kandungan protein dan karbohidrat seimbang untuk menunjang aktivitas harian.",
             "Serat dari pakcoy dan jagung mendukung kesehatan sistem pencernaan."
         ]
+    },
+    "sep16": {
+        "items": ["Nasi Putih", "Chicken Katsu", "Tumis Wortel", "Tahu Lada Hitam", "Jeruk"],
+        "nutrition": {
+            "besar": { "energi": "714.5 Kkl", "protein": "24.4 Gr", "lemak": "20.2 Gr", "karbo": "96.5 Gr", "serat": "6.2 Gr" },
+            "kecil": { "energi": "621 kkl", "protein": "21.4 Gr", "lemak": "25 Gr", "karbo": "56.7 Gr", "serat": "5.6 Gr" }
+        },
+        "benefits": [
+            "Kombinasi karbohidrat dan protein mendukung kebutuhan energi dan daya tahan tubuh.",
+            "Kandungan vitamin C dari jeruk serta serat dari tumis wortel baik untuk daya tahan tubuh dan pencernaan."
+        ]
     }
 }
