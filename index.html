@@ -27,7 +27,7 @@
         const analytics = getAnalytics(app);
         const database = getDatabase(app);
 
-        // Ekspor ke variabel global agar fungsi di luar modul script dapat mengaksesnya secara aman
+        // Ekspor ke variabel global
         window.database = database;
         window.dbRef = ref;
         window.dbPush = push;
@@ -35,7 +35,6 @@
         window.dbOnValue = onValue;
         window.dbRunTransaction = runTransaction;
 
-        // Tandai bahwa modul Firebase sudah siap
         window.isFirebaseReady = true;
     </script>
     
@@ -148,6 +147,7 @@
             flex-shrink: 0;
             z-index: 10;
         }
+
         .visitor-stats-bar span {
             color: var(--bgn-gold);
             font-weight: 700;
@@ -426,7 +426,7 @@
 
     <div class="magic-bg-container" id="magicBg"></div>
 
-    <!-- BAGIAN ATAS (FREEZE / TETAP DIAM) -->
+    <!-- HEADER / PERMANEN -->
     <header>
         <div class="sub-header">Badan Gizi Nasional</div>
         <h1 class="main-header">SPPG KOTA SERANG SERANG SERANG 2</h1>
@@ -438,7 +438,7 @@
         Pengunjung <span id="statsDateLabel">Hari Ini</span> : <span id="totalVisitorCount">...</span>
     </div>
 
-    <!-- BAGIAN KONTEN UTAMA (BISA BERGERAK/SCROLL OTOMATIS) -->
+    <!-- AREA KONTEN -->
     <div class="scrollable-content-area" id="scrollArea">
         <main class="container">
             <div class="date-picker-wrapper">
@@ -520,6 +520,7 @@
         let mencobaPng = false;
         let databaseMenu = {}; 
 
+        // MEMUAT JSON DAN MENGAMBIL HARI INI SECARA LIVE
         function muatDatabaseJson() {
             fetch('data_3.json')
                 .then(response => {
@@ -530,6 +531,7 @@
                 })
                 .then(data => {
                     databaseMenu = data;
+                    // Otomatis mengambil tanggal perangkat saat ini (Live)
                     const now = new Date();
                     setTanggalKeInput(now);
                     prosesTampilkanMenuDariDate(now);
@@ -537,7 +539,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    document.getElementById('containerDescItems').innerHTML = `<div class="empty-desc">Gagal memuat file database JSON. Pastikan file data_3.json ada di satu folder.</div>`;
+                    document.getElementById('containerDescItems').innerHTML = `<div class="empty-desc">Gagal memuat file database JSON. Pastikan file data_3.json berada pada lokasi/folder yang benar.</div>`;
                 });
         }
 
@@ -565,6 +567,7 @@
             muatStatistikPengunjungPerTanggal(now);
         }
 
+        // FUNGSI UTAMA UNTUK MENAMPILKAN DATA DINAMIS SESUAI TANGGAL LIVE
         function prosesTampilkanMenuDariDate(dateObj) {
             const tgl = dateObj.getDate();
             const blnIndex = dateObj.getMonth();
@@ -589,7 +592,7 @@
                             dateObj.getFullYear() === now.getFullYear();
 
             if (isToday) {
-                todayBadgeContainer.innerHTML = '<div class="today-indicator" title="Menu Hari Ini">Hari Ini</div>';
+                todayBadgeContainer.innerHTML = '<div class="today-indicator" title="Menu Hari Ini">Hari Ini (Live)</div>';
             } else {
                 todayBadgeContainer.innerHTML = '<div class="today-indicator" onclick="resetKeHariIni()" title="Kembali ke hari ini">Kembali ke Hari Ini</div>';
             }
@@ -598,16 +601,18 @@
             muatUlasanPublikRealtime();
         }
 
+        // FUNGSI MEMBACA KUNCI JSON SESUAI TANGGAL
         function muatKontenInformasiMenu(bln, tgl) {
             const containerDescItems = document.getElementById('containerDescItems');
             const containerNutrition = document.getElementById('containerNutrition');
             const containerBenefits = document.getElementById('containerBenefits');
 
+            // Kunci dinamis: memadukan bulan dan tanggal (contoh: "sep16")
             const kunciMenu = `${bln}${tgl}`;
             let dataMenu = databaseMenu[kunciMenu];
 
             if (!dataMenu) {
-                containerDescItems.innerHTML = `<div class="empty-desc">Belum ada keterangan komponen menu untuk tanggal ini di data_3.json.</div>`;
+                containerDescItems.innerHTML = `<div class="empty-desc">Belum ada keterangan menu untuk tanggal ${tgl} ${bln} di file JSON.</div>`;
                 containerNutrition.innerHTML = `<div class="empty-desc">Belum ada data analisis kandungan gizi.</div>`;
                 containerBenefits.innerHTML = `<div class="empty-desc">Belum ada catatan manfaat kesehatan.</div>`;
                 return;
@@ -737,6 +742,7 @@
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
+        // Jalankan Pemuatan Utama
         muatDatabaseJson(); 
 
         function updateClock() {
@@ -772,14 +778,14 @@
         }
     </script>
 
-    <!-- SKRIP UNTUK MENCEGAH LAYAR TIDUR / SLEEP (WAKE LOCK API) -->
+    <!-- WAKE LOCK API (MENCEGAH SLEEP) -->
     <script>
         let wakeLock = null;
         async function requestWakeLock() {
             if ('wakeLock' in navigator) {
                 try {
                     wakeLock = await navigator.wakeLock.request('screen');
-                    console.log('Screen Wake Lock berhasil diaktifkan!');
+                    console.log('Screen Wake Lock aktif.');
                 } catch (err) {
                     console.error(`Gagal mengaktifkan Wake Lock: ${err.name}, ${err.message}`);
                 }
@@ -795,7 +801,7 @@
         });
     </script>
 
-    <!-- SKRIP PENGHITUNG PENGUNJUNG HARIAN (REALTIME DATABASE) -->
+    <!-- PENGHITUNG PENGUNJUNG HARIAN -->
     <script>
         (function() {
             const checkAndLogVisitor = setInterval(() => {
@@ -816,13 +822,13 @@
 
                     window.dbRunTransaction(counterRef, (currentData) => {
                         return (currentData || 0) + 1;
-                    }).catch(err => console.log("Gagal memperbarui total hit:", err));
+                    }).catch(err => console.log("Gagal memperbarui statistik:", err));
                 }
             }, 500);
         })();
     </script>
 
-    <!-- SKRIP AUTO-SCROLL KHUSUS PADA KONTEN AREA -->
+    <!-- AUTO-SCROLL AREA KONTEN -->
     <script>
         let isAutoScrolling = true;
         let scrollDirection = 1;
