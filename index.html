@@ -516,6 +516,7 @@
         const namaBulanPanjang = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
         let targetNamaFileAktif = "";
+        let pathFileLengkap = ""; 
         let mencobaPng = false;
         let databaseMenu = {}; 
 
@@ -568,17 +569,19 @@
             const tgl = dateObj.getDate();
             const blnIndex = dateObj.getMonth();
             const blnSingkat = listBulanSingkat[blnIndex];
+            const tahun = dateObj.getFullYear();
+            const namaBulanTeks = namaBulanPanjang[blnIndex];
             
             targetNamaFileAktif = blnSingkat + tgl + ".jpg";
+            const namaFolderPerBulan = `${namaBulanTeks} ${tahun}`; 
+            pathFileLengkap = `${namaFolderPerBulan}/${targetNamaFileAktif}`;
 
             const imgEl = document.getElementById('menuImage');
             const dateTextEl = document.getElementById('menuDateText');
             const todayBadgeContainer = document.getElementById('todayBadgeContainer');
 
-            imgEl.src = targetNamaFileAktif;
-
-            const namaBulanTeks = namaBulanPanjang[blnIndex];
-            dateTextEl.textContent = `${tgl} ${namaBulanTeks} ${dateObj.getFullYear()}`;
+            imgEl.src = pathFileLengkap;
+            dateTextEl.textContent = `${tgl} ${namaBulanTeks} ${tahun}`;
 
             const now = new Date();
             const isToday = dateObj.getDate() === now.getDate() && 
@@ -604,7 +607,7 @@
             let dataMenu = databaseMenu[kunciMenu];
 
             if (!dataMenu) {
-                containerDescItems.innerHTML = `<div class="empty-desc">Belum ada keterangan komponen menu untuk tanggal ini.</div>`;
+                containerDescItems.innerHTML = `<div class="empty-desc">Belum ada keterangan komponen menu untuk tanggal ini di data_3.json.</div>`;
                 containerNutrition.innerHTML = `<div class="empty-desc">Belum ada data analisis kandungan gizi.</div>`;
                 containerBenefits.innerHTML = `<div class="empty-desc">Belum ada catatan manfaat kesehatan.</div>`;
                 return;
@@ -639,7 +642,7 @@
         function handleImageError(img) {
             if (!mencobaPng) {
                 mencobaPng = true;
-                img.src = targetNamaFileAktif.replace('.jpg', '.png');
+                img.src = pathFileLengkap.replace('.jpg', '.png');
             } else {
                 img.src = 'https://via.placeholder.com/700x450/0b3c7b/ffffff?text=Foto+Menu+' + targetNamaFileAktif.toUpperCase() + '+Belum+Tersedia';
             }
