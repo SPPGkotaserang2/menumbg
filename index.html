@@ -9,7 +9,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-analytics.js";
-        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
+        import { getDatabase, ref, push, set, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAF_JbbOQ9xgpNc3nT2ZPq5EJPGsEEm0Gw",
@@ -33,6 +33,7 @@
         window.dbPush = push;
         window.dbSet = set;
         window.dbOnValue = onValue;
+        window.dbRunTransaction = runTransaction;
 
         // Tandai bahwa modul Firebase sudah siap
         window.isFirebaseReady = true;
@@ -59,7 +60,7 @@
             color: var(--text);
             position: relative;
             height: 100vh;
-            overflow: hidden; /* Mengunci scroll bawan utama body agar bagian atas freeze */
+            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -98,7 +99,6 @@
             }
         }
 
-        /* Bagian Atas yang Freeze (Tetap Diam) */
         header {
             background: linear-gradient(135deg, var(--bgn-dark), var(--bgn-blue));
             color: #ffffff;
@@ -153,7 +153,6 @@
             font-weight: 700;
         }
 
-        /* Area Konten yang Bisa Scroll Sendiri */
         .scrollable-content-area {
             flex-grow: 1;
             overflow-y: auto;
@@ -793,19 +792,16 @@
         });
     </script>
 
-    <!-- SKRIP PENGHITUNG PENGUNJUNG HARIAN -->
+    <!-- SKRIP PENGHITUNG PENGUNJUNG HARIAN (REALTIME DATABASE) -->
     <script>
         (function() {
             const checkAndLogVisitor = setInterval(() => {
-                if (window.database && window.dbRef && window.dbPush && window.dbSet) {
+                if (window.database && window.dbRef && window.dbPush && window.dbSet && window.dbRunTransaction) {
                     clearInterval(checkAndLogVisitor);
 
                     const now = new Date();
                     const tglKey = `${now.getDate()}_${listBulanSingkat[now.getMonth()]}_${now.getFullYear()}`;
-                    const tanggalFormat = `${now.getDate()} ${namaBulanPanjang[now.getMonth()]} ${now.getFullYear()}`;
                     const jamFormat = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')} WIB`;
-
-                    document.getElementById('lastAccessTime').textContent = `${tanggalFormat}, ${jamFormat}`;
 
                     const counterRef = window.dbRef(window.database, `statistik_harian/${tglKey}/total_count`);
                     const logBaruRef = window.dbPush(window.dbRef(window.database, `statistik_harian/${tglKey}/riwayat_akses`));
@@ -815,11 +811,9 @@
                         timestamp: Date.now()
                     });
 
-                    import("https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js").then(({ runTransaction }) => {
-                        runTransaction(counterRef, (currentData) => {
-                            return (currentData || 0) + 1;
-                        }).catch(err => console.log("Gagal memperbarui total hit:", err));
-                    }).catch(() => {});
+                    window.dbRunTransaction(counterRef, (currentData) => {
+                        return (currentData || 0) + 1;
+                    }).catch(err => console.log("Gagal memperbarui total hit:", err));
                 }
             }, 500);
         })();
@@ -828,7 +822,7 @@
     <!-- SKRIP AUTO-SCROLL KHUSUS PADA KONTEN AREA -->
     <script>
         let isAutoScrolling = true;
-        let scrollDirection = 1; // 1 = ke bawah, -1 = ke atas
+        let scrollDirection = 1;
 
         function autoScrollPage() {
             if (!isAutoScrolling) return;
