@@ -66,5 +66,16 @@
             "Kombinasi karbohidrat dan protein mendukung kebutuhan energi dan daya tahan tubuh.",
             "Kandungan vitamin C dari jeruk serta serat dari tumis wortel baik untuk daya tahan tubuh dan pencernaan."
         ]
+    },
+    "sep17": {
+        "items": ["Kentang Rebus", "Pangsit", "Kol", "Bumbu Kacang", "Kelengkeng"],
+        "nutrition": {
+            "besar": { "energi": "417.6 Kkl", "protein": "87.5 Gr", "lemak": "12.4 Gr", "karbo": "54.75 Gr", "serat": "5.05 Gr" },
+            "kecil": { "energi": "394.36 kkl", "protein": "8.25 Gr", "lemak": "12.30 Gr", "karbo": "49.34 Gr", "serat": "46.7 Gr" }
+        },
+        "benefits": [
+            "Kentang rebus menyediakan sumber karbohidrat kompleks yang baik untuk energi harian.",
+            "Sayuran seperti kol dan buah kelengkeng memberikan asupan serat serta vitamin untuk menjaga kesehatan pencernaan."
+        ]
     }
 }
