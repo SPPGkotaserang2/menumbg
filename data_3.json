@@ -88,5 +88,16 @@
             "Kombinasi nasi, telur, dan tempe orek menyediakan asupan protein dan karbohidrat yang stabil untuk aktivitas harian.",
             "Kandungan vitamin C dari jeruk serta serat dari tumis sawi putih wortel mendukung imunitas dan pencernaan."
         ]
+    },
+    "sep21": {
+        "items": ["Nasi Putih", "Perkedel Ayam Semur", "Tumis Labu Siam", "Tahu Goreng", "Jeruk"],
+        "nutrition": {
+            "besar": { "energi": "765.7 Kkl", "protein": "29 Gr", "lemak": "22.5 Gr", "karbo": "99.4 Gr", "serat": "5 Gr" },
+            "kecil": { "energi": "586 kkl", "protein": "26 Gr", "lemak": "22.3 Gr", "karbo": "59.6 Gr", "serat": "4.4 Gr" }
+        },
+        "benefits": [
+            "Kombinasi karbohidrat dan protein tinggi mendukung energi serta pemulihan jaringan tubuh.",
+            "Kandungan vitamin C dari buah jeruk serta serat dari tumis labu siam baik untuk sistem pencernaan dan daya tahan tubuh."
+        ]
     }
 }
