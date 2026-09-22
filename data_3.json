@@ -99,5 +99,16 @@
             "Kombinasi karbohidrat dan protein tinggi mendukung energi serta pemulihan jaringan tubuh.",
             "Kandungan vitamin C dari buah jeruk serta serat dari tumis labu siam baik untuk sistem pencernaan dan daya tahan tubuh."
         ]
+    },
+    "sep22": {
+        "items": ["Nasi Putih", "Telur Ayam", "Gyoza Vegetable", "Tahu Pong Crispy", "Buah Kelengkeng"],
+        "nutrition": {
+            "besar": { "energi": "646.7 kkl", "protein": "22.2 g", "lemak": "9.2 g", "karbo": "120.8 g", "serat": "4.2 g" },
+            "kecil": { "energi": "467 kkl", "protein": "19.2 g", "lemak": "9 g", "karbo": "81 g", "serat": "3.6 g" }
+        },
+        "benefits": [
+            "Kombinasi karbohidrat dari nasi serta protein dari telur mendukung pemenuhan energi harian.",
+            "Asupan serat dari gyoza sayur dan buah kelengkeng membantu menjaga kelancaran sistem pencernaan."
+        ]
     }
 }
