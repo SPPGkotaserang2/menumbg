@@ -110,5 +110,16 @@
             "Kombinasi karbohidrat dari nasi serta protein dari telur mendukung pemenuhan energi harian.",
             "Asupan serat dari gyoza sayur dan buah kelengkeng membantu menjaga kelancaran sistem pencernaan."
         ]
+    },
+    "sep23": {
+        "items": ["Nasi Putih", "Ikan Nila Krispy", "Tempe Oseng Kecap", "Cah Labu siam Wortel", "Buah Jeruk", "Saus Lada Hitam"],
+        "nutrition": {
+            "besar": { "energi": "830,2 kkal", "protein": "44,1 gr", "lemak": "19,6 gr", "karbo": "97,1 gr", "serat": "7 gr" },
+            "kecil": { "energi": "650,5 kkal", "protein": "41,1 gr", "lemak": "19,4 gr", "karbo": "57,3 gr", "serat": "6,5 gr" }
+        },
+        "benefits": [
+            "Ikan nila krispy menyediakan protein tinggi untuk mendukung pertumbuhan dan pemulihan jaringan tubuh[span_0](start_span)[span_0](end_span).",
+            "Kandungan vitamin C dari buah jeruk serta serat dari cah labu siam wortel baik untuk pencernaan dan daya tahan tubuh[span_1](start_span)[span_1](end_span)."
+        ]
     }
 }
