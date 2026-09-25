@@ -132,5 +132,16 @@
             "Kombinasi karbohidrat dan protein dari chicken katsu serta tempe orek efektif menjaga stamina harian.",
             "Antioksidan dari buah anggur serta serat dari cah sawi putih baik untuk imunitas dan pencernaan."
         ]
+    },
+    "sep25": {
+        "items": ["Roti Tawar", "Telur Ayam", "Cream Soup Sayuran", "Keju Slice", "Buah Jeruk"],
+        "nutrition": {
+            "besar": { "energi": "429 kkal", "protein": "41.1 g", "lemak": "13.8 g", "karbo": "66.4 g", "serat": "4.2 g" },
+            "kecil": { "energi": "429 kkal", "protein": "14.1 g", "lemak": "13.8 g", "karbo": "66.4 g", "serat": "4.2 g" }
+        },
+        "benefits": [
+            "Sumber protein lengkap dari telur dan keju untuk membantu pembentukan jaringan otot dan kesehatan tulang.",
+            "Serat dari cream soup sayuran dan vitamin C dari buah jeruk baik untuk menjaga kesehatan pencernaan dan sistem imun."
+        ]
     }
 }
