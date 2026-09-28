@@ -103,8 +103,8 @@
     "sep22": {
         "items": ["Nasi Putih", "Telur Ayam", "Gyoza Vegetable", "Tahu Pong Crispy", "Buah Kelengkeng"],
         "nutrition": {
-            "besar": { "energi": "646.7 kkl", "protein": "22.2 g", "lemak": "9.2 g", "karbo": "120.8 g", "serat": "4.2 g" },
-            "kecil": { "energi": "467 kkl", "protein": "19.2 g", "lemak": "9 g", "karbo": "81 g", "serat": "3.6 g" }
+            "besar": { "energi": "646.7 kkal", "protein": "22.2 g", "lemak": "9.2 g", "karbo": "120.8 g", "serat": "4.2 g" },
+            "kecil": { "energi": "467 kkal", "protein": "19.2 g", "lemak": "9 g", "karbo": "81 g", "serat": "3.6 g" }
         },
         "benefits": [
             "Kombinasi karbohidrat dari nasi serta protein dari telur mendukung pemenuhan energi harian.",
@@ -114,8 +114,8 @@
     "sep23": {
         "items": ["Nasi Putih", "Ikan Nila Krispy", "Tempe Oseng Kecap", "Cah Labu siam Wortel", "Buah Jeruk", "Saus Lada Hitam"],
         "nutrition": {
-            "besar": { "energi": "830,2 kkal", "protein": "44,1 gr", "lemak": "19,6 gr", "karbo": "97,1 gr", "serat": "7 gr" },
-            "kecil": { "energi": "650,5 kkal", "protein": "41,1 gr", "lemak": "19,4 gr", "karbo": "57,3 gr", "serat": "6,5 gr" }
+            "besar": { "energi": "830.2 kkal", "protein": "44.1 g", "lemak": "19.6 g", "karbo": "97.1 g", "serat": "7 g" },
+            "kecil": { "energi": "650.5 kkal", "protein": "41.1 g", "lemak": "19.4 g", "karbo": "57.3 g", "serat": "6.5 g" }
         },
         "benefits": [
             "Ikan nila krispy menyediakan protein tinggi untuk mendukung pertumbuhan dan pemulihan jaringan tubuh.",
@@ -143,36 +143,16 @@
             "Sumber protein lengkap dari telur dan keju untuk membantu pembentukan jaringan otot dan kesehatan tulang.",
             "Serat dari cream soup sayuran dan vitamin C dari buah jeruk baik untuk menjaga kesehatan pencernaan dan sistem imun."
         ]
+    },
     "sep28": {
-        "items": [
-            "Nasi Putih",
-            "Chicken Cordon Blue",
-            "Cah Jagung Manis Wortel",
-            "Tahu Semur",
-            "Jeruk"
-        ],
+        "items": ["Nasi Putih", "Chicken Cordon Blue", "Cah Jagung Manis Wortel", "Tahu Semur", "Jeruk"],
         "nutrition": {
-            "besar": {
-                "energi": "772.1 kkal",
-                "protein": "18.4 g",
-                "lemak": "30.3 g",
-                "karbo": "95.9 g",
-                "serat": "6.2 g"
-            },
-            "kecil": {
-                "energi": "592.4 kkal",
-                "protein": "15.4 g",
-                "lemak": "30.1 g",
-                "karbo": "56.1 g",
-                "serat": "5.6 g"
-            }
+            "besar": { "energi": "772.1 kkal", "protein": "18.4 g", "lemak": "30.3 g", "karbo": "95.9 g", "serat": "6.2 g" },
+            "kecil": { "energi": "592.4 kkal", "protein": "15.4 g", "lemak": "30.1 g", "karbo": "56.1 g", "serat": "5.6 g" }
         },
         "benefits": [
             "Kombinasi Chicken Cordon Blue dan tahu semur menyediakan asupan protein serta energi yang cukup untuk menunjang aktivitas seharian.",
             "Sayuran cah jagung manis wortel dan buah jeruk membantu memenuhi kebutuhan serat serta vitamin untuk menjaga daya tahan tubuh."
         ]
-    }
-}
-
     }
 }
