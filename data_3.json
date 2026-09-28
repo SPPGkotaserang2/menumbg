@@ -143,5 +143,36 @@
             "Sumber protein lengkap dari telur dan keju untuk membantu pembentukan jaringan otot dan kesehatan tulang.",
             "Serat dari cream soup sayuran dan vitamin C dari buah jeruk baik untuk menjaga kesehatan pencernaan dan sistem imun."
         ]
+    "sep28": {
+        "items": [
+            "Nasi Putih",
+            "Chicken Cordon Blue",
+            "Cah Jagung Manis Wortel",
+            "Tahu Semur",
+            "Jeruk"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "772.1 kkal",
+                "protein": "18.4 g",
+                "lemak": "30.3 g",
+                "karbo": "95.9 g",
+                "serat": "6.2 g"
+            },
+            "kecil": {
+                "energi": "592.4 kkal",
+                "protein": "15.4 g",
+                "lemak": "30.1 g",
+                "karbo": "56.1 g",
+                "serat": "5.6 g"
+            }
+        },
+        "benefits": [
+            "Kombinasi Chicken Cordon Blue dan tahu semur menyediakan asupan protein serta energi yang cukup untuk menunjang aktivitas seharian.",
+            "Sayuran cah jagung manis wortel dan buah jeruk membantu memenuhi kebutuhan serat serta vitamin untuk menjaga daya tahan tubuh."
+        ]
+    }
+}
+
     }
 }
