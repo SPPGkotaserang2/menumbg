@@ -162,8 +162,37 @@
             "kecil": { "energi": "717.7 kkal", "protein": "21.6 g", "lemak": "30.1 g", "karbo": "73.8 g", "serat": "4.5 g" }
         },
         "benefits": [
-            "Kombinasi ayam bumbu sate dan tempe mendoan memberikan asupan protein tinggi yang baik untuk pembentukan dan pemulihan jaringan tubuh[span_0](start_span)[span_0](end_span).",
-            "Timun dadu dan buah kelengkeng menyediakan serat serta kesegaran alami untuk menunjang pencernaan yang sehat[span_1](start_span)[span_1](end_span)."
+            "Kombinasi ayam bumbu sate dan tempe mendoan memberikan asupan protein tinggi yang baik untuk pembentukan dan pemulihan jaringan tubuh.",
+            "Timun dadu dan buah kelengkeng menyediakan serat serta kesegaran alami untuk menunjang pencernaan yang sehat."
+        ]
+    },
+    "sep30": {
+        "items": [
+            "Nasi Putih",
+            "Telur Ayam Bumbu Pontianak",
+            "Cah Labu Siam",
+            "Susu Full Cream",
+            "Jeruk"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "656.5 kkal",
+                "protein": "19.9 g",
+                "lemak": "12.1 g",
+                "karbo": "103.5 g",
+                "serat": "6.8 g"
+            },
+            "kecil": {
+                "energi": "510.2 kkal",
+                "protein": "16.9 g",
+                "lemak": "10.3 g",
+                "karbo": "63 g",
+                "serat": "6.2 g"
+            }
+        },
+        "benefits": [
+            "Kombinasi telur bumbu pontianak dan susu full cream memberikan asupan protein serta kalsium yang baik untuk kekuatan tulang dan energi.",
+            "Cah labu siam dan buah jeruk kaya akan serat serta vitamin C untuk mendukung kesehatan pencernaan dan imun tubuh."
         ]
     }
 }
