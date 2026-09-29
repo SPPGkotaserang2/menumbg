@@ -154,5 +154,34 @@
             "Kombinasi Chicken Cordon Blue dan tahu semur menyediakan asupan protein serta energi yang cukup untuk menunjang aktivitas seharian.",
             "Sayuran cah jagung manis wortel dan buah jeruk membantu memenuhi kebutuhan serat serta vitamin untuk menjaga daya tahan tubuh."
         ]
+    }, 
+    "sep29": {
+        "items": [
+            "Nasi Putih",
+            "Ayam Bumbu Sate",
+            "Timun Dadu",
+            "Tempe Mendoan",
+            "Kelengkeng"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "897.4 kkal",
+                "protein": "24.6 g",
+                "lemak": "30.3 g",
+                "karbo": "113.6 g",
+                "serat": "5.1 g"
+            },
+            "kecil": {
+                "energi": "717.7 kkal",
+                "protein": "21.6 g",
+                "lemak": "30.1 g",
+                "karbo": "73.8 g",
+                "serat": "4.5 g"
+            }
+        },
+        "benefits": [
+            "Kombinasi ayam bumbu sate dan tempe mendoan memberikan asupan protein tinggi yang baik untuk pembentukan dan pemulihan jaringan tubuh.",
+            "Timun dadu dan buah kelengkeng menyediakan serat serta kesegaran alami untuk menunjang pencernaan yang sehat."
+        ]
     }
 }
