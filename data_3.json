@@ -167,32 +167,43 @@
         ]
     },
     "sep30": {
-        "items": [
-            "Nasi Putih",
-            "Telur Ayam Bumbu Pontianak",
-            "Cah Labu Siam",
-            "Susu Full Cream",
-            "Jeruk"
-        ],
+        "items": ["Nasi Putih", "Telur Ayam Bumbu Pontianak", "Cah Labu Siam", "Susu Full Cream", "Jeruk"],
         "nutrition": {
-            "besar": {
-                "energi": "656.5 kkal",
-                "protein": "19.9 g",
-                "lemak": "12.1 g",
-                "karbo": "103.5 g",
-                "serat": "6.8 g"
-            },
-            "kecil": {
-                "energi": "510.2 kkal",
-                "protein": "16.9 g",
-                "lemak": "10.3 g",
-                "karbo": "63 g",
-                "serat": "6.2 g"
-            }
+            "besar": { "energi": "656.5 kkal", "protein": "19.9 g", "lemak": "12.1 g", "karbo": "103.5 g", "serat": "6.8 g" },
+            "kecil": { "energi": "510.2 kkal", "protein": "16.9 g", "lemak": "10.3 g", "karbo": "63 g", "serat": "6.2 g" }
         },
         "benefits": [
             "Kombinasi telur bumbu pontianak dan susu full cream memberikan asupan protein serta kalsium yang baik untuk kekuatan tulang dan energi.",
             "Cah labu siam dan buah jeruk kaya akan serat serta vitamin C untuk mendukung kesehatan pencernaan dan imun tubuh."
+        ]
+    },
+    "okt1": {
+        "items": [
+            "Nasi Putih",
+            "Ayam Serundeng",
+            "Cah Pakcoy Wortel",
+            "Tempe Orek",
+            "Kelengkeng"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "865 kkal",
+                "protein": "35.5 g",
+                "lemak": "23.3 g",
+                "karbo": "121.1 g",
+                "serat": "4.9 g"
+            },
+            "kecil": {
+                "energi": "683.5 kkal",
+                "protein": "32.5 g",
+                "lemak": "23.1 g",
+                "karbo": "81.3 g",
+                "serat": "4.3 g"
+            }
+        },
+        "benefits": [
+            "Kombinasi ayam serundeng dan tempe orek memberikan asupan protein tinggi dan karbohidrat yang optimal untuk pembentukan energi harian.",
+            "Sayuran cah pakcoy wortel serta buah kelengkeng memberikan tambahan serat, vitamin, dan antioksidan untuk mendukung daya tahan tubuh."
         ]
     }
 }
