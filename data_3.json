@@ -178,32 +178,43 @@
         ]
     },
     "okt1": {
-        "items": [
-            "Nasi Putih",
-            "Ayam Serundeng",
-            "Cah Pakcoy Wortel",
-            "Tempe Orek",
-            "Kelengkeng"
-        ],
+        "items": ["Nasi Putih", "Ayam Serundeng", "Cah Pakcoy Wortel", "Tempe Orek", "Kelengkeng"],
         "nutrition": {
-            "besar": {
-                "energi": "865 kkal",
-                "protein": "35.5 g",
-                "lemak": "23.3 g",
-                "karbo": "121.1 g",
-                "serat": "4.9 g"
-            },
-            "kecil": {
-                "energi": "683.5 kkal",
-                "protein": "32.5 g",
-                "lemak": "23.1 g",
-                "karbo": "81.3 g",
-                "serat": "4.3 g"
-            }
+            "besar": { "energi": "865 kkal", "protein": "35.5 g", "lemak": "23.3 g", "karbo": "121.1 g", "serat": "4.9 g" },
+            "kecil": { "energi": "683.5 kkal", "protein": "32.5 g", "lemak": "23.1 g", "karbo": "81.3 g", "serat": "4.3 g" }
         },
         "benefits": [
             "Kombinasi ayam serundeng dan tempe orek memberikan asupan protein tinggi dan karbohidrat yang optimal untuk pembentukan energi harian.",
             "Sayuran cah pakcoy wortel serta buah kelengkeng memberikan tambahan serat, vitamin, dan antioksidan untuk mendukung daya tahan tubuh."
+        ]
+    },
+    "okt2": {
+        "items": [
+            "Kentang",
+            "Dimsum Ayam",
+            "Bumbu Kacang",
+            "Kol",
+            "Jeruk"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "562,8 kkal",
+                "protein": "17,6 g",
+                "lemak": "24,1 g",
+                "karbo": "44 g",
+                "serat": "7,1 g"
+            },
+            "kecil": {
+                "energi": "512,80 kkal",
+                "protein": "17,30 g",
+                "lemak": "24,10 g",
+                "karbo": "40,80 g",
+                "serat": "6,9 g"
+            }
+        },
+        "benefits": [
+            "Kentang rebus dan dimsum ayam menyediakan kombinasi karbohidrat kompleks serta protein yang pas untuk memenuhi kebutuhan energi harian[span_0](start_span)[span_0](end_span).",
+            "Sayuran kol dan buah jeruk kaya akan serat serta vitamin C untuk menjaga imunitas dan kelancaran sistem pencernaan[span_1](start_span)[span_1](end_span)."
         ]
     }
 }
