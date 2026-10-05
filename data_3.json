@@ -189,32 +189,43 @@
         ]
     },
     "okt2": {
-        "items": [
-            "Kentang",
-            "Dimsum Ayam",
-            "Bumbu Kacang",
-            "Kol",
-            "Jeruk"
-        ],
+        "items": ["Kentang", "Dimsum Ayam", "Bumbu Kacang", "Kol", "Jeruk"],
         "nutrition": {
-            "besar": {
-                "energi": "562,8 kkal",
-                "protein": "17,6 g",
-                "lemak": "24,1 g",
-                "karbo": "44 g",
-                "serat": "7,1 g"
-            },
-            "kecil": {
-                "energi": "512,80 kkal",
-                "protein": "17,30 g",
-                "lemak": "24,10 g",
-                "karbo": "40,80 g",
-                "serat": "6,9 g"
-            }
+            "besar": { "energi": "562,8 kkal", "protein": "17,6 g", "lemak": "24,1 g", "karbo": "44 g", "serat": "7,1 g" },
+            "kecil": { "energi": "512,80 kkal", "protein": "17,30 g", "lemak": "24,10 g", "karbo": "40,80 g", "serat": "6,9 g" }
         },
         "benefits": [
             "Kentang rebus dan dimsum ayam menyediakan kombinasi karbohidrat kompleks serta protein yang pas untuk memenuhi kebutuhan energi harian.",
             "Sayuran kol dan buah jeruk kaya akan serat serta vitamin C untuk menjaga imunitas dan kelancaran sistem pencernaan."
+        ]
+    },
+    "okt5": {
+        "items": [
+            "Nasi Putih",
+            "Ayam Goreng Ketumbar",
+            "Cah Wortel Pakcoy",
+            "Tahu Kecap",
+            "Anggur"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "794,8 Kkal",
+                "protein": "29,5 gram",
+                "lemak": "23,4 gram",
+                "karbo": "120,6 gram",
+                "serat": "5,5 gram"
+            },
+            "kecil": {
+                "energi": "614,7 Kkal",
+                "protein": "26,5 gram",
+                "lemak": "23,2 gram",
+                "karbo": "73,1 gram",
+                "serat": "4,9 gram"
+            }
+        },
+        "benefits": [
+            "Ayam goreng ketumbar dan tahu kecap kaya akan protein serta karbohidrat dari nasi putih untuk memberikan stamina dan energi optimal seharian[span_0](start_span)[span_0](end_span).",
+            "Cah wortel pakcoy serta buah anggur kaya akan serat, antioksidan, dan vitamin untuk menjaga kesehatan sistem pencernaan serta imunitas tubuh[span_1](start_span)[span_1](end_span)."
         ]
     }
 }
