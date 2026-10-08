@@ -200,32 +200,43 @@
         ]
     },
     "okt5": {
-        "items": [
-            "Nasi Putih",
-            "Ayam Goreng Ketumbar",
-            "Cah Wortel Pakcoy",
-            "Tahu Kecap",
-            "Anggur"
-        ],
+        "items": ["Nasi Putih", "Ayam Goreng Ketumbar", "Cah Wortel Pakcoy", "Tahu Kecap", "Anggur"],
         "nutrition": {
-            "besar": {
-                "energi": "794,8 Kkal",
-                "protein": "29,5 gram",
-                "lemak": "23,4 gram",
-                "karbo": "120,6 gram",
-                "serat": "5,5 gram"
-            },
-            "kecil": {
-                "energi": "614,7 Kkal",
-                "protein": "26,5 gram",
-                "lemak": "23,2 gram",
-                "karbo": "73,1 gram",
-                "serat": "4,9 gram"
-            }
+            "besar": { "energi": "794,8 Kkal", "protein": "29,5 gram", "lemak": "23,4 gram", "karbo": "120,6 gram", "serat": "5,5 gram" },
+            "kecil": { "energi": "614,7 Kkal", "protein": "26,5 gram", "lemak": "23,2 gram", "karbo": "73,1 gram", "serat": "4,9 gram" }
         },
         "benefits": [
             "Ayam goreng ketumbar dan tahu kecap kaya akan protein serta karbohidrat dari nasi putih untuk memberikan stamina dan energi optimal seharian.",
             "Cah wortel pakcoy serta buah anggur kaya akan serat, antioksidan, dan vitamin untuk menjaga kesehatan sistem pencernaan serta imunitas tubuh."
+        ]
+    },
+    "okt8": {
+        "items": [
+            "Nasi Putih",
+            "Kari Telur Ayam",
+            "Pakcoy Jagung",
+            "Tahu Pong Crispy",
+            "Jeruk"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "656,5 kkal",
+                "protein": "19,4 gram",
+                "lemak": "24,3 gram",
+                "karbo": "103,5 gram",
+                "serat": "5,8 gram"
+            },
+            "kecil": {
+                "energi": "510,2 Kkal",
+                "protein": "16,4 gram",
+                "lemak": "22,5 gram",
+                "karbo": "57,5 gram",
+                "serat": "5,2 gram"
+            }
+        },
+        "benefits": [
+            "Kari telur ayam dan tahu pong crispy memberikan kombinasi protein serta energi karbohidrat dari nasi putih untuk menunjang daya tahan tubuh dan aktivitas harian.",
+            "Sayuran pakcoy jagung serta buah jeruk kaya akan serat, karotenoid, dan vitamin C untuk menjaga kesehatan pencernaan serta imunitas tubuh."
         ]
     }
 }
