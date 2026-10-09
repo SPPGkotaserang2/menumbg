@@ -239,4 +239,34 @@
             "Sayuran pakcoy jagung serta buah jeruk kaya akan serat, karotenoid, dan vitamin C untuk menjaga kesehatan pencernaan serta imunitas tubuh."
         ]
     }
+    "okt9": {
+        "items": [
+            "Potato Chesee Ball",
+            "Bubur Kacang Hijau",
+            "Bubur Sumsum Mutiara",
+            "Susu Full Cream",
+            "Apel"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "367,4kkal",
+                "protein": "10,8 gram",
+                "lemak": "4,7 gram",
+                "karbo": "77,1 gram",
+                "serat": "7,7 gram"
+            },
+            "kecil": {
+                "energi": "367,4 Kkal",
+                "protein": "10,8 gram",
+                "lemak": "4,7 gram",
+                "karbo": "77,1 gram",
+                "serat": "7,7 gram"
+            }
+        },
+        "benefits": [
+            "Potato Cheese Ball dan bubur sumsum mutiara menyediakan karbohidrat cepat serap serta protein untuk pemulihan energi harian.",
+            "Bubur kacang hijau, susu full cream, dan apel kaya akan serat, kalsium, serta vitamin untuk menjaga kelancaran pencernaan dan kesehatan tulang."
+        ]
+    }
 }
+
