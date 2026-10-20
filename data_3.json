@@ -233,33 +233,43 @@
         ]
     },
     "okt19": {
-        "items": [
-            "Nasi",
-            "Chicken Crispy Fillet",
-            "Cah Wortel Kol Putih",
-            "Tahu bumbu kecap",
-            "Sambal tomat",
-            "Buah Jeruk"
-        ],
+        "items": ["Nasi", "Chicken Crispy Fillet", "Cah Wortel Kol Putih", "Tahu bumbu kecap", "Sambal tomat", "Buah Jeruk"],
         "nutrition": {
-            "besar": {
-                "energi": "770,3 kkal",
-                "protein": "18 gr",
-                "lemak": "20,2 gr",
-                "karbo": "96,4 gr",
-                "serat": "5,6 gr"
-            },
-            "kecil": {
-                "energi": "590,6 kkal",
-                "protein": "15 gr",
-                "lemak": "20 gr",
-                "karbo": "56,6 gr",
-                "serat": "5 gr"
-            }
+            "besar": { "energi": "770,3 kkal", "protein": "18 gr", "lemak": "20,2 gr", "karbo": "96,4 gr", "serat": "5,6 gr" },
+            "kecil": { "energi": "590,6 kkal", "protein": "15 gr", "lemak": "20 gr", "karbo": "56,6 gr", "serat": "5 gr" }
         },
         "benefits": [
             "Chicken crispy fillet dan tahu bumbu kecap memberikan asupan protein seimbang serta energi karbohidrat dari nasi untuk aktivitas harian.",
             "Cah wortel kol putih dan buah jeruk kaya akan serat, vitamin C, serta antioksidan untuk mendukung kekebalan tubuh dan kelancaran pencernaan."
+        ]
+    },
+    "okt20": {
+        "items": [
+            "Nasi Putih",
+            "Opor Ayam Tanpa Santan",
+            "Cah Jagung Putren Labu siam",
+            "Tahu Krispy",
+            "Buah Anggur"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "750,6 kkal",
+                "protein": "27,1 gr",
+                "lemak": "23,2 gr",
+                "karbo": "112,9 gr",
+                "serat": "4,5 gr"
+            },
+            "kecil": {
+                "energi": "570,9 kkal",
+                "protein": "24,1 gr",
+                "lemak": "23 gr",
+                "karbo": "73,1 gr",
+                "serat": "3,9 gr"
+            }
+        },
+        "benefits": [
+            "Opor ayam tanpa santan dan tahu krispy menyediakan asupan protein tinggi yang lebih sehat serta energi karbohidrat dari nasi putih untuk aktivitas harian.",
+            "Cah jagung putren labu siam dan buah anggur kaya akan serat, antioksidan, serta vitamin untuk mendukung kesehatan sistem pencernaan dan imunitas tubuh."
         ]
     }
 }
