@@ -277,33 +277,43 @@
         ]
     },
     "okt23": {
-        "items": [
-            "Roti Burger",
-            "Chicken Katsu",
-            "Timun",
-            "Keju Slice",
-            "Strawberry & Anggur",
-            "Saus"
-        ],
+        "items": ["Roti Burger", "Chicken Katsu", "Timun", "Keju Slice", "Strawberry & Anggur", "Saus"],
         "nutrition": {
-            "besar": {
-                "energi": "543.1 kkal",
-                "protein": "15,2 gram",
-                "lemak": "17 gram",
-                "karbo": "47,9 gram",
-                "serat": "5,8 gram"
-            },
-            "kecil": {
-                "energi": "500 Kkal",
-                "protein": "15,2 gram",
-                "lemak": "17 gram",
-                "karbo": "47,9 gram",
-                "serat": "5,8 gram"
-            }
+            "besar": { "energi": "543.1 kkal", "protein": "15,2 gram", "lemak": "17 gram", "karbo": "47,9 gram", "serat": "5,8 gram" },
+            "kecil": { "energi": "500 Kkal", "protein": "15,2 gram", "lemak": "17 gram", "karbo": "47,9 gram", "serat": "5,8 gram" }
         },
         "benefits": [
             "Roti burger, chicken katsu, dan keju slice memberikan kombinasi karbohidrat dan protein yang lezat serta mengenyangkan untuk energi harian.",
             "Timun, strawberry, dan anggur kaya akan vitamin, antioksidan, serta serat yang baik untuk menjaga imunitas dan kesehatan pencernaan."
+        ]
+    },
+    "okt26": {
+        "items": [
+            "Nasi Putih",
+            "Ayam Kremes",
+            "Cah Labu Siam Wortel",
+            "Tahu sc Kecap",
+            "Buah Jeruk"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "702,2 kkal",
+                "protein": "27 g",
+                "lemak": "23,1 g",
+                "karbo": "96,5 g",
+                "serat": "6,1 g"
+            },
+            "kecil": {
+                "energi": "553,7 kkal",
+                "protein": "24,9 g",
+                "lemak": "23 g",
+                "karbo": "63,6 g",
+                "serat": "5,3 g"
+            }
+        },
+        "benefits": [
+            "Ayam kremes dan tahu saus kecap memberikan asupan protein tinggi serta energi karbohidrat dari nasi putih untuk menunjang aktivitas fisik sepanjang hari.",
+            "Cah labu siam wortel dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan imunitas tubuh."
         ]
     }
 }
