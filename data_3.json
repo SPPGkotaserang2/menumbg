@@ -299,32 +299,54 @@
         ]
     },
     "okt27": {
-        "items": [
-            "Nasi Putih",
-            "Chicken Katsu",
-            "Timun Dadu",
-            "Tahu Semur",
-            "Buah Anggur"
-        ],
+        "items": ["Nasi Putih", "Chicken Katsu", "Timun Dadu", "Tahu Semur", "Buah Anggur"],
         "nutrition": {
-            "besar": {
-                "energi": "746 kkal",
-                "protein": "18,8 g",
-                "lemak": "25,5 g",
-                "karbo": "114,2 g",
-                "serat": "6 g"
-            },
-            "kecil": {
-                "energi": "566,3 kkal",
-                "protein": "15,8 g",
-                "lemak": "25,3 g",
-                "karbo": "74,4 g",
-                "serat": "5,4 g"
-            }
+            "besar": { "energi": "746 kkal", "protein": "18,8 g", "lemak": "25,5 g", "karbo": "114,2 g", "serat": "6 g" },
+            "kecil": { "energi": "566,3 kkal", "protein": "15,8 g", "lemak": "25,3 g", "karbo": "74,4 g", "serat": "5,4 g" }
         },
         "benefits": [
             "Chicken katsu dan tahu semur menyediakan sumber protein berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk energi harian.",
             "Timun dadu dan buah anggur kaya akan serat, vitamin, serta antioksidan yang mendukung kesehatan pencernaan dan sistem kekebalan tubuh."
+        ]
+    },
+    "okt28": {
+        "items": ["Nasi Putih", "Ayam BB Kecap", "Cah Wortel Kol", "Tahu Balado", "Buah Jeruk"],
+        "nutrition": {
+            "besar": { "energi": "697 kkal", "protein": "26,9 g", "lemak": "23,1 g", "karbo": "95,8 g", "serat": "5,6 g" },
+            "kecil": { "energi": "517,3 kkal", "protein": "23,9 g", "lemak": "22,9 g", "karbo": "56 g", "serat": "5 g" }
+        },
+        "benefits": [
+            "Ayam bumbu kecap dan tahu balado menyediakan sumber protein hewani dan nabati yang lezat serta energi karbohidrat dari nasi putih untuk mendukung aktivitas harian.",
+            "Cah wortel kol dan buah jeruk kaya akan serat, vitamin C, serta antioksidan untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh."
+        ]
+    },
+    "okt29": {
+        "items": [
+            "Nasi Putih",
+            "Telur Balado",
+            "Cah Sawi Jagung",
+            "Tempe orek",
+            "Buah kelengkeng"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "526,8 kkal",
+                "protein": "17,6 g",
+                "lemak": "14,1 g",
+                "karbo": "44 g",
+                "serat": "7,1 g"
+            },
+            "kecil": {
+                "energi": "512,8 kkal",
+                "protein": "17,3 g",
+                "lemak": "14,1 g",
+                "karbo": "40,8 g",
+                "serat": "6,9 g"
+            }
+        },
+        "benefits": [
+            "Telur balado dan tempe orek memberikan asupan protein berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi energi harian.",
+            "Cah sawi jagung dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan untuk menjaga kesehatan sistem pencernaan dan daya tahan tubuh."
         ]
     }
 }
