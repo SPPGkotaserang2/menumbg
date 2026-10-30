@@ -321,12 +321,23 @@
         ]
     },
     "okt29": {
+        "items": ["Nasi Putih", "Telur Balado", "Cah Sawi Jagung", "Tempe orek", "Buah kelengkeng"],
+        "nutrition": {
+            "besar": { "energi": "526,8 kkal", "protein": "17,6 g", "lemak": "14,1 g", "karbo": "44 g", "serat": "7,1 g" },
+            "kecil": { "energi": "512,8 kkal", "protein": "17,3 g", "lemak": "14,1 g", "karbo": "40,8 g", "serat": "6,9 g" }
+        },
+        "benefits": [
+            "Telur balado dan tempe orek memberikan asupan protein berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi energi harian.",
+            "Cah sawi jagung dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan untuk menjaga kesehatan sistem pencernaan dan daya tahan tubuh."
+        ]
+    },
+    "okt30": {
         "items": [
-            "Nasi Putih",
-            "Telur Balado",
-            "Cah Sawi Jagung",
-            "Tempe orek",
-            "Buah kelengkeng"
+            "Kentang Steam",
+            "Dimsum Ayam",
+            "Kol Steam",
+            "Tahu Goreng",
+            "Buah Jeruk"
         ],
         "nutrition": {
             "besar": {
@@ -345,8 +356,8 @@
             }
         },
         "benefits": [
-            "Telur balado dan tempe orek memberikan asupan protein berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi energi harian.",
-            "Cah sawi jagung dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan untuk menjaga kesehatan sistem pencernaan dan daya tahan tubuh."
+            "Kentang steam dan dimsum ayam menyediakan sumber karbohidrat kompleks serta protein berkualitas untuk mendukung pemenuhan energi harian.",
+            "Kol steam, tahu goreng, dan buah jeruk memberikan asupan serat, protein nabati, serta vitamin C yang baik untuk menjaga sistem imun dan kelancaran pencernaan."
         ]
     }
 }
