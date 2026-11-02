@@ -359,5 +359,34 @@
             "Kentang steam dan dimsum ayam menyediakan sumber karbohidrat kompleks serta protein berkualitas untuk mendukung pemenuhan energi harian.",
             "Kol steam, tahu goreng, dan buah jeruk memberikan asupan serat, protein nabati, serta vitamin C yang baik untuk menjaga sistem imun dan kelancaran pencernaan."
         ]
+    },
+    "nov2": {
+        "items": [
+            "Nasi Putih",
+            "Chicken Ball sc Teriyaki",
+            "Cah Wortel Keputren",
+            "Tahu Goreng",
+            "Buah Jeruk"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "641 kkal",
+                "protein": "18 g",
+                "lemak": "20,2 g",
+                "karbo": "96,4 g",
+                "serat": "5,6 g"
+            },
+            "kecil": {
+                "energi": "504,4 kkal",
+                "protein": "15 g",
+                "lemak": "20 g",
+                "karbo": "56,6 g",
+                "serat": "5 g"
+            }
+        },
+        "benefits": [
+            "Chicken ball saus teriyaki dan tahu goreng memberikan asupan protein hewani dan nabati yang baik untuk mendukung pertumbuhan serta pemeliharaan jaringan tubuh.",
+            "Cah wortel keputren dan buah jeruk kaya akan serat, vitamin C, serta antioksidan untuk menjaga kesehatan pencernaan dan meningkatkan daya tahan tubuh."
+        ]
     }
 }
