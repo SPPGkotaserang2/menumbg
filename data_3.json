@@ -388,5 +388,35 @@
             "Chicken ball saus teriyaki dan tahu goreng memberikan asupan protein hewani dan nabati yang baik untuk mendukung pertumbuhan serta pemeliharaan jaringan tubuh.",
             "Cah wortel keputren dan buah jeruk kaya akan serat, vitamin C, serta antioksidan untuk menjaga kesehatan pencernaan dan meningkatkan daya tahan tubuh."
         ]
+     },
+        "nov3": {
+        "items": [
+            "Nasi Putih",
+            "Ayam Serundeng",
+            "Cah Kol Wortel",
+            "Tahu Bumbu Kecap",
+            "Kelengkeng",
+            "Sambal Hijau"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "793 kkal",
+                "protein": "29,1 gram",
+                "lemak": "23,3 gram",
+                "karbo": "121,1 gram",
+                "serat": "4,9 gram"
+            },
+            "kecil": {
+                "energi": "613,3 kkal",
+                "protein": "26,1 gram",
+                "lemak": "23,1 gram",
+                "karbo": "81,3 gram",
+                "serat": "4,3 gram"
+            }
+        },
+        "benefits": [
+            "Ayam serundeng dan tahu bumbu kecap memberikan asupan protein tinggi serta energi karbohidrat dari nasi putih untuk mendukung aktivitas harian.",
+            "Cah kol wortel dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
+        ]
     }
 }
