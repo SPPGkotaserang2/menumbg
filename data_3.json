@@ -418,5 +418,34 @@
             "Ayam serundeng dan tahu bumbu kecap memberikan asupan protein tinggi serta energi karbohidrat dari nasi putih untuk mendukung aktivitas harian.",
             "Cah kol wortel dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
         ]
+    },
+    "nov4": {
+        "items": [
+            "Nasi Putih",
+            "Ayam sc Asam manis",
+            "Sayur Sawi Wortel",
+            "Tahu Goreng",
+            "Pisang"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "692,1 kkal",
+                "protein": "18,2 gram",
+                "lemak": "25,3 gram",
+                "karbo": "97,7 gram",
+                "serat": "7 gram"
+            },
+            "kecil": {
+                "energi": "512,4 kkal",
+                "protein": "15,2 gram",
+                "lemak": "25,1 gram",
+                "karbo": "57,9 gram",
+                "serat": "6 gram"
+            }
+        },
+        "benefits": [
+            "Ayam saus asam manis dan tahu goreng menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi putih untuk energi harian.",
+            "Sayur sawi wortel dan buah pisang kaya akan serat, vitamin, serta mineral yang baik untuk menjaga pencernaan dan vitalitas tubuh."
+        ]
     }
 }
