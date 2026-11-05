@@ -447,5 +447,34 @@
             "Ayam saus asam manis dan tahu goreng menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi putih untuk energi harian.",
             "Sayur sawi wortel dan buah pisang kaya akan serat, vitamin, serta mineral yang baik untuk menjaga pencernaan dan vitalitas tubuh."
         ]
+    },
+    "nov5": {
+        "items": [
+            "Kimbab",
+            "Chicken Katsu",
+            "Tahu sc Lada Hitam",
+            "Buah Jeruk",
+            "Saus Tomat/Sambal"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "692,4 kkal",
+                "protein": "18,6 gram",
+                "lemak": "25,4 gram",
+                "karbo": "97,1 gram",
+                "serat": "7 gram"
+            },
+            "kecil": {
+                "energi": "512,7 kkal",
+                "protein": "15,6 gram",
+                "lemak": "25,2 gram",
+                "karbo": "57,3 gram",
+                "serat": "6 gram"
+            }
+        },
+        "benefits": [
+            "Kimbab dan chicken katsu menyediakan sumber karbohidrat serta protein berkualitas tinggi untuk mencukupi kebutuhan energi harian.",
+            "Tahu saus lada hitam dan buah jeruk kaya akan protein nabati, vitamin C, serta antioksidan yang baik untuk menjaga daya tahan tubuh dan pencernaan."
+        ]
     }
 }
