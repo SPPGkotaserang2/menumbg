@@ -476,5 +476,34 @@
             "Kimbab dan chicken katsu menyediakan sumber karbohidrat serta protein berkualitas tinggi untuk mencukupi kebutuhan energi harian.",
             "Tahu saus lada hitam dan buah jeruk kaya akan protein nabati, vitamin C, serta antioksidan yang baik untuk menjaga daya tahan tubuh dan pencernaan."
         ]
+    },
+    "nov6": {
+        "items": [
+            "Nasi Putih",
+            "Semur Telur Ayam",
+            "Tempe Orek",
+            "Cah Sawi Jagung Pipil",
+            "Buah Kelengkeng"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "656,5 kkal",
+                "protein": "26 gram",
+                "lemak": "24,4 gram",
+                "karbo": "103,5 gram",
+                "serat": "4,7 gram"
+            },
+            "kecil": {
+                "energi": "510,2 kkal",
+                "protein": "23 gram",
+                "lemak": "22,6 gram",
+                "karbo": "74,6 gram",
+                "serat": "4,1 gram"
+            }
+        },
+        "benefits": [
+            "Semur telur ayam dan tempe orek memberikan asupan protein hewani serta nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk energi harian.",
+            "Cah sawi jagung pipil dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
+        ]
     }
 }
