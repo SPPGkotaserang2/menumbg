@@ -505,5 +505,34 @@
             "Semur telur ayam dan tempe orek memberikan asupan protein hewani serta nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk energi harian.",
             "Cah sawi jagung pipil dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
         ]
+    },
+    "nov9": {
+        "items": [
+            "Nasi Putih",
+            "Semur Bola-bola daging ayam",
+            "Cah putren wortel",
+            "Tahu Goreng",
+            "Jeruk"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "641 kkal",
+                "protein": "18 gram",
+                "lemak": "20,2 gram",
+                "karbo": "96,4 gram",
+                "serat": "5,6 gram"
+            },
+            "kecil": {
+                "energi": "504,4 kkal",
+                "protein": "15 gram",
+                "lemak": "20 gram",
+                "karbo": "56,6 gram",
+                "serat": "5 gram"
+            }
+        },
+        "benefits": [
+            "Semur bola-bola daging ayam dan tahu goreng menyediakan sumber protein hewani serta nabati berkualitas untuk mendukung pemenuhan energi harian.",
+            "Cah putren wortel dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh."
+        ]
     }
 }
