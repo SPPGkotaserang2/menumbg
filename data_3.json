@@ -534,5 +534,34 @@
             "Semur bola-bola daging ayam dan tahu goreng menyediakan sumber protein hewani serta nabati berkualitas untuk mendukung pemenuhan energi harian.",
             "Cah putren wortel dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh."
         ]
+    },
+    "nov10": {
+        "items": [
+            "Nasi Putih",
+            "Ayam Bumbu Sate",
+            "Timun Dadu",
+            "Tempe Goreng",
+            "Buah Kelengkeng"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "798,4 kkal",
+                "protein": "24,6 gram",
+                "lemak": "25,3 gram",
+                "karbo": "113,6 gram",
+                "serat": "5,1 gram"
+            },
+            "kecil": {
+                "energi": "617,7 kkal",
+                "protein": "21,6 gram",
+                "lemak": "25,6 gram",
+                "karbo": "73,8 gram",
+                "serat": "4,5 gram"
+            }
+        },
+        "benefits": [
+            "Ayam bumbu sate dan tempe goreng menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi putih untuk energi harian.",
+            "Timun dadu dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan vitalitas tubuh."
+        ]
     }
 }
