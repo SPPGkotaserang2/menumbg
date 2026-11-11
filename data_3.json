@@ -563,5 +563,34 @@
             "Ayam bumbu sate dan tempe goreng menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi putih untuk energi harian.",
             "Timun dadu dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan vitalitas tubuh."
         ]
+    },
+    "nov11": {
+        "items": [
+            "Nasi Putih",
+            "Ayam Betutu",
+            "Cah Buncis Wortel",
+            "Tahu Pong Sambal Goreng",
+            "Jeruk Manis"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "697 kkal",
+                "protein": "26,9 gram",
+                "lemak": "23,1 gram",
+                "karbo": "95,8 gram",
+                "serat": "5,6 gram"
+            },
+            "kecil": {
+                "energi": "517,3 kkal",
+                "protein": "23,9 gram",
+                "lemak": "22,9 gram",
+                "karbo": "56 gram",
+                "serat": "5 gram"
+            }
+        },
+        "benefits": [
+            "Ayam betutu dan tahu pong sambal goreng menyediakan sumber protein hewani dan nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi kebutuhan energi harian.",
+            "Cah buncis wortel dan jeruk manis kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh."
+        ]
     }
 }
