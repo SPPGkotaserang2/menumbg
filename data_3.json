@@ -592,5 +592,34 @@
             "Ayam betutu dan tahu pong sambal goreng menyediakan sumber protein hewani dan nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi kebutuhan energi harian.",
             "Cah buncis wortel dan jeruk manis kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh."
         ]
+    },
+    "nov12": {
+        "items": [
+            "Nasi Putih",
+            "Chicken Cordon Blue",
+            "Cah Jagung manis wortel",
+            "Tahu semur",
+            "Kelengkeng"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "772,1 kkal",
+                "protein": "18,4 gram",
+                "lemak": "25,3 gram",
+                "karbo": "95,9 gram",
+                "serat": "6 gram"
+            },
+            "kecil": {
+                "energi": "592,4 kkal",
+                "protein": "15,4 gram",
+                "lemak": "25,1 gram",
+                "karbo": "56,1 gram",
+                "serat": "5,6 gram"
+            }
+        },
+        "benefits": [
+            "Chicken cordon blue dan tahu semur menyediakan sumber protein hewani serta nabati berkualitas yang dipadukan dengan karbohidrat nasi putih untuk mendukung energi harian.",
+            "Cah jagung manis wortel dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan vitalitas tubuh."
+        ]
     }
 }
