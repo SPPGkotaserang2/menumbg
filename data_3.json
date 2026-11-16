@@ -650,5 +650,34 @@
             "Telur bacem dan tempe orek menyediakan sumber protein hewani dan nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi kebutuhan energi harian.",
             "Cah sawi putih jagung pipil dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan imunitas tubuh."
         ]
+    },
+    "nov16": {
+        "items": [
+            "Nasi Putih",
+            "Ayam Goreng Ketumbar",
+            "Tumis Wortel Jagung Pipil",
+            "Tahu sc Kecap",
+            "Jeruk"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "702,2 kkal",
+                "protein": "27 gram",
+                "lemak": "23,1 gram",
+                "karbo": "96,5 gram",
+                "serat": "6,1 gram"
+            },
+            "kecil": {
+                "energi": "553,7 kkal",
+                "protein": "24,9 gram",
+                "lemak": "23 gram",
+                "karbo": "63,6 gram",
+                "serat": "5,3 gram"
+            }
+        },
+        "benefits": [
+            "Ayam goreng ketumbar dan tahu saus kecap menyediakan sumber protein hewani serta nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi kebutuhan energi harian.",
+            "Tumis wortel jagung pipil dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
+        ]
     }
 }
