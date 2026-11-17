@@ -679,5 +679,34 @@
             "Ayam goreng ketumbar dan tahu saus kecap menyediakan sumber protein hewani serta nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi kebutuhan energi harian.",
             "Tumis wortel jagung pipil dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
         ]
+    },
+    "nov17": {
+        "items": [
+            "Nasi",
+            "Daging sapi Sc teriyaki",
+            "Tempe mendoan",
+            "Cah buncis wortel",
+            "Buah Kelengkeng"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "806,1 kkal",
+                "protein": "29,9 gr",
+                "lemak": "26,9 gr",
+                "karbo": "124 gr",
+                "serat": "5 gr"
+            },
+            "kecil": {
+                "energi": "602 kkal",
+                "protein": "26,7 gr",
+                "lemak": "26 gr",
+                "karbo": "67,1 gr",
+                "serat": "4,1 gr"
+            }
+        },
+        "benefits": [
+            "Daging sapi saus teriyaki dan tempe mendoan memberikan asupan protein hewani serta nabati tinggi yang dipadukan dengan karbohidrat nasi untuk mendukung energi harian.",
+            "Cah buncis wortel dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
+        ]
     }
 }
