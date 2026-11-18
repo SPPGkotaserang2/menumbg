@@ -708,5 +708,34 @@
             "Daging sapi saus teriyaki dan tempe mendoan memberikan asupan protein hewani serta nabati tinggi yang dipadukan dengan karbohidrat nasi untuk mendukung energi harian.",
             "Cah buncis wortel dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
         ]
+    },
+    "nov18": {
+        "items": [
+            "Nasi Putih",
+            "Chicken Katsu",
+            "Curry Wortel Kentang",
+            "Tahu sc Lada hitam",
+            "Buah Jeruk"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "692 kkal",
+                "protein": "18,6 gr",
+                "lemak": "25,4 gr",
+                "karbo": "97,1 gr",
+                "serat": "7 gr"
+            },
+            "kecil": {
+                "energi": "512,7 kkal",
+                "protein": "15,6 gr",
+                "lemak": "25,2 gr",
+                "karbo": "57,3 gr",
+                "serat": "6 gr"
+            }
+        },
+        "benefits": [
+            "Chicken katsu dan tahu saus lada hitam menyediakan sumber protein berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mendukung energi harian.",
+            "Curry wortel kentang dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
+        ]
     }
 }
