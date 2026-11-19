@@ -313,32 +313,21 @@
         "items": ["Nasi Putih", "Ayam BB Kecap", "Cah Wortel Kol", "Tahu Balado", "Buah Jeruk"],
         "nutrition": {
             "besar": { "energi": "697 kkal", "protein": "26,9 g", "lemak": "23,1 g", "karbo": "95,8 g", "serat": "5,6 g" },
-            "kecil": { "energi": "517,3 kkal", "protein": "23,9 g", "lemak": "22,9 g", "karbo": "56 g", "serat": "5 g" }
+            "kecil": {
+                "energi": "517,3 kkal",
+                "protein": "23,9 g",
+                "lemak": "22,9 g",
+                "karbo": "56 g",
+                "serat": "5 g"
+            }
         },
         "benefits": [
-            "Ayam bumbu kecap dan tahu balado menyediakan sumber protein hewani dan nabati yang lezat serta energi karbohidrat dari nasi putih untuk mendukung aktivitas harian.",
-            "Cah wortel kol dan buah jeruk kaya akan serat, vitamin C, serta antioksidan untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh."
+            "Ayam bumbu kecap dan tahu balado menyediakan sumber protein hewani dan nabati yang lezat serta energi karbohidrat dari nasi putih untuk mendukung aktivitas harian[span_0](start_span)[span_0](end_span).",
+            "Cah wortel kol dan buah jeruk kaya akan serat, vitamin C, serta antioksidan untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh[span_1](start_span)[span_1](end_span)."
         ]
     },
     "okt29": {
         "items": ["Nasi Putih", "Telur Balado", "Cah Sawi Jagung", "Tempe orek", "Buah kelengkeng"],
-        "nutrition": {
-            "besar": { "energi": "526,8 kkal", "protein": "17,6 g", "lemak": "14,1 g", "karbo": "44 g", "serat": "7,1 g" },
-            "kecil": { "energi": "512,8 kkal", "protein": "17,3 g", "lemak": "14,1 g", "karbo": "40,8 g", "serat": "6,9 g" }
-        },
-        "benefits": [
-            "Telur balado dan tempe orek memberikan asupan protein berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi energi harian.",
-            "Cah sawi jagung dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan untuk menjaga kesehatan sistem pencernaan dan daya tahan tubuh."
-        ]
-    },
-    "okt30": {
-        "items": [
-            "Kentang Steam",
-            "Dimsum Ayam",
-            "Kol Steam",
-            "Tahu Goreng",
-            "Buah Jeruk"
-        ],
         "nutrition": {
             "besar": {
                 "energi": "526,8 kkal",
@@ -356,18 +345,35 @@
             }
         },
         "benefits": [
-            "Kentang steam dan dimsum ayam menyediakan sumber karbohidrat kompleks serta protein berkualitas untuk mendukung pemenuhan energi harian.",
-            "Kol steam, tahu goreng, dan buah jeruk memberikan asupan serat, protein nabati, serta vitamin C yang baik untuk menjaga sistem imun dan kelancaran pencernaan."
+            "Telur balado dan tempe orek memberikan asupan protein berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi energi harian[span_2](start_span)[span_2](end_span).",
+            "Cah sawi jagung dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan untuk menjaga kesehatan sistem pencernaan dan daya tahan tubuh[span_3](start_span)[span_3](end_span)."
+        ]
+    },
+    "okt30": {
+        "items": ["Kentang Steam", "Dimsum Ayam", "Kol Steam", "Tahu Goreng", "Buah Jeruk"],
+        "nutrition": {
+            "besar": {
+                "energi": "526,8 kkal",
+                "protein": "17,6 g",
+                "lemak": "14,1 g",
+                "karbo": "44 g",
+                "serat": "7,1 g"
+            },
+            "kecil": {
+                "energi": "512,8 kkal",
+                "protein": "17,3 g",
+                "lemak": "14,1 g",
+                "karbo": "40,8 g",
+                "serat": "6,9 g"
+            }
+        },
+        "benefits": [
+            "Kentang steam dan dimsum ayam menyediakan sumber karbohidrat kompleks serta protein berkualitas untuk mendukung pemenuhan energi harian[span_4](start_span)[span_4](end_span).",
+            "Kol steam, tahu goreng, dan buah jeruk memberikan asupan serat, protein nabati, serta vitamin C yang baik untuk menjaga sistem imun dan kelancaran pencernaan[span_5](start_span)[span_5](end_span)."
         ]
     },
     "nov2": {
-        "items": [
-            "Nasi Putih",
-            "Chicken Ball sc Teriyaki",
-            "Cah Wortel Keputren",
-            "Tahu Goreng",
-            "Buah Jeruk"
-        ],
+        "items": ["Nasi Putih", "Chicken Ball sc Teriyaki", "Cah Wortel Keputren", "Tahu Goreng", "Buah Jeruk"],
         "nutrition": {
             "besar": {
                 "energi": "641 kkal",
@@ -385,19 +391,12 @@
             }
         },
         "benefits": [
-            "Chicken ball saus teriyaki dan tahu goreng memberikan asupan protein hewani dan nabati yang baik untuk mendukung pertumbuhan serta pemeliharaan jaringan tubuh.",
-            "Cah wortel keputren dan buah jeruk kaya akan serat, vitamin C, serta antioksidan untuk menjaga kesehatan pencernaan dan meningkatkan daya tahan tubuh."
+            "Chicken ball saus teriyaki dan tahu goreng memberikan asupan protein hewani dan nabati yang baik untuk mendukung pertumbuhan serta pemeliharaan jaringan tubuh[span_6](start_span)[span_6](end_span).",
+            "Cah wortel keputren dan buah jeruk kaya akan serat, vitamin C, serta antioksidan untuk menjaga kesehatan pencernaan dan meningkatkan daya tahan tubuh[span_7](start_span)[span_7](end_span)."
         ]
-     },
-        "nov3": {
-        "items": [
-            "Nasi Putih",
-            "Ayam Serundeng",
-            "Cah Kol Wortel",
-            "Tahu Bumbu Kecap",
-            "Kelengkeng",
-            "Sambal Hijau"
-        ],
+    },
+    "nov3": {
+        "items": ["Nasi Putih", "Ayam Serundeng", "Cah Kol Wortel", "Tahu Bumbu Kecap", "Kelengkeng", "Sambal Hijau"],
         "nutrition": {
             "besar": {
                 "energi": "793 kkal",
@@ -415,18 +414,12 @@
             }
         },
         "benefits": [
-            "Ayam serundeng dan tahu bumbu kecap memberikan asupan protein tinggi serta energi karbohidrat dari nasi putih untuk mendukung aktivitas harian.",
-            "Cah kol wortel dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
+            "Ayam serundeng dan tahu bumbu kecap memberikan asupan protein tinggi serta energi karbohidrat dari nasi putih untuk mendukung aktivitas harian[span_8](start_span)[span_8](end_span).",
+            "Cah kol wortel dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh[span_9](start_span)[span_9](end_span)."
         ]
     },
     "nov4": {
-        "items": [
-            "Nasi Putih",
-            "Ayam sc Asam manis",
-            "Sayur Sawi Wortel",
-            "Tahu Goreng",
-            "Pisang"
-        ],
+        "items": ["Nasi Putih", "Ayam sc Asam manis", "Sayur Sawi Wortel", "Tahu Goreng", "Pisang"],
         "nutrition": {
             "besar": {
                 "energi": "692,1 kkal",
@@ -444,18 +437,12 @@
             }
         },
         "benefits": [
-            "Ayam saus asam manis dan tahu goreng menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi putih untuk energi harian.",
-            "Sayur sawi wortel dan buah pisang kaya akan serat, vitamin, serta mineral yang baik untuk menjaga pencernaan dan vitalitas tubuh."
+            "Ayam saus asam manis dan tahu goreng menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi putih untuk energi harian[span_10](start_span)[span_10](end_span).",
+            "Sayur sawi wortel dan buah pisang kaya akan serat, vitamin, serta mineral yang baik untuk menjaga pencernaan dan vitalitas tubuh[span_11](start_span)[span_11](end_span)."
         ]
     },
     "nov5": {
-        "items": [
-            "Kimbab",
-            "Chicken Katsu",
-            "Tahu sc Lada Hitam",
-            "Buah Jeruk",
-            "Saus Tomat/Sambal"
-        ],
+        "items": ["Kimbab", "Chicken Katsu", "Tahu sc Lada Hitam", "Buah Jeruk", "Saus Tomat/Sambal"],
         "nutrition": {
             "besar": {
                 "energi": "692,4 kkal",
@@ -473,18 +460,12 @@
             }
         },
         "benefits": [
-            "Kimbab dan chicken katsu menyediakan sumber karbohidrat serta protein berkualitas tinggi untuk mencukupi kebutuhan energi harian.",
-            "Tahu saus lada hitam dan buah jeruk kaya akan protein nabati, vitamin C, serta antioksidan yang baik untuk menjaga daya tahan tubuh dan pencernaan."
+            "Kimbab dan chicken katsu menyediakan sumber karbohidrat serta protein berkualitas tinggi untuk mencukupi kebutuhan energi harian[span_12](start_span)[span_12](end_span).",
+            "Tahu saus lada hitam dan buah jeruk kaya akan protein nabati, vitamin C, serta antioksidan yang baik untuk menjaga daya tahan tubuh dan pencernaan[span_13](start_span)[span_13](end_span)."
         ]
     },
     "nov6": {
-        "items": [
-            "Nasi Putih",
-            "Semur Telur Ayam",
-            "Tempe Orek",
-            "Cah Sawi Jagung Pipil",
-            "Buah Kelengkeng"
-        ],
+        "items": ["Nasi Putih", "Semur Telur Ayam", "Tempe Orek", "Cah Sawi Jagung Pipil", "Buah Kelengkeng"],
         "nutrition": {
             "besar": {
                 "energi": "656,5 kkal",
@@ -502,18 +483,12 @@
             }
         },
         "benefits": [
-            "Semur telur ayam dan tempe orek memberikan asupan protein hewani serta nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk energi harian.",
-            "Cah sawi jagung pipil dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
+            "Semur telur ayam dan tempe orek memberikan asupan protein hewani serta nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk energi harian[span_14](start_span)[span_14](end_span).",
+            "Cah sawi jagung pipil dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh[span_15](start_span)[span_15](end_span)."
         ]
     },
     "nov9": {
-        "items": [
-            "Nasi Putih",
-            "Semur Bola-bola daging ayam",
-            "Cah putren wortel",
-            "Tahu Goreng",
-            "Jeruk"
-        ],
+        "items": ["Nasi Putih", "Semur Bola-bola daging ayam", "Cah putren wortel", "Tahu Goreng", "Jeruk"],
         "nutrition": {
             "besar": {
                 "energi": "641 kkal",
@@ -531,18 +506,12 @@
             }
         },
         "benefits": [
-            "Semur bola-bola daging ayam dan tahu goreng menyediakan sumber protein hewani serta nabati berkualitas untuk mendukung pemenuhan energi harian.",
-            "Cah putren wortel dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh."
+            "Semur bola-bola daging ayam dan tahu goreng menyediakan sumber protein hewani serta nabati berkualitas untuk mendukung pemenuhan energi harian[span_16](start_span)[span_16](end_span).",
+            "Cah putren wortel dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh[span_17](start_span)[span_17](end_span)."
         ]
     },
     "nov10": {
-        "items": [
-            "Nasi Putih",
-            "Ayam Bumbu Sate",
-            "Timun Dadu",
-            "Tempe Goreng",
-            "Buah Kelengkeng"
-        ],
+        "items": ["Nasi Putih", "Ayam Bumbu Sate", "Timun Dadu", "Tempe Goreng", "Buah Kelengkeng"],
         "nutrition": {
             "besar": {
                 "energi": "798,4 kkal",
@@ -560,18 +529,12 @@
             }
         },
         "benefits": [
-            "Ayam bumbu sate dan tempe goreng menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi putih untuk energi harian.",
-            "Timun dadu dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan vitalitas tubuh."
+            "Ayam bumbu sate dan tempe goreng menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi putih untuk energi harian[span_18](start_span)[span_18](end_span).",
+            "Timun dadu dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan vitalitas tubuh[span_19](start_span)[span_19](end_span)."
         ]
     },
     "nov11": {
-        "items": [
-            "Nasi Putih",
-            "Ayam Betutu",
-            "Cah Buncis Wortel",
-            "Tahu Pong Sambal Goreng",
-            "Jeruk Manis"
-        ],
+        "items": ["Nasi Putih", "Ayam Betutu", "Cah Buncis Wortel", "Tahu Pong Sambal Goreng", "Jeruk Manis"],
         "nutrition": {
             "besar": {
                 "energi": "697 kkal",
@@ -589,18 +552,12 @@
             }
         },
         "benefits": [
-            "Ayam betutu dan tahu pong sambal goreng menyediakan sumber protein hewani dan nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi kebutuhan energi harian.",
-            "Cah buncis wortel dan jeruk manis kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh."
+            "Ayam betutu dan tahu pong sambal goreng menyediakan sumber protein hewani dan nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi kebutuhan energi harian[span_20](start_span)[span_20](end_span).",
+            "Cah buncis wortel dan jeruk manis kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan imunitas tubuh[span_21](start_span)[span_21](end_span)."
         ]
     },
     "nov12": {
-        "items": [
-            "Nasi Putih",
-            "Chicken Cordon Blue",
-            "Cah Jagung manis wortel",
-            "Tahu semur",
-            "Kelengkeng"
-        ],
+        "items": ["Nasi Putih", "Chicken Cordon Blue", "Cah Jagung manis wortel", "Tahu semur", "Kelengkeng"],
         "nutrition": {
             "besar": {
                 "energi": "772,1 kkal",
@@ -618,18 +575,12 @@
             }
         },
         "benefits": [
-            "Chicken cordon blue dan tahu semur menyediakan sumber protein hewani serta nabati berkualitas yang dipadukan dengan karbohidrat nasi putih untuk mendukung energi harian.",
-            "Cah jagung manis wortel dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan vitalitas tubuh."
+            "Chicken cordon blue dan tahu semur menyediakan sumber protein hewani serta nabati berkualitas yang dipadukan dengan karbohidrat nasi putih untuk mendukung energi harian[span_22](start_span)[span_22](end_span).",
+            "Cah jagung manis wortel dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan vitalitas tubuh[span_23](start_span)[span_23](end_span)."
         ]
     },
     "nov13": {
-        "items": [
-            "Nasi Putih",
-            "Telur Bacem",
-            "Cah Sawi Putih Jagung Pipil",
-            "Tempe Orek",
-            "Jeruk"
-        ],
+        "items": ["Nasi Putih", "Telur Bacem", "Cah Sawi Putih Jagung Pipil", "Tempe Orek", "Jeruk"],
         "nutrition": {
             "besar": {
                 "energi": "656,5 kkal",
@@ -652,13 +603,7 @@
         ]
     },
     "nov16": {
-        "items": [
-            "Nasi Putih",
-            "Ayam Goreng Ketumbar",
-            "Tumis Wortel Jagung Pipil",
-            "Tahu sc Kecap",
-            "Jeruk"
-        ],
+        "items": ["Nasi Putih", "Ayam Goreng Ketumbar", "Tumis Wortel Jagung Pipil", "Tahu sc Kecap", "Jeruk"],
         "nutrition": {
             "besar": {
                 "energi": "702,2 kkal",
@@ -681,13 +626,7 @@
         ]
     },
     "nov17": {
-        "items": [
-            "Nasi",
-            "Daging sapi Sc teriyaki",
-            "Tempe mendoan",
-            "Cah buncis wortel",
-            "Buah Kelengkeng"
-        ],
+        "items": ["Nasi", "Daging sapi Sc teriyaki", "Tempe mendoan", "Cah buncis wortel", "Buah Kelengkeng"],
         "nutrition": {
             "besar": {
                 "energi": "806,1 kkal",
@@ -710,13 +649,7 @@
         ]
     },
     "nov18": {
-        "items": [
-            "Nasi Putih",
-            "Chicken Katsu",
-            "Curry Wortel Kentang",
-            "Tahu sc Lada hitam",
-            "Buah Jeruk"
-        ],
+        "items": ["Nasi Putih", "Chicken Katsu", "Curry Wortel Kentang", "Tahu sc Lada hitam", "Buah Jeruk"],
         "nutrition": {
             "besar": {
                 "energi": "692 kkal",
@@ -734,8 +667,31 @@
             }
         },
         "benefits": [
-            "Chicken katsu dan tahu saus lada hitam menyediakan sumber protein berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mendukung energi harian.",
-            "Curry wortel kentang dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
+            "Chicken katsu dan tahu saus lada hitam menyediakan sumber protein berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mendukung energi harian[span_24](start_span)[span_24](end_span).",
+            "Curry wortel kentang dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh[span_25](start_span)[span_25](end_span)."
+        ]
+    },
+    "nov19": {
+        "items": ["Nasi Putih", "Semur Telur", "Ayam", "Tempe Orek", "Cah Buncis", "Buah Kelengkeng"],
+        "nutrition": {
+            "besar": {
+                "energi": "656,5 kkal",
+                "protein": "26 gr",
+                "lemak": "24,4 gr",
+                "karbo": "103,5 gr",
+                "serat": "4,1 gr"
+            },
+            "kecil": {
+                "energi": "510,2 kkal",
+                "protein": "23 gr",
+                "lemak": "22,6 gr",
+                "karbo": "74,5 gr",
+                "serat": "3,5 gr"
+            }
+        },
+        "benefits": [
+            "Semur telur dan tempe orek menyediakan sumber protein hewani dan nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi kebutuhan energi harian.",
+            "Cah buncis dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan imunitas tubuh."
         ]
     }
 }
