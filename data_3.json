@@ -693,5 +693,34 @@
             "Semur telur dan tempe orek menyediakan sumber protein hewani dan nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi putih untuk mencukupi kebutuhan energi harian.",
             "Cah buncis dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan imunitas tubuh."
         ]
+    },
+    "nov20": {
+        "items": [
+            "Corn Ribs & Dimsum Ayam",
+            "Perkedel Tahu",
+            "Timun dadu",
+            "Buah Jeruk",
+            "Sauce Mentay"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "526,8 kkal",
+                "protein": "17,6 gr",
+                "lemak": "14,1 gr",
+                "karbo": "44 gr",
+                "serat": "4 gr"
+            },
+            "kecil": {
+                "energi": "526,8 kkal",
+                "protein": "17,6 gr",
+                "lemak": "14,1 gr",
+                "karbo": "44 gr",
+                "serat": "4 gr"
+            }
+        },
+        "benefits": [
+            "Corn ribs dan perkedel tahu menyediakan kombinasi karbohidrat serta protein nabati dan hewani dari dimsum ayam untuk mendukung energi harian.",
+            "Timun dadu dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan imunitas tubuh."
+        ]
     }
 }
