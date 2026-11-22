@@ -722,5 +722,35 @@
             "Corn ribs dan perkedel tahu menyediakan kombinasi karbohidrat serta protein nabati dan hewani dari dimsum ayam untuk mendukung energi harian.",
             "Timun dadu dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan imunitas tubuh."
         ]
+    },
+    "nov23": {
+        "items": [
+            "Nasi Putih",
+            "Ayam serundeng",
+            "Susu plain 125 ml",
+            "Cah wortel kol",
+            "Buah Jeruk",
+            "Sambal Tomat"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "648,8 kkal",
+                "protein": "28,3 gram",
+                "lemak": "11,1 gram",
+                "karbo": "108 gram",
+                "serat": "6,9 gram"
+            },
+            "kecil": {
+                "energi": "569,1 kkal",
+                "protein": "25,3 gram",
+                "lemak": "10,9 gram",
+                "karbo": "68,2 gram",
+                "serat": "6,3 gram"
+            }
+        },
+        "benefits": [
+            "Ayam serundeng dan susu plain menyediakan sumber protein serta kalsium yang dipadukan dengan karbohidrat nasi putih untuk mendukung energi harian dan kesehatan tulang.",
+            "Cah wortel kol dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan daya tahan tubuh."
+        ]
     }
 }
