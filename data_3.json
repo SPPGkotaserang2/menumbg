@@ -752,5 +752,34 @@
             "Ayam serundeng dan susu plain menyediakan sumber protein serta kalsium yang dipadukan dengan karbohidrat nasi putih untuk mendukung energi harian dan kesehatan tulang.",
             "Cah wortel kol dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan daya tahan tubuh."
         ]
+    },
+    "nov24": {
+        "items": [
+            "Nasi Putih",
+            "Ayam Krispy",
+            "Buncis bb bawang putih/balado",
+            "Tempe Goreng Ketumbar",
+            "Kelengkeng"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "762,1 kkal",
+                "protein": "24,6 gram",
+                "lemak": "20,3 gram",
+                "karbo": "113,4 gram",
+                "serat": "3,9 gram"
+            },
+            "kecil": {
+                "energi": "674,6 kkal",
+                "protein": "25,1 gram",
+                "lemak": "22,1 gram",
+                "karbo": "73,9 gram",
+                "serat": "3,3 gram"
+            }
+        },
+        "benefits": [
+            "Ayam krispy dan tempe goreng ketumbar menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi putih untuk mendukung energi harian.",
+            "Buncis bumbu bawang putih/balado dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
+        ]
     }
 }
