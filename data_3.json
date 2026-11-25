@@ -781,5 +781,34 @@
             "Ayam krispy dan tempe goreng ketumbar menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi putih untuk mendukung energi harian.",
             "Buncis bumbu bawang putih/balado dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
         ]
+    },
+    "nov25": {
+        "items": [
+            "Nasi",
+            "Chicken Meatballs",
+            "Cah jagung Pipil Wortel",
+            "Orek Tempe",
+            "Jeruk"
+        ],
+        "nutrition": {
+            "besar": {
+                "energi": "772,1 kkal",
+                "protein": "25,3 gram",
+                "lemak": "18,4 gram",
+                "karbo": "95,9 gram",
+                "serat": "6 gram"
+            },
+            "kecil": {
+                "energi": "592,4 kkal",
+                "protein": "25,1 gram",
+                "lemak": "15,4 gram",
+                "karbo": "56,1 gram",
+                "serat": "5,6 gram"
+            }
+        },
+        "benefits": [
+            "Chicken meatballs dan orek tempe menyediakan sumber protein hewani serta nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi untuk mencukupi kebutuhan energi harian.",
+            "Cah jagung pipil wortel dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan daya tahan tubuh."
+        ]
     }
 }
