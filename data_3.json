@@ -810,5 +810,34 @@
             "Chicken meatballs dan orek tempe menyediakan sumber protein hewani serta nabati berkualitas tinggi yang dipadukan dengan karbohidrat nasi untuk mencukupi kebutuhan energi harian.",
             "Cah jagung pipil wortel dan buah jeruk kaya akan serat, vitamin C, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan meningkatkan daya tahan tubuh."
         ]
-    }
+    },
+"nov26": {
+"items": [
+"Nasi",
+"Telur bumbu kare",
+"Cah Sawi putih jagung pipil",
+"Tahu oseng kecap/cabai hijau",
+"Kelengkeng"
+],
+"nutrition": {
+"besar": {
+"energi": "656,5 kkal",
+"protein": "26 gram",
+"lemak": "24,4 gram",
+"karbo": "103,5 gram",
+"serat": "4,7 gram"
+},
+"kecil": {
+"energi": "510,2 kkal",
+"protein": "23 gram",
+"lemak": "22,6 gram",
+"karbo": "74,6 gram",
+"serat": "4,1 gram"
+}
+},
+"benefits": [
+"Telur bumbu kare dan tahu oseng kecap/cabai hijau menyediakan sumber protein hewani serta nabati yang dipadukan dengan karbohidrat nasi untuk mencukupi kebutuhan energi harian.",
+"Cah sawi putih jagung pipil dan buah kelengkeng kaya akan serat, vitamin, serta antioksidan yang baik untuk menjaga kesehatan pencernaan dan daya tahan tubuh."
+]
+}
 }
