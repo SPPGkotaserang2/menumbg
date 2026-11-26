@@ -528,7 +528,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            max-height: 360px;
+            max-height: 440px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
         }
@@ -580,6 +580,140 @@
             border: 1px solid #cbd5e1;
             display: block;
             cursor: pointer;
+        }
+
+        /* Tombol Sukai & Balas pada Setiap Ulasan */
+        .review-actions {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-review-action {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 5px 11px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-review-action:active {
+            transform: scale(0.96);
+        }
+
+        .btn-review-action.liked {
+            background: #e0f2fe;
+            border-color: var(--bgn-blue);
+            color: var(--bgn-dark);
+        }
+
+        /* Form Balas Ulasan */
+        .reply-form-box {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .reply-form-box.open {
+            display: flex;
+        }
+
+        .reply-form-box input,
+        .reply-form-box textarea {
+            padding: 8px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            outline: none;
+            width: 100%;
+        }
+
+        .reply-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .btn-reply-cancel {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-reply-send {
+            background: var(--bgn-blue);
+            color: #ffffff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-reply-send:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        /* Daftar Balasan Ulasan */
+        .replies-container {
+            margin-top: 10px;
+            padding-left: 12px;
+            border-left: 3px solid #bfdbfe;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .reply-item {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px 10px;
+        }
+
+        .reply-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--bgn-blue);
+            margin-bottom: 3px;
+        }
+
+        .reply-time {
+            font-size: 0.72rem;
+            color: #94a3b8;
+            font-weight: 400;
+            flex-shrink: 0;
+        }
+
+        .reply-text {
+            font-size: 0.85rem;
+            color: #334155;
+            word-break: break-word;
         }
 
         .no-review {
@@ -773,6 +907,7 @@
         var fotoUlasanBase64 = "";
         var unsubscribeReviewsFn = null;
         var unsubscribeVisitorFn = null;
+        var openReplyFormIds = {};
 
         function jalankanSaatFirebaseSiap(callback) {
             if (window.database && window.dbRef && window.dbOnValue) {
@@ -792,6 +927,144 @@
                     callback();
                 }
             }, 150);
+        }
+
+        function getNodeUlasanAktif() {
+            return 'reviews_' + targetNamaFileAktif.replace(/[\.]/g, '_');
+        }
+
+        function getLikedStorageKey(nodeNama, reviewId) {
+            return 'sppg_liked_' + nodeNama + '_' + reviewId;
+        }
+
+        function isReviewSudahDisukai(nodeNama, reviewId) {
+            try {
+                return localStorage.getItem(getLikedStorageKey(nodeNama, reviewId)) === '1';
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function setReviewSudahDisukai(nodeNama, reviewId, status) {
+            try {
+                if (status) {
+                    localStorage.setItem(getLikedStorageKey(nodeNama, reviewId), '1');
+                } else {
+                    localStorage.removeItem(getLikedStorageKey(nodeNama, reviewId));
+                }
+            } catch (e) {
+                // Abaikan jika penyimpanan lokal dibatasi browser lama
+            }
+        }
+
+        function toggleSukaiUlasan(reviewId) {
+            if (!reviewId || !targetNamaFileAktif) return;
+            if (!window.database || !window.dbRef || !window.dbRunTransaction) {
+                alert("Koneksi database belum siap. Mohon tunggu sebentar.");
+                return;
+            }
+
+            var nodeNama = getNodeUlasanAktif();
+            var sudahSuka = isReviewSudahDisukai(nodeNama, reviewId);
+            var delta = sudahSuka ? -1 : 1;
+
+            // Simpan status suka secara optimis agar respons instan di semua device
+            setReviewSudahDisukai(nodeNama, reviewId, !sudahSuka);
+
+            var likesRef = window.dbRef(window.database, nodeNama + '/' + reviewId + '/likes');
+            window.dbRunTransaction(likesRef, function(currentLikes) {
+                var val = Number(currentLikes) || 0;
+                var next = val + delta;
+                return next < 0 ? 0 : next;
+            }).catch(function(error) {
+                // Kembalikan status jika transaksi gagal
+                setReviewSudahDisukai(nodeNama, reviewId, sudahSuka);
+                console.error("Gagal memperbarui suka ulasan:", error);
+            });
+        }
+
+        function toggleFormBalas(reviewId) {
+            if (!reviewId) return;
+            var box = document.getElementById('replyFormBox_' + reviewId);
+            if (!box) return;
+
+            var isOpen = box.classList.contains('open');
+            if (isOpen) {
+                box.classList.remove('open');
+                delete openReplyFormIds[reviewId];
+            } else {
+                box.classList.add('open');
+                openReplyFormIds[reviewId] = true;
+
+                // Otomatis isi nama jika sudah pernah diisi pada form utama
+                var namaUtama = document.getElementById('inputNama');
+                var namaBalas = document.getElementById('replyNama_' + reviewId);
+                if (namaUtama && namaBalas && !namaBalas.value && namaUtama.value.trim()) {
+                    namaBalas.value = namaUtama.value.trim();
+                }
+
+                // Jeda auto-scroll saat pengguna mengetik balasan
+                if (typeof jedaAutoScrollSementara === 'function') {
+                    jedaAutoScrollSementara();
+                }
+            }
+        }
+
+        function kirimBalasanUlasan(event, reviewId) {
+            event.preventDefault();
+            if (!reviewId || !targetNamaFileAktif) return;
+
+            var namaInput = document.getElementById('replyNama_' + reviewId);
+            var pesanInput = document.getElementById('replyPesan_' + reviewId);
+            var btnKirim = document.getElementById('btnReplySend_' + reviewId);
+
+            if (!namaInput || !pesanInput) return;
+
+            var nama = namaInput.value.trim();
+            var pesan = pesanInput.value.trim();
+            if (!nama || !pesan) return;
+
+            if (!window.database || !window.dbRef || !window.dbPush || !window.dbSet) {
+                alert("Koneksi database belum siap. Mohon tunggu sebentar.");
+                return;
+            }
+
+            if (btnKirim) {
+                btnKirim.disabled = true;
+                btnKirim.textContent = 'Mengirim...';
+            }
+
+            var now = new Date();
+            var waktuStr = now.getDate() + ' ' + namaBulanPanjang[now.getMonth()] + ' ' + now.getFullYear() + ', ' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+
+            var nodeNama = getNodeUlasanAktif();
+            var repliesRef = window.dbRef(window.database, nodeNama + '/' + reviewId + '/replies');
+            var newReplyRef = window.dbPush(repliesRef);
+
+            window.dbSet(newReplyRef, {
+                nama: nama,
+                pesan: pesan,
+                waktu: waktuStr,
+                timestamp: Date.now()
+            })
+            .then(function() {
+                pesanInput.value = '';
+                delete openReplyFormIds[reviewId];
+                var box = document.getElementById('replyFormBox_' + reviewId);
+                if (box) box.classList.remove('open');
+                if (btnKirim) {
+                    btnKirim.disabled = false;
+                    btnKirim.textContent = 'Kirim Balasan';
+                }
+            })
+            .catch(function(error) {
+                console.error("Gagal mengirim balasan:", error);
+                alert("Gagal mengirim balasan. Periksa koneksi atau rules database Anda.");
+                if (btnKirim) {
+                    btnKirim.disabled = false;
+                    btnKirim.textContent = 'Kirim Balasan';
+                }
+            });
         }
 
         function pilihRatingBintang(nilai) {
@@ -977,6 +1250,7 @@
             var parts = valString.split('-');
             var selectedDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
             mencobaPng = false;
+            openReplyFormIds = {};
             prosesTampilkanMenuDariDate(selectedDate);
             muatStatistikPengunjungPerTanggal(selectedDate);
         }
@@ -985,6 +1259,7 @@
             var now = new Date();
             setTanggalKeInput(now);
             mencobaPng = false;
+            openReplyFormIds = {};
             prosesTampilkanMenuDariDate(now);
             muatStatistikPengunjungPerTanggal(now);
         }
@@ -1102,7 +1377,7 @@
         }
 
         function subcribeRealtimeDatabaseData(container) {
-            var nodeNama = 'reviews_' + targetNamaFileAktif.replace(/[\.]/g, '_');
+            var nodeNama = getNodeUlasanAktif();
             var reviewsRef = window.dbRef(window.database, nodeNama);
 
             unsubscribeReviewsFn = window.dbOnValue(reviewsRef, function(snapshot) {
@@ -1110,6 +1385,21 @@
                     updateRingkasanRatingMenu([]);
                     container.innerHTML = '<div class="no-review">Belum ada ulasan untuk menu tanggal ini. Jadilah yang pertama memberikan masukan!</div>';
                     return;
+                }
+
+                // Simpan sementara draf balasan yang sedang diketik agar tidak hilang saat update realtime
+                var draftBalasanSementara = {};
+                var openKeys = Object.keys(openReplyFormIds);
+                for (var k = 0; k < openKeys.length; k++) {
+                    var rId = openKeys[k];
+                    var elNama = document.getElementById('replyNama_' + rId);
+                    var elPesan = document.getElementById('replyPesan_' + rId);
+                    if (elNama || elPesan) {
+                        draftBalasanSementara[rId] = {
+                            nama: elNama ? elNama.value : '',
+                            pesan: elPesan ? elPesan.value : ''
+                        };
+                    }
                 }
 
                 var dataUlasan = snapshot.val();
@@ -1127,6 +1417,8 @@
 
                 for (var i = 0; i < batasRender; i++) {
                     var rev = listArray[i];
+                    var revId = rev.id;
+                    var safeRevId = escapeHtml(revId);
                     var nilaiRating = Number(rev.rating);
                     var bintangHtml = '';
                     if (!isNaN(nilaiRating) && nilaiRating >= 1 && nilaiRating <= 5) {
@@ -1139,6 +1431,36 @@
                         fotoHtml = '<img class="review-photo" src="' + escapeHtml(fotoSrc) + '" alt="Foto ulasan dari ' + escapeHtml(rev.nama || 'Pengguna') + '" loading="lazy" decoding="async" onclick="bukaFotoTabBaru(this.src)">';
                     }
 
+                    var jumlahSuka = Number(rev.likes) || 0;
+                    var sudahDisukai = isReviewSudahDisukai(nodeNama, revId);
+                    var kelasLike = sudahDisukai ? ' liked' : '';
+                    var teksLike = jumlahSuka > 0 ? '👍 Sukai (' + jumlahSuka + ')' : '👍 Sukai';
+
+                    var repliesObj = rev.replies || {};
+                    var replyKeys = Object.keys(repliesObj);
+                    var jumlahBalasan = replyKeys.length;
+                    var teksBalas = jumlahBalasan > 0 ? '💬 Balas (' + jumlahBalasan + ')' : '💬 Balas';
+
+                    var repliesHtml = '';
+                    if (jumlahBalasan > 0) {
+                        repliesHtml += '<div class="replies-container">';
+                        for (var r = 0; r < jumlahBalasan; r++) {
+                            var rep = repliesObj[replyKeys[r]] || {};
+                            repliesHtml +=
+                                '<div class="reply-item">' +
+                                    '<div class="reply-header">' +
+                                        '<span>↳ ' + escapeHtml(rep.nama || 'Pengguna') + '</span>' +
+                                        '<span class="reply-time">' + escapeHtml(rep.waktu || '') + '</span>' +
+                                    '</div>' +
+                                    '<div class="reply-text">' + escapeHtml(rep.pesan || '') + '</div>' +
+                                '</div>';
+                        }
+                        repliesHtml += '</div>';
+                    }
+
+                    var isFormTerbuka = Boolean(openReplyFormIds[revId]);
+                    var draftItem = draftBalasanSementara[revId] || { nama: '', pesan: '' };
+
                     reviewsHtml +=
                         '<div class="review-item">' +
                             '<div class="review-user">' +
@@ -1148,6 +1470,19 @@
                             bintangHtml +
                             '<div class="review-text">' + escapeHtml(rev.pesan) + '</div>' +
                             fotoHtml +
+                            '<div class="review-actions">' +
+                                '<button type="button" class="btn-review-action' + kelasLike + '" onclick="toggleSukaiUlasan(\'' + safeRevId + '\')">' + teksLike + '</button>' +
+                                '<button type="button" class="btn-review-action" onclick="toggleFormBalas(\'' + safeRevId + '\')">' + teksBalas + '</button>' +
+                            '</div>' +
+                            '<form class="reply-form-box' + (isFormTerbuka ? ' open' : '') + '" id="replyFormBox_' + safeRevId + '" onsubmit="kirimBalasanUlasan(event, \'' + safeRevId + '\')">' +
+                                '<input type="text" id="replyNama_' + safeRevId + '" placeholder="Nama Anda..." value="' + escapeHtml(draftItem.nama) + '" required>' +
+                                '<textarea id="replyPesan_' + safeRevId + '" rows="2" placeholder="Tulis balasan untuk ulasan ini..." required>' + escapeHtml(draftItem.pesan) + '</textarea>' +
+                                '<div class="reply-form-actions">' +
+                                    '<button type="button" class="btn-reply-cancel" onclick="toggleFormBalas(\'' + safeRevId + '\')">Batal</button>' +
+                                    '<button type="submit" class="btn-reply-send" id="btnReplySend_' + safeRevId + '">Kirim Balasan</button>' +
+                                '</div>' +
+                            '</form>' +
+                            repliesHtml +
                         '</div>';
                 }
 
@@ -1191,7 +1526,7 @@
             var now = new Date();
             var waktuStr = now.getDate() + ' ' + namaBulanPanjang[now.getMonth()] + ' ' + now.getFullYear() + ', ' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
 
-            var nodeNama = 'reviews_' + targetNamaFileAktif.replace(/[\.]/g, '_');
+            var nodeNama = getNodeUlasanAktif();
             var reviewsRef = window.dbRef(window.database, nodeNama);
             var newReviewRef = window.dbPush(reviewsRef);
 
@@ -1200,6 +1535,7 @@
                 pesan: pesan,
                 rating: ratingTerpilih,
                 fotoBase64: fotoUlasanBase64 || null,
+                likes: 0,
                 waktu: waktuStr,
                 timestamp: Date.now()
             };
