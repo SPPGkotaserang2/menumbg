@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPPG KOTA SERANG SERANG SERANG 2</title>
     
@@ -22,9 +23,15 @@
             measurementId: "G-YF1FV0Q4X3"
         };
 
-        // Inisialisasi Firebase
+        // Inisialisasi Firebase secara aman (Analytics opsional agar tidak menghambat device lama)
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
+        try {
+            if (!window.__LOW_SPEC_DEVICE__) {
+                getAnalytics(app);
+            }
+        } catch (e) {
+            // Abaikan jika analytics tidak didukung perangkat lama
+        }
         const database = getDatabase(app);
 
         // Ekspor ke variabel global agar fungsi di luar modul script dapat mengaksesnya secara aman
@@ -37,6 +44,38 @@
 
         // Tandai bahwa modul Firebase sudah siap
         window.isFirebaseReady = true;
+        document.dispatchEvent(new Event('firebase-ready'));
+    </script>
+
+    <!-- Deteksi Perangkat Awal (RAM 1GB+ / Android 1+ / Koneksi) Sebelum Render -->
+    <script>
+        (function detectDevicePerformance() {
+            var ua = navigator.userAgent || '';
+            var mem = navigator.deviceMemory || 0; // dalam GB (sering undefined di browser lama)
+            var cores = navigator.hardwareConcurrency || 0;
+            var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            var slowNet = false;
+
+            if (conn) {
+                if (conn.saveData || conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g') {
+                    slowNet = true;
+                }
+            }
+
+            // Deteksi versi Android jika ada di User Agent
+            var androidMatch = ua.match(/Android\s([0-9.]+)/i);
+            var androidVer = androidMatch ? parseFloat(androidMatch[1]) : 99;
+
+            var isLowSpec = false;
+            if ((mem > 0 && mem <= 2) || (cores > 0 && cores <= 2) || androidVer < 7 || slowNet) {
+                isLowSpec = true;
+            }
+
+            window.__LOW_SPEC_DEVICE__ = isLowSpec;
+            if (isLowSpec) {
+                document.documentElement.className += ' low-spec-mode';
+            }
+        })();
     </script>
     
     <style>
@@ -63,6 +102,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .magic-bg-container {
@@ -83,6 +123,7 @@
             border-radius: 150% 0 150% 0;
             animation: fallAnimation linear infinite;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            will-change: transform, opacity;
         }
 
         @keyframes fallAnimation {
@@ -126,6 +167,7 @@
         .clock-bar {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             text-align: center;
             padding: 10px 16px;
             font-size: 0.95rem;
@@ -139,6 +181,7 @@
         .visitor-stats-bar {
             background: rgba(11, 60, 123, 0.85);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             color: #e0f2fe;
             text-align: center;
             padding: 8px 16px;
@@ -156,6 +199,7 @@
         .scrollable-content-area {
             flex-grow: 1;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
             padding: 24px 0 40px 0;
             z-index: 5;
@@ -250,6 +294,27 @@
             font-size: 1.4rem;
             font-weight: 800;
             color: var(--bgn-dark);
+        }
+
+        /* Ringkasan Rating Bintang Menu */
+        .menu-rating-summary {
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #ffffff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--bgn-dark);
+        }
+
+        .rating-stars-display {
+            color: #f59e0b;
+            letter-spacing: 1px;
+            font-size: 1rem;
         }
 
         .image-wrapper {
@@ -365,6 +430,82 @@
             outline: none;
         }
 
+        /* Input Rating Bintang Interaktif */
+        .star-rating-input {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 0;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            font-size: 1.75rem;
+            line-height: 1;
+            cursor: pointer;
+            color: #cbd5e1;
+            padding: 2px;
+            transition: transform 0.15s ease, color 0.15s ease;
+        }
+
+        .star-btn.active {
+            color: #f59e0b;
+        }
+
+        .star-btn:active {
+            transform: scale(0.92);
+        }
+
+        .rating-label-text {
+            font-size: 0.82rem;
+            color: #64748b;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        /* Input Upload Foto Ulasan */
+        .photo-upload-box {
+            border: 1px dashed #94a3b8;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+
+        .photo-upload-box input[type="file"] {
+            width: 100%;
+            font-size: 0.85rem;
+            padding: 4px 0;
+            border: none;
+            background: transparent;
+        }
+
+        .photo-preview-wrap {
+            margin-top: 8px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .photo-preview-img {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .btn-remove-photo {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         .btn-submit {
             background: linear-gradient(135deg, var(--bgn-dark), var(--bgn-blue));
             color: #ffffff;
@@ -377,13 +518,19 @@
             box-shadow: 0 4px 12px rgba(0, 51, 102, 0.2);
         }
 
+        .btn-submit:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
         .reviews-list-container {
             margin-top: 16px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            max-height: 300px;
+            max-height: 360px;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .review-item {
@@ -400,17 +547,39 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 4px;
+            gap: 8px;
+        }
+
+        .review-stars {
+            color: #f59e0b;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
         }
 
         .review-time {
             font-size: 0.75rem;
             color: #94a3b8;
             font-weight: 400;
+            flex-shrink: 0;
         }
 
         .review-text {
             font-size: 0.9rem;
             color: #334155;
+            word-break: break-word;
+        }
+
+        .review-photo {
+            margin-top: 8px;
+            max-width: 100%;
+            max-height: 240px;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            display: block;
+            cursor: pointer;
         }
 
         .no-review {
@@ -419,6 +588,53 @@
             text-align: center;
             font-style: italic;
             padding: 10px;
+        }
+
+        /* Mode Ringan Otomatis untuk Perangkat RAM Kecil / Android Lama */
+        html.low-spec-mode .magic-bg-container,
+        html.low-spec-mode .petal {
+            display: none !important;
+        }
+
+        html.low-spec-mode body {
+            background-color: #0b132b;
+        }
+
+        html.low-spec-mode .clock-bar {
+            background: #ffffff;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        html.low-spec-mode .visitor-stats-bar {
+            background: #0b3c7b;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        html.low-spec-mode .scrollable-content-area {
+            scroll-behavior: auto;
+        }
+
+        html.low-spec-mode header,
+        html.low-spec-mode .date-picker-wrapper,
+        html.low-spec-mode .menu-card,
+        html.low-spec-mode .info-section,
+        html.low-spec-mode .btn-submit,
+        html.low-spec-mode .date-picker-wrapper input[type="date"] {
+            box-shadow: none;
+        }
+
+        @media (max-width: 520px) {
+            .main-header {
+                font-size: 1.35rem;
+            }
+            .nutrition-grid {
+                grid-template-columns: 1fr;
+            }
+            .image-wrapper {
+                min-height: 240px;
+            }
         }
     </style>
 </head>
@@ -451,10 +667,14 @@
                     <span class="menu-title-tag">Menu Makanan Bergizi</span>
                     <div id="todayBadgeContainer"></div>
                     <div class="menu-date-display" id="menuDateText">Memuat Tanggal...</div>
+                    <div class="menu-rating-summary" id="menuRatingSummary">
+                        <span class="rating-stars-display" id="avgStarsDisplay">☆☆☆☆☆</span>
+                        <span id="avgRatingText">0.0 (0 rating)</span>
+                    </div>
                 </div>
 
                 <div class="image-wrapper">
-                    <img id="menuImage" src="" alt="Menu Makanan Bergizi" onerror="handleImageError(this)">
+                    <img id="menuImage" src="" alt="Menu Makanan Bergizi" decoding="async" onerror="handleImageError(this)">
                 </div>
             </div>
 
@@ -482,11 +702,36 @@
                         <label for="inputNama">Nama / Identitas Pengguna</label>
                         <input type="text" id="inputNama" placeholder="Masukkan nama Anda..." required>
                     </div>
+
+                    <div class="form-group">
+                        <label>Rating Bintang Menu</label>
+                        <div class="star-rating-input" id="starRatingInput" role="group" aria-label="Rating Bintang Menu">
+                            <button type="button" class="star-btn active" data-val="1" onclick="pilihRatingBintang(1)" aria-label="1 bintang">★</button>
+                            <button type="button" class="star-btn active" data-val="2" onclick="pilihRatingBintang(2)" aria-label="2 bintang">★</button>
+                            <button type="button" class="star-btn active" data-val="3" onclick="pilihRatingBintang(3)" aria-label="3 bintang">★</button>
+                            <button type="button" class="star-btn active" data-val="4" onclick="pilihRatingBintang(4)" aria-label="4 bintang">★</button>
+                            <button type="button" class="star-btn active" data-val="5" onclick="pilihRatingBintang(5)" aria-label="5 bintang">★</button>
+                            <span class="rating-label-text" id="ratingLabelText">5 / 5 Bintang</span>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="inputPesan">Tulis Ulasan atau Saran Anda:</label>
                         <textarea id="inputPesan" rows="3" placeholder="Bagikan tanggapan Anda mengenai menu hari ini..." required></textarea>
                     </div>
-                    <button type="submit" class="btn-submit">Kirim Ulasan</button>
+
+                    <div class="form-group">
+                        <label for="inputFotoUlasan">Upload Foto Ulasan (Opsional)</label>
+                        <div class="photo-upload-box">
+                            <input type="file" id="inputFotoUlasan" accept="image/*" onchange="prosesPilihFotoUlasan(event)">
+                            <div class="photo-preview-wrap" id="photoPreviewWrap">
+                                <img id="photoPreviewImg" class="photo-preview-img" src="" alt="Pratinjau Foto Ulasan">
+                                <button type="button" class="btn-remove-photo" onclick="hapusFotoTerpilih()">Hapus Foto</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btnSubmitUlasan">Kirim Ulasan</button>
                 </form>
 
                 <h3 style="margin-top: 20px; font-size: 1rem;">Daftar Ulasan & Masukan Lainnya</h3>
@@ -496,69 +741,248 @@
     </div>
 
     <script>
+        var isLowSpec = Boolean(window.__LOW_SPEC_DEVICE__);
+
         function generateMagicElements() {
-            const container = document.getElementById('magicBg');
-            for (let i = 0; i < 15; i++) {
-                const petal = document.createElement('div');
+            if (isLowSpec) return;
+            var container = document.getElementById('magicBg');
+            if (!container) return;
+            var jumlahKelopak = 12;
+            for (var i = 0; i < jumlahKelopak; i++) {
+                var petal = document.createElement('div');
                 petal.classList.add('petal');
-                const size = Math.random() * 12 + 8;
-                petal.style.width = `${size}px`;
-                petal.style.height = `${size * 1.4}px`;
-                petal.style.left = `${Math.random() * 100}vw`;
-                petal.style.animationDuration = `${Math.random() * 8 + 6}s`;
-                petal.style.animationDelay = `${Math.random() * 5}s`;
+                var size = Math.random() * 12 + 8;
+                petal.style.width = size + 'px';
+                petal.style.height = (size * 1.4) + 'px';
+                petal.style.left = (Math.random() * 100) + 'vw';
+                petal.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                petal.style.animationDelay = (Math.random() * 5) + 's';
                 container.appendChild(petal);
             }
         }
         generateMagicElements();
 
-        const listBulanSingkat = ["jan", "feb", "mar", "apr", "mei", "jun", "jul", "agu", "sep", "okt", "nov", "des"];
-        const namaBulanPanjang = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        var listBulanSingkat = ["jan", "feb", "mar", "apr", "mei", "jun", "jul", "agu", "sep", "okt", "nov", "des"];
+        var namaBulanPanjang = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
-        let targetNamaFileAktif = "";
-        let pathFileLengkap = ""; 
-        let mencobaPng = false;
-        let databaseMenu = {}; 
+        var targetNamaFileAktif = "";
+        var pathFileLengkap = ""; 
+        var mencobaPng = false;
+        var databaseMenu = {};
+        var ratingTerpilih = 5;
+        var fotoUlasanBase64 = "";
+        var unsubscribeReviewsFn = null;
+        var unsubscribeVisitorFn = null;
+
+        function jalankanSaatFirebaseSiap(callback) {
+            if (window.database && window.dbRef && window.dbOnValue) {
+                callback();
+                return;
+            }
+            var onReady = function() {
+                document.removeEventListener('firebase-ready', onReady);
+                callback();
+            };
+            document.addEventListener('firebase-ready', onReady);
+
+            var timer = setInterval(function() {
+                if (window.database && window.dbRef && window.dbOnValue) {
+                    clearInterval(timer);
+                    document.removeEventListener('firebase-ready', onReady);
+                    callback();
+                }
+            }, 150);
+        }
+
+        function pilihRatingBintang(nilai) {
+            ratingTerpilih = Number(nilai) || 5;
+            var btns = document.querySelectorAll('#starRatingInput .star-btn');
+            for (var i = 0; i < btns.length; i++) {
+                var val = Number(btns[i].getAttribute('data-val'));
+                if (val <= ratingTerpilih) {
+                    btns[i].classList.add('active');
+                } else {
+                    btns[i].classList.remove('active');
+                }
+            }
+            var labelEl = document.getElementById('ratingLabelText');
+            if (labelEl) {
+                labelEl.textContent = ratingTerpilih + ' / 5 Bintang';
+            }
+        }
+
+        function formatBintangTeks(rataRata) {
+            var penuh = Math.round(rataRata);
+            if (penuh < 0) penuh = 0;
+            if (penuh > 5) penuh = 5;
+            var hasil = '';
+            for (var i = 1; i <= 5; i++) {
+                hasil += (i <= penuh) ? '★' : '☆';
+            }
+            return hasil;
+        }
+
+        function updateRingkasanRatingMenu(listReviews) {
+            var avgStarsEl = document.getElementById('avgStarsDisplay');
+            var avgTextEl = document.getElementById('avgRatingText');
+            if (!avgStarsEl || !avgTextEl) return;
+
+            var totalRating = 0;
+            var jumlahRating = 0;
+
+            for (var i = 0; i < listReviews.length; i++) {
+                var r = Number(listReviews[i].rating);
+                if (!isNaN(r) && r >= 1 && r <= 5) {
+                    totalRating += r;
+                    jumlahRating++;
+                }
+            }
+
+            if (jumlahRating === 0) {
+                avgStarsEl.textContent = '☆☆☆☆☆';
+                avgTextEl.textContent = '0.0 (0 rating)';
+                return;
+            }
+
+            var rata = totalRating / jumlahRating;
+            avgStarsEl.textContent = formatBintangTeks(rata);
+            avgTextEl.textContent = rata.toFixed(1) + ' (' + jumlahRating + ' rating)';
+        }
+
+        function hapusFotoTerpilih() {
+            fotoUlasanBase64 = "";
+            var inputFoto = document.getElementById('inputFotoUlasan');
+            var wrap = document.getElementById('photoPreviewWrap');
+            var img = document.getElementById('photoPreviewImg');
+            if (inputFoto) inputFoto.value = '';
+            if (img) img.src = '';
+            if (wrap) wrap.style.display = 'none';
+        }
+
+        function prosesPilihFotoUlasan(event) {
+            var file = event.target && event.target.files && event.target.files[0];
+            if (!file) {
+                hapusFotoTerpilih();
+                return;
+            }
+
+            if (!file.type || file.type.indexOf('image/') !== 0) {
+                alert('Silakan pilih file gambar (JPG, PNG, WEBP, dll).');
+                hapusFotoTerpilih();
+                return;
+            }
+
+            // Batasi ukuran file mentah awal agar HP RAM 1GB tidak kehabisan memori saat membaca
+            var maxMentahBytes = isLowSpec ? 8 * 1024 * 1024 : 15 * 1024 * 1024;
+            if (file.size > maxMentahBytes) {
+                alert('Ukuran foto terlalu besar. Silakan pilih foto yang lebih kecil.');
+                hapusFotoTerpilih();
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    try {
+                        // Kompresi ukuran gambar agar ringan di Firebase Realtime Database & semua HP
+                        var maxDim = isLowSpec ? 560 : 800;
+                        var width = img.width;
+                        var height = img.height;
+
+                        if (width > height && width > maxDim) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else if (height > maxDim) {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+
+                        var canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        var ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        var kualitas = isLowSpec ? 0.55 : 0.68;
+                        var dataUrl = canvas.toDataURL('image/jpeg', kualitas);
+
+                        // Bersihkan referensi canvas/img untuk hemat memori perangkat lama
+                        canvas.width = 1;
+                        canvas.height = 1;
+
+                        if (dataUrl.length > 1400000) {
+                            alert('Foto setelah dikompresi masih terlalu besar untuk database. Coba foto lain.');
+                            hapusFotoTerpilih();
+                            return;
+                        }
+
+                        fotoUlasanBase64 = dataUrl;
+                        var previewImg = document.getElementById('photoPreviewImg');
+                        var previewWrap = document.getElementById('photoPreviewWrap');
+                        if (previewImg) previewImg.src = dataUrl;
+                        if (previewWrap) previewWrap.style.display = 'flex';
+                    } catch (err) {
+                        alert('Gagal memproses foto pada perangkat ini.');
+                        hapusFotoTerpilih();
+                    }
+                };
+                img.onerror = function() {
+                    alert('Gagal memuat gambar.');
+                    hapusFotoTerpilih();
+                };
+                img.src = e.target.result;
+            };
+            reader.onerror = function() {
+                alert('Gagal membaca file foto.');
+                hapusFotoTerpilih();
+            };
+            reader.readAsDataURL(file);
+        }
 
         function muatDatabaseJson() {
-            fetch('data_3.json')
-                .then(response => {
+            fetch('data_3.json', { cache: isLowSpec ? 'force-cache' : 'default' })
+                .then(function(response) {
                     if (!response.ok) {
                         throw new Error('Gagal memuat file data_3.json');
                     }
                     return response.json();
                 })
-                .then(data => {
-                    databaseMenu = data;
-                    const now = new Date();
+                .then(function(data) {
+                    databaseMenu = data || {};
+                    var now = new Date();
                     setTanggalKeInput(now);
                     prosesTampilkanMenuDariDate(now);
                     muatStatistikPengunjungPerTanggal(now);
                 })
-                .catch(error => {
+                .catch(function(error) {
                     console.error('Error:', error);
-                    document.getElementById('containerDescItems').innerHTML = `<div class="empty-desc">Gagal memuat file database JSON. Pastikan file data_3.json ada di satu folder.</div>`;
+                    document.getElementById('containerDescItems').innerHTML = '<div class="empty-desc">Gagal memuat file database JSON. Pastikan file data_3.json ada di satu folder.</div>';
+                    var nowFallback = new Date();
+                    setTanggalKeInput(nowFallback);
+                    prosesTampilkanMenuDariDate(nowFallback);
+                    muatStatistikPengunjungPerTanggal(nowFallback);
                 });
         }
 
         function setTanggalKeInput(dateObj) {
-            const yyyy = dateObj.getFullYear();
-            const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
-            const dd = String(dateObj.getDate()).padStart(2, '0');
-            document.getElementById('pilihTanggal').value = `${yyyy}-${mm}-${dd}`;
+            var yyyy = dateObj.getFullYear();
+            var mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+            var dd = String(dateObj.getDate()).padStart(2, '0');
+            document.getElementById('pilihTanggal').value = yyyy + '-' + mm + '-' + dd;
         }
 
         function gantiMenuBerdasarkanPilihan(valString) {
             if (!valString) return;
-            const parts = valString.split('-');
-            const selectedDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+            var parts = valString.split('-');
+            var selectedDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
             mencobaPng = false;
             prosesTampilkanMenuDariDate(selectedDate);
             muatStatistikPengunjungPerTanggal(selectedDate);
         }
 
         function resetKeHariIni() {
-            const now = new Date();
+            var now = new Date();
             setTanggalKeInput(now);
             mencobaPng = false;
             prosesTampilkanMenuDariDate(now);
@@ -566,25 +990,25 @@
         }
 
         function prosesTampilkanMenuDariDate(dateObj) {
-            const tgl = dateObj.getDate();
-            const blnIndex = dateObj.getMonth();
-            const blnSingkat = listBulanSingkat[blnIndex];
-            const tahun = dateObj.getFullYear();
-            const namaBulanTeks = namaBulanPanjang[blnIndex];
+            var tgl = dateObj.getDate();
+            var blnIndex = dateObj.getMonth();
+            var blnSingkat = listBulanSingkat[blnIndex];
+            var tahun = dateObj.getFullYear();
+            var namaBulanTeks = namaBulanPanjang[blnIndex];
             
             targetNamaFileAktif = blnSingkat + tgl + ".jpg";
-            const namaFolderPerBulan = `${namaBulanTeks} ${tahun}`; 
-            pathFileLengkap = `${namaFolderPerBulan}/${targetNamaFileAktif}`;
+            var namaFolderPerBulan = namaBulanTeks + " " + tahun; 
+            pathFileLengkap = namaFolderPerBulan + "/" + targetNamaFileAktif;
 
-            const imgEl = document.getElementById('menuImage');
-            const dateTextEl = document.getElementById('menuDateText');
-            const todayBadgeContainer = document.getElementById('todayBadgeContainer');
+            var imgEl = document.getElementById('menuImage');
+            var dateTextEl = document.getElementById('menuDateText');
+            var todayBadgeContainer = document.getElementById('todayBadgeContainer');
 
             imgEl.src = pathFileLengkap;
-            dateTextEl.textContent = `${tgl} ${namaBulanTeks} ${tahun}`;
+            dateTextEl.textContent = tgl + " " + namaBulanTeks + " " + tahun;
 
-            const now = new Date();
-            const isToday = dateObj.getDate() === now.getDate() && 
+            var now = new Date();
+            var isToday = dateObj.getDate() === now.getDate() && 
                             dateObj.getMonth() === now.getMonth() && 
                             dateObj.getFullYear() === now.getFullYear();
 
@@ -599,44 +1023,58 @@
         }
 
         function muatKontenInformasiMenu(bln, tgl) {
-            const containerDescItems = document.getElementById('containerDescItems');
-            const containerNutrition = document.getElementById('containerNutrition');
-            const containerBenefits = document.getElementById('containerBenefits');
+            var containerDescItems = document.getElementById('containerDescItems');
+            var containerNutrition = document.getElementById('containerNutrition');
+            var containerBenefits = document.getElementById('containerBenefits');
 
-            const kunciMenu = `${bln}${tgl}`;
-            let dataMenu = databaseMenu[kunciMenu];
+            var kunciMenu = bln + tgl;
+            var dataMenu = databaseMenu[kunciMenu];
 
             if (!dataMenu) {
-                containerDescItems.innerHTML = `<div class="empty-desc">Belum ada keterangan Upload dulu menu hari ini</div>`;
-                containerNutrition.innerHTML = `<div class="empty-desc">Belum ada data analisis kandungan gizi.</div>`;
-                containerBenefits.innerHTML = `<div class="empty-desc">Belum ada catatan manfaat kesehatan.</div>`;
+                containerDescItems.innerHTML = '<div class="empty-desc">Belum ada keterangan Upload dulu menu hari ini</div>';
+                containerNutrition.innerHTML = '<div class="empty-desc">Belum ada data analisis kandungan gizi.</div>';
+                containerBenefits.innerHTML = '<div class="empty-desc">Belum ada catatan manfaat kesehatan.</div>';
                 return;
             }
 
-            containerDescItems.innerHTML = `<ul class="menu-items-list">${dataMenu.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
-            
-            containerNutrition.innerHTML = `
-                <div class="nutrition-grid">
-                    <div class="nutrition-box">
-                        <h4>Porsi Besar</h4>
-                        <div class="nutrition-item">Energi: <span>${dataMenu.nutrition.besar.energi}</span></div>
-                        <div class="nutrition-item">Protein: <span>${dataMenu.nutrition.besar.protein}</span></div>
-                        <div class="nutrition-item">Lemak: <span>${dataMenu.nutrition.besar.lemak}</span></div>
-                        <div class="nutrition-item">Karbohidrat: <span>${dataMenu.nutrition.besar.karbo}</span></div>
-                        <div class="nutrition-item">Serat: <span>${dataMenu.nutrition.besar.serat}</span></div>
-                    </div>
-                    <div class="nutrition-box">
-                        <h4>Porsi Kecil</h4>
-                        <div class="nutrition-item">Energi: <span>${dataMenu.nutrition.kecil.energi}</span></div>
-                        <div class="nutrition-item">Protein: <span>${dataMenu.nutrition.kecil.protein}</span></div>
-                        <div class="nutrition-item">Lemak: <span>${dataMenu.nutrition.kecil.lemak}</span></div>
-                        <div class="nutrition-item">Karbohidrat: <span>${dataMenu.nutrition.kecil.karbo}</span></div>
-                        <div class="nutrition-item">Serat: <span>${dataMenu.nutrition.kecil.serat}</span></div>
-                    </div>
-                </div>
-            `;
+            var itemsHtml = '';
+            if (Array.isArray(dataMenu.items)) {
+                for (var i = 0; i < dataMenu.items.length; i++) {
+                    itemsHtml += '<li>' + escapeHtml(String(dataMenu.items[i])) + '</li>';
+                }
+            }
+            containerDescItems.innerHTML = '<ul class="menu-items-list">' + itemsHtml + '</ul>';
 
-            containerBenefits.innerHTML = `<ul class="menu-benefits-list">${dataMenu.benefits.map(b => `<li>${b}</li>`).join('')}</ul>`;
+            var besar = (dataMenu.nutrition && dataMenu.nutrition.besar) || {};
+            var kecil = (dataMenu.nutrition && dataMenu.nutrition.kecil) || {};
+
+            containerNutrition.innerHTML =
+                '<div class="nutrition-grid">' +
+                    '<div class="nutrition-box">' +
+                        '<h4>Porsi Besar</h4>' +
+                        '<div class="nutrition-item">Energi: <span>' + escapeHtml(String(besar.energi || '-')) + '</span></div>' +
+                        '<div class="nutrition-item">Protein: <span>' + escapeHtml(String(besar.protein || '-')) + '</span></div>' +
+                        '<div class="nutrition-item">Lemak: <span>' + escapeHtml(String(besar.lemak || '-')) + '</span></div>' +
+                        '<div class="nutrition-item">Karbohidrat: <span>' + escapeHtml(String(besar.karbo || '-')) + '</span></div>' +
+                        '<div class="nutrition-item">Serat: <span>' + escapeHtml(String(besar.serat || '-')) + '</span></div>' +
+                    '</div>' +
+                    '<div class="nutrition-box">' +
+                        '<h4>Porsi Kecil</h4>' +
+                        '<div class="nutrition-item">Energi: <span>' + escapeHtml(String(kecil.energi || '-')) + '</span></div>' +
+                        '<div class="nutrition-item">Protein: <span>' + escapeHtml(String(kecil.protein || '-')) + '</span></div>' +
+                        '<div class="nutrition-item">Lemak: <span>' + escapeHtml(String(kecil.lemak || '-')) + '</span></div>' +
+                        '<div class="nutrition-item">Karbohidrat: <span>' + escapeHtml(String(kecil.karbo || '-')) + '</span></div>' +
+                        '<div class="nutrition-item">Serat: <span>' + escapeHtml(String(kecil.serat || '-')) + '</span></div>' +
+                    '</div>' +
+                '</div>';
+
+            var benefitsHtml = '';
+            if (Array.isArray(dataMenu.benefits)) {
+                for (var b = 0; b < dataMenu.benefits.length; b++) {
+                    benefitsHtml += '<li>' + escapeHtml(String(dataMenu.benefits[b])) + '</li>';
+                }
+            }
+            containerBenefits.innerHTML = '<ul class="menu-benefits-list">' + benefitsHtml + '</ul>';
         }
 
         function handleImageError(img) {
@@ -644,65 +1082,100 @@
                 mencobaPng = true;
                 img.src = pathFileLengkap.replace('.jpg', '.png');
             } else {
-                img.src = 'https://via.placeholder.com/700x450/0b3c7b/ffffff?text=Foto+Menu+' + targetNamaFileAktif.toUpperCase() + '+Belum+Tersedia';
+                img.onerror = null;
+                img.src = 'https://via.placeholder.com/700x450/0b3c7b/ffffff?text=Foto+Menu+' + encodeURIComponent(targetNamaFileAktif.toUpperCase()) + '+Belum+Tersedia';
             }
         }
 
         function muatUlasanPublikRealtime() {
-            const container = document.getElementById('reviewsListContainer');
-            
-            const checkDbInterval = setInterval(() => {
-                if (window.database && targetNamaFileAktif) {
-                    clearInterval(checkDbInterval);
-                    subcribeRealtimeDatabaseData(container);
-                }
-            }, 100);
+            var container = document.getElementById('reviewsListContainer');
+            if (!targetNamaFileAktif) return;
+
+            if (typeof unsubscribeReviewsFn === 'function') {
+                try { unsubscribeReviewsFn(); } catch (e) {}
+                unsubscribeReviewsFn = null;
+            }
+
+            jalankanSaatFirebaseSiap(function() {
+                subcribeRealtimeDatabaseData(container);
+            });
         }
 
         function subcribeRealtimeDatabaseData(container) {
-            const nodeNama = `reviews_${targetNamaFileAktif.replace(/[\.]/g, '_')}`;
-            const reviewsRef = window.dbRef(window.database, nodeNama);
+            var nodeNama = 'reviews_' + targetNamaFileAktif.replace(/[\.]/g, '_');
+            var reviewsRef = window.dbRef(window.database, nodeNama);
 
-            window.dbOnValue(reviewsRef, (snapshot) => {
+            unsubscribeReviewsFn = window.dbOnValue(reviewsRef, function(snapshot) {
                 if (!snapshot.exists()) {
-                    container.innerHTML = `<div class="no-review">Belum ada ulasan untuk menu tanggal ini. Jadilah yang pertama memberikan masukan!</div>`;
+                    updateRingkasanRatingMenu([]);
+                    container.innerHTML = '<div class="no-review">Belum ada ulasan untuk menu tanggal ini. Jadilah yang pertama memberikan masukan!</div>';
                     return;
                 }
 
-                let reviewsHtml = '';
-                const dataUlasan = snapshot.val();
-                
-                const listArray = Object.keys(dataUlasan).map(key => ({
-                    id: key,
-                    ...dataUlasan[key]
-                })).reverse();
+                var dataUlasan = snapshot.val();
+                var listArray = Object.keys(dataUlasan).map(function(key) {
+                    var item = dataUlasan[key] || {};
+                    item.id = key;
+                    return item;
+                }).reverse();
 
-                listArray.forEach((rev) => {
-                    reviewsHtml += `
-                        <div class="review-item">
-                            <div class="review-user">
-                                <span>${escapeHtml(rev.nama)}</span>
-                                <span class="review-time">${escapeHtml(rev.waktu)}</span>
-                            </div>
-                            <div class="review-text">${escapeHtml(rev.pesan)}</div>
-                        </div>
-                    `;
-                });
+                updateRingkasanRatingMenu(listArray);
+
+                // Batasi jumlah render item pada HP spesifikasi sangat rendah agar tetap gesit
+                var batasRender = isLowSpec ? Math.min(listArray.length, 25) : listArray.length;
+                var reviewsHtml = '';
+
+                for (var i = 0; i < batasRender; i++) {
+                    var rev = listArray[i];
+                    var nilaiRating = Number(rev.rating);
+                    var bintangHtml = '';
+                    if (!isNaN(nilaiRating) && nilaiRating >= 1 && nilaiRating <= 5) {
+                        bintangHtml = '<div class="review-stars" title="' + nilaiRating + ' dari 5 bintang">' + formatBintangTeks(nilaiRating) + ' (' + nilaiRating + '/5)</div>';
+                    }
+
+                    var fotoSrc = rev.fotoBase64 || rev.foto || rev.photo || '';
+                    var fotoHtml = '';
+                    if (fotoSrc && (fotoSrc.indexOf('data:image/') === 0 || fotoSrc.indexOf('https://') === 0 || fotoSrc.indexOf('http://') === 0)) {
+                        fotoHtml = '<img class="review-photo" src="' + escapeHtml(fotoSrc) + '" alt="Foto ulasan dari ' + escapeHtml(rev.nama || 'Pengguna') + '" loading="lazy" decoding="async" onclick="bukaFotoTabBaru(this.src)">';
+                    }
+
+                    reviewsHtml +=
+                        '<div class="review-item">' +
+                            '<div class="review-user">' +
+                                '<span>' + escapeHtml(rev.nama) + '</span>' +
+                                '<span class="review-time">' + escapeHtml(rev.waktu) + '</span>' +
+                            '</div>' +
+                            bintangHtml +
+                            '<div class="review-text">' + escapeHtml(rev.pesan) + '</div>' +
+                            fotoHtml +
+                        '</div>';
+                }
+
                 container.innerHTML = reviewsHtml;
-            }, (error) => {
+            }, function(error) {
                 console.error("Gagal memuat ulasan realtime: ", error);
-                container.innerHTML = `<div class="no-review">Gagal memuat ulasan online. Periksa konfigurasi Realtime Database Anda.</div>`;
+                updateRingkasanRatingMenu([]);
+                container.innerHTML = '<div class="no-review">Gagal memuat ulasan online. Periksa konfigurasi Realtime Database Anda.</div>';
             });
+        }
+
+        function bukaFotoTabBaru(src) {
+            if (!src) return;
+            var w = window.open('');
+            if (w && w.document) {
+                w.document.write('<html><head><title>Foto Ulasan</title><style>body{margin:0;background:#0b132b;display:flex;justify-content:center;align-items:center;min-height:100vh;}img{max-width:100%;max-height:100vh;object-fit:contain;}</style></head><body><img src="' + src.replace(/"/g, '&quot;') + '"></body></html>');
+            }
         }
 
         function kirimUlasan(event) {
             event.preventDefault();
             
-            const namaInput = document.getElementById('inputNama');
-            const pesanInput = document.getElementById('inputPesan');
+            var namaInput = document.getElementById('inputNama');
+            var pesanInput = document.getElementById('inputPesan');
+            var btnSubmit = document.getElementById('btnSubmitUlasan');
             
-            const nama = namaInput.value.trim();
-            const pesan = pesanInput.value.trim();
+            var nama = namaInput.value.trim();
+            var pesan = pesanInput.value.trim();
             if (!nama || !pesan) return;
 
             if (!window.database) {
@@ -710,85 +1183,115 @@
                 return;
             }
 
-            const now = new Date();
-            const waktuStr = `${now.getDate()} ${namaBulanPanjang[now.getMonth()]} ${now.getFullYear()}, ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            if (btnSubmit) {
+                btnSubmit.disabled = true;
+                btnSubmit.textContent = 'Mengirim...';
+            }
 
-            const nodeNama = `reviews_${targetNamaFileAktif.replace(/[\.]/g, '_')}`;
-            const reviewsRef = window.dbRef(window.database, nodeNama);
-            const newReviewRef = window.dbPush(reviewsRef);
+            var now = new Date();
+            var waktuStr = now.getDate() + ' ' + namaBulanPanjang[now.getMonth()] + ' ' + now.getFullYear() + ', ' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
 
-            window.dbSet(newReviewRef, {
+            var nodeNama = 'reviews_' + targetNamaFileAktif.replace(/[\.]/g, '_');
+            var reviewsRef = window.dbRef(window.database, nodeNama);
+            var newReviewRef = window.dbPush(reviewsRef);
+
+            var payload = {
                 nama: nama,
                 pesan: pesan,
+                rating: ratingTerpilih,
+                fotoBase64: fotoUlasanBase64 || null,
                 waktu: waktuStr,
                 timestamp: Date.now()
-            })
-            .then(() => {
+            };
+
+            window.dbSet(newReviewRef, payload)
+            .then(function() {
                 pesanInput.value = '';
+                hapusFotoTerpilih();
+                pilihRatingBintang(5);
+                if (btnSubmit) {
+                    btnSubmit.disabled = false;
+                    btnSubmit.textContent = 'Kirim Ulasan';
+                }
             })
-            .catch((error) => {
+            .catch(function(error) {
                 console.error("Gagal mengirim ulasan: ", error);
                 alert("Gagal mengirim ulasan. Periksa koneksi atau rules database Anda.");
+                if (btnSubmit) {
+                    btnSubmit.disabled = false;
+                    btnSubmit.textContent = 'Kirim Ulasan';
+                }
             });
         }
 
         function escapeHtml(str) {
             if (!str) return '';
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
         muatDatabaseJson(); 
 
         function updateClock() {
-            const now = new Date();
-            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-            document.getElementById('liveClock').textContent = 
-                `${days[now.getDay()]}, ${now.getDate()} ${namaBulanPanjang[now.getMonth()]} ${now.getFullYear()} | ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')} WIB`;
+            var now = new Date();
+            var days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            var el = document.getElementById('liveClock');
+            if (el) {
+                el.textContent =
+                    days[now.getDay()] + ", " + now.getDate() + " " + namaBulanPanjang[now.getMonth()] + " " + now.getFullYear() +
+                    " | " + String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0') + ":" + String(now.getSeconds()).padStart(2, '0') + " WIB";
+            }
         }
-        setInterval(updateClock, 1000);
         updateClock();
+        setInterval(updateClock, 1000);
 
         function muatStatistikPengunjungPerTanggal(dateObj) {
-            const tglKey = `${dateObj.getDate()}_${listBulanSingkat[dateObj.getMonth()]}_${dateObj.getFullYear()}`;
-            const tanggalFormat = `${dateObj.getDate()} ${namaBulanPanjang[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+            var tglKey = dateObj.getDate() + "_" + listBulanSingkat[dateObj.getMonth()] + "_" + dateObj.getFullYear();
+            var tanggalFormat = dateObj.getDate() + " " + namaBulanPanjang[dateObj.getMonth()] + " " + dateObj.getFullYear();
             
             document.getElementById('statsDateLabel').textContent = tanggalFormat;
 
-            const checkDbReady = setInterval(() => {
-                if (window.database && window.dbRef && window.dbOnValue) {
-                    clearInterval(checkDbReady);
+            if (typeof unsubscribeVisitorFn === 'function') {
+                try { unsubscribeVisitorFn(); } catch (e) {}
+                unsubscribeVisitorFn = null;
+            }
 
-                    const counterRef = window.dbRef(window.database, `statistik_harian/${tglKey}/total_count`);
+            jalankanSaatFirebaseSiap(function() {
+                var counterRef = window.dbRef(window.database, 'statistik_harian/' + tglKey + '/total_count');
 
-                    window.dbOnValue(counterRef, (snapshot) => {
-                        if (snapshot.exists()) {
-                            document.getElementById('totalVisitorCount').textContent = snapshot.val() + " Orang";
-                        } else {
-                            document.getElementById('totalVisitorCount').textContent = "0 Orang";
-                        }
-                    });
-                }
-            }, 100);
+                unsubscribeVisitorFn = window.dbOnValue(counterRef, function(snapshot) {
+                    var countEl = document.getElementById('totalVisitorCount');
+                    if (!countEl) return;
+                    if (snapshot.exists()) {
+                        countEl.textContent = snapshot.val() + " Orang";
+                    } else {
+                        countEl.textContent = "0 Orang";
+                    }
+                });
+            });
         }
     </script>
 
     <!-- SKRIP UNTUK MENCEGAH LAYAR TIDUR / SLEEP (WAKE LOCK API) -->
     <script>
-        let wakeLock = null;
+        var wakeLock = null;
         async function requestWakeLock() {
-            if ('wakeLock' in navigator) {
+            if ('wakeLock' in navigator && typeof navigator.wakeLock.request === 'function') {
                 try {
                     wakeLock = await navigator.wakeLock.request('screen');
-                    console.log('Screen Wake Lock berhasil diaktifkan!');
                 } catch (err) {
-                    console.error(`Gagal mengaktifkan Wake Lock: ${err.name}, ${err.message}`);
+                    // Abaikan jika tidak diizinkan browser/device
                 }
             }
         }
 
         requestWakeLock();
 
-        document.addEventListener('visibilitychange', async () => {
+        document.addEventListener('visibilitychange', async function() {
             if (wakeLock !== null && document.visibilityState === 'visible') {
                 await requestWakeLock();
             }
@@ -798,41 +1301,54 @@
     <!-- SKRIP PENGHITUNG PENGUNJUNG HARIAN (REALTIME DATABASE) -->
     <script>
         (function() {
-            const checkAndLogVisitor = setInterval(() => {
-                if (window.database && window.dbRef && window.dbPush && window.dbSet && window.dbRunTransaction) {
-                    clearInterval(checkAndLogVisitor);
+            jalankanSaatFirebaseSiap(function() {
+                if (!window.dbPush || !window.dbSet || !window.dbRunTransaction) return;
 
-                    const now = new Date();
-                    const tglKey = `${now.getDate()}_${listBulanSingkat[now.getMonth()]}_${now.getFullYear()}`;
-                    const jamFormat = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')} WIB`;
+                var now = new Date();
+                var tglKey = now.getDate() + "_" + listBulanSingkat[now.getMonth()] + "_" + now.getFullYear();
+                var jamFormat = String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0') + ":" + String(now.getSeconds()).padStart(2, '0') + " WIB";
 
-                    const counterRef = window.dbRef(window.database, `statistik_harian/${tglKey}/total_count`);
-                    const logBaruRef = window.dbPush(window.dbRef(window.database, `statistik_harian/${tglKey}/riwayat_akses`));
-                    
-                    window.dbSet(logBaruRef, {
-                        jam: jamFormat,
-                        timestamp: Date.now()
-                    });
+                var counterRef = window.dbRef(window.database, 'statistik_harian/' + tglKey + '/total_count');
+                var logBaruRef = window.dbPush(window.dbRef(window.database, 'statistik_harian/' + tglKey + '/riwayat_akses'));
+                
+                window.dbSet(logBaruRef, {
+                    jam: jamFormat,
+                    timestamp: Date.now()
+                });
 
-                    window.dbRunTransaction(counterRef, (currentData) => {
-                        return (currentData || 0) + 1;
-                    }).catch(err => console.log("Gagal memperbarui total hit:", err));
-                }
-            }, 500);
+                window.dbRunTransaction(counterRef, function(currentData) {
+                    return (currentData || 0) + 1;
+                }).catch(function() {});
+            });
         })();
     </script>
 
-    <!-- SKRIP AUTO-SCROLL KHUSUS PADA KONTEN AREA -->
+    <!-- SKRIP AUTO-SCROLL KHUSUS PADA KONTEN AREA (DIADAPTASI PER DEVICE) -->
     <script>
-        let isAutoScrolling = true;
-        let scrollDirection = 1;
+        var isAutoScrolling = true;
+        var scrollDirection = 1;
+        var jedaInteraksiTimer = null;
+
+        function jedaAutoScrollSementara() {
+            isAutoScrolling = false;
+            if (jedaInteraksiTimer) {
+                clearTimeout(jedaInteraksiTimer);
+            }
+            jedaInteraksiTimer = setTimeout(function() {
+                isAutoScrolling = true;
+            }, 15000);
+        }
 
         function autoScrollPage() {
             if (!isAutoScrolling) return;
 
-            const scrollArea = document.getElementById('scrollArea');
-            const maxScrollHeight = scrollArea.scrollHeight - scrollArea.clientHeight;
-            const currentScrollPos = scrollArea.scrollTop;
+            var scrollArea = document.getElementById('scrollArea');
+            if (!scrollArea) return;
+
+            var maxScrollHeight = scrollArea.scrollHeight - scrollArea.clientHeight;
+            if (maxScrollHeight <= 0) return;
+
+            var currentScrollPos = scrollArea.scrollTop;
 
             if (currentScrollPos >= maxScrollHeight - 10) {
                 scrollDirection = -1;
@@ -840,23 +1356,31 @@
                 scrollDirection = 1;
             }
 
-            scrollArea.scrollBy({
-                top: scrollDirection * 1.5,
-                behavior: 'smooth'
-            });
+            var langkah = isLowSpec ? 3 : 1.5;
+            var nextPos = currentScrollPos + (scrollDirection * langkah);
+
+            if (isLowSpec) {
+                scrollArea.scrollTop = nextPos;
+            } else {
+                try {
+                    scrollArea.scrollBy({
+                        top: scrollDirection * langkah,
+                        behavior: 'smooth'
+                    });
+                } catch (e) {
+                    scrollArea.scrollTop = nextPos;
+                }
+            }
         }
 
-        let autoScrollInterval = setInterval(autoScrollPage, 30);
+        var intervalScrollMs = isLowSpec ? 60 : 30;
+        var autoScrollInterval = setInterval(autoScrollPage, intervalScrollMs);
 
-        const scrollAreaEl = document.getElementById('scrollArea');
-        scrollAreaEl.addEventListener('wheel', () => {
-            isAutoScrolling = false;
-            setTimeout(() => { isAutoScrolling = true; }, 15000);
-        });
-        scrollAreaEl.addEventListener('touchstart', () => {
-            isAutoScrolling = false;
-            setTimeout(() => { isAutoScrolling = true; }, 15000);
-        });
+        var scrollAreaEl = document.getElementById('scrollArea');
+        if (scrollAreaEl) {
+            scrollAreaEl.addEventListener('wheel', jedaAutoScrollSementara, { passive: true });
+            scrollAreaEl.addEventListener('touchstart', jedaAutoScrollSementara, { passive: true });
+        }
     </script>
 </body>
 </html>
