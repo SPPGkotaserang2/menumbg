@@ -51,7 +51,7 @@
     <script>
         (function detectDevicePerformance() {
             var ua = navigator.userAgent || '';
-            var mem = navigator.deviceMemory || 0; // dalam GB (sering undefined di browser lama)
+            var mem = navigator.deviceMemory || 0;
             var cores = navigator.hardwareConcurrency || 0;
             var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
             var slowNet = false;
@@ -62,7 +62,6 @@
                 }
             }
 
-            // Deteksi versi Android jika ada di User Agent
             var androidMatch = ua.match(/Android\s([0-9.]+)/i);
             var androidVer = androidMatch ? parseFloat(androidMatch[1]) : 99;
 
@@ -464,7 +463,7 @@
             margin-left: 6px;
         }
 
-        /* Input Upload Foto Ulasan */
+        /* Input Upload File & Voice Note */
         .photo-upload-box {
             border: 1px dashed #94a3b8;
             background: #f8fafc;
@@ -472,12 +471,46 @@
             padding: 10px 12px;
         }
 
+        .media-controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
         .photo-upload-box input[type="file"] {
-            width: 100%;
-            font-size: 0.85rem;
+            flex: 1;
+            min-width: 180px;
+            font-size: 0.84rem;
             padding: 4px 0;
             border: none;
             background: transparent;
+        }
+
+        .btn-voice-rec {
+            background: #eff6ff;
+            color: var(--bgn-dark);
+            border: 1px solid #93c5fd;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-voice-rec.recording {
+            background: #fee2e2;
+            color: #b91c1c;
+            border-color: #fca5a5;
+            animation: pulseRec 1.2s infinite;
+        }
+
+        @keyframes pulseRec {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.65; }
         }
 
         .photo-preview-wrap {
@@ -485,6 +518,7 @@
             display: none;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .photo-preview-img {
@@ -493,6 +527,18 @@
             object-fit: cover;
             border-radius: 8px;
             border: 1px solid #cbd5e1;
+        }
+
+        .file-badge-preview {
+            background: #e0f2fe;
+            color: var(--bgn-dark);
+            border: 1px solid #bae6fd;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            max-width: 100%;
+            word-break: break-all;
         }
 
         .btn-remove-photo {
@@ -527,8 +573,8 @@
             margin-top: 16px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            max-height: 440px;
+            gap: 12px;
+            max-height: 560px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
         }
@@ -546,8 +592,21 @@
             color: var(--bgn-dark);
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 4px;
             gap: 8px;
+        }
+
+        .admin-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0b3c7b, #0066c0);
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 6px;
+            vertical-align: middle;
         }
 
         .review-stars {
@@ -568,6 +627,8 @@
             font-size: 0.9rem;
             color: #334155;
             word-break: break-word;
+            white-space: pre-line;
+            line-height: 1.45;
         }
 
         .review-photo {
@@ -582,14 +643,48 @@
             cursor: pointer;
         }
 
-        /* Tombol Sukai & Balas pada Setiap Ulasan */
+        .review-video {
+            margin-top: 8px;
+            max-width: 100%;
+            max-height: 240px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            display: block;
+            background: #000;
+        }
+
+        .review-audio {
+            margin-top: 8px;
+            width: 100%;
+            max-width: 320px;
+            height: 36px;
+            display: block;
+        }
+
+        .review-doc-link {
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e0f2fe;
+            color: var(--bgn-dark);
+            border: 1px solid #bae6fd;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        /* Tombol Suka, Tidak Suka & Balas */
         .review-actions {
             margin-top: 10px;
             padding-top: 8px;
             border-top: 1px dashed #e2e8f0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
@@ -597,14 +692,14 @@
             background: #ffffff;
             border: 1px solid #cbd5e1;
             color: #475569;
-            padding: 5px 11px;
+            padding: 4px 10px;
             border-radius: 16px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
 
         .btn-review-action:active {
@@ -617,7 +712,13 @@
             color: var(--bgn-dark);
         }
 
-        /* Form Balas Ulasan */
+        .btn-review-action.disliked {
+            background: #fee2e2;
+            border-color: #f87171;
+            color: #b91c1c;
+        }
+
+        /* Form Balas Ulasan / Balasan */
         .reply-form-box {
             display: none;
             margin-top: 10px;
@@ -633,7 +734,7 @@
             display: flex;
         }
 
-        .reply-form-box input,
+        .reply-form-box input[type="text"],
         .reply-form-box textarea {
             padding: 8px 10px;
             border: 1px solid #cbd5e1;
@@ -641,6 +742,29 @@
             font-size: 0.85rem;
             outline: none;
             width: 100%;
+        }
+
+        .reply-media-box {
+            border: 1px dashed #cbd5e1;
+            background: #f8fafc;
+            border-radius: 6px;
+            padding: 7px 9px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .reply-media-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .reply-media-row input[type="file"] {
+            flex: 1;
+            min-width: 150px;
+            font-size: 0.78rem;
         }
 
         .reply-form-actions {
@@ -676,11 +800,11 @@
             cursor: not-allowed;
         }
 
-        /* Daftar Balasan Ulasan */
+        /* Daftar Balasan Bertingkat (Nested) */
         .replies-container {
             margin-top: 10px;
-            padding-left: 12px;
-            border-left: 3px solid #bfdbfe;
+            padding-left: 10px;
+            border-left: 2.5px solid #93c5fd;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -693,9 +817,15 @@
             padding: 8px 10px;
         }
 
+        .reply-item.admin-reply {
+            background: #f0f9ff;
+            border-color: #bae6fd;
+        }
+
         .reply-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             gap: 6px;
             font-size: 0.8rem;
             font-weight: 700;
@@ -714,6 +844,8 @@
             font-size: 0.85rem;
             color: #334155;
             word-break: break-word;
+            white-space: pre-line;
+            line-height: 1.4;
         }
 
         .no-review {
@@ -851,16 +983,20 @@
 
                     <div class="form-group">
                         <label for="inputPesan">Tulis Ulasan atau Saran Anda:</label>
-                        <textarea id="inputPesan" rows="3" placeholder="Bagikan tanggapan Anda mengenai menu hari ini..." required></textarea>
+                        <textarea id="inputPesan" rows="3" placeholder="Bagikan tanggapan atau pertanyaan Anda mengenai menu hari ini..." required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputFotoUlasan">Upload Foto Ulasan (Opsional)</label>
+                        <label for="inputFotoUlasan">Lampiran Foto, Video, Dokumen, atau Pesan Suara (Opsional)</label>
                         <div class="photo-upload-box">
-                            <input type="file" id="inputFotoUlasan" accept="image/*" onchange="prosesPilihFotoUlasan(event)">
+                            <div class="media-controls-row">
+                                <input type="file" id="inputFotoUlasan" accept="*/*" onchange="prosesPilihMediaUtama(event)">
+                                <button type="button" class="btn-voice-rec" id="btnVoiceUtama" onclick="toggleRekamVoice('utama')">🎤 Pesan Suara</button>
+                            </div>
                             <div class="photo-preview-wrap" id="photoPreviewWrap">
-                                <img id="photoPreviewImg" class="photo-preview-img" src="" alt="Pratinjau Foto Ulasan">
-                                <button type="button" class="btn-remove-photo" onclick="hapusFotoTerpilih()">Hapus Foto</button>
+                                <img id="photoPreviewImg" class="photo-preview-img" src="" alt="Pratinjau Foto Ulasan" style="display:none;">
+                                <div id="filePreviewBadge" class="file-badge-preview" style="display:none;"></div>
+                                <button type="button" class="btn-remove-photo" onclick="hapusMediaUtama()">Hapus Lampiran</button>
                             </div>
                         </div>
                     </div>
@@ -875,6 +1011,10 @@
     </div>
 
     <script>
+        // KONFIGURASI TELEGRAM BOT API
+        var TELEGRAM_BOT_TOKEN = "9275207963:AAEAhUM1LoyVmhcCh3aUf2hhZUmqXICq2xg";
+        var TELEGRAM_CHAT_ID = "9212263609";
+
         var isLowSpec = Boolean(window.__LOW_SPEC_DEVICE__);
 
         function generateMagicElements() {
@@ -903,8 +1043,28 @@
         var pathFileLengkap = ""; 
         var mencobaPng = false;
         var databaseMenu = {};
+        var menuAktifSekarang = null;
+        var tanggalTeksAktif = "";
         var ratingTerpilih = 5;
-        var fotoUlasanBase64 = "";
+
+        // State lampiran utama (foto / video / dokumen / voice note)
+        var mediaUtamaState = {
+            file: null,
+            dataUrl: "",
+            name: "",
+            mime: "",
+            kind: "" // 'image' | 'video' | 'audio' | 'document'
+        };
+
+        // State lampiran per form balasan (key = path node balasan)
+        var mediaBalasanMap = {};
+
+        // State perekam suara (MediaRecorder)
+        var activeRecorder = null;
+        var activeRecordTarget = null;
+        var activeRecordChunks = [];
+        var activeRecordStream = null;
+
         var unsubscribeReviewsFn = null;
         var unsubscribeVisitorFn = null;
         var openReplyFormIds = {};
@@ -933,96 +1093,544 @@
             return 'reviews_' + targetNamaFileAktif.replace(/[\.]/g, '_');
         }
 
-        function getLikedStorageKey(nodeNama, reviewId) {
-            return 'sppg_liked_' + nodeNama + '_' + reviewId;
-        }
+        // =====================================================================
+        // INTEGRASI PENGIRIMAN KE TELEGRAM (TEKS, FOTO, VIDEO, VOICE NOTE, DOKUMEN)
+        // =====================================================================
+        function kirimDataKeTelegram(opsi) {
+            if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return Promise.resolve();
 
-        function isReviewSudahDisukai(nodeNama, reviewId) {
-            try {
-                return localStorage.getItem(getLikedStorageKey(nodeNama, reviewId)) === '1';
-            } catch (e) {
-                return false;
-            }
-        }
+            var jenis = opsi.jenis || 'Ulasan Baru';
+            var nama = opsi.nama || 'Pengguna';
+            var pesan = opsi.pesan || '';
+            var rating = opsi.rating ? ('⭐ Rating: ' + opsi.rating + '/5\n') : '';
+            var waktu = opsi.waktu || '';
+            var tanggalMenu = tanggalTeksAktif || targetNamaFileAktif || '-';
+            var membalasKe = opsi.membalasKe ? ('↩️ Membalas: ' + opsi.membalasKe + '\n') : '';
 
-        function setReviewSudahDisukai(nodeNama, reviewId, status) {
-            try {
-                if (status) {
-                    localStorage.setItem(getLikedStorageKey(nodeNama, reviewId), '1');
+            var captionText =
+                '📌 ' + jenis + ' - SPPG KOTA SERANG 2\n' +
+                '📅 Menu Tanggal: ' + tanggalMenu + '\n' +
+                '👤 Nama: ' + nama + '\n' +
+                membalasKe +
+                rating +
+                '🕒 Waktu: ' + waktu + '\n' +
+                '💬 Pesan:\n' + pesan;
+
+            var baseUrl = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN;
+            var mediaObj = opsi.media || null;
+
+            if (mediaObj && mediaObj.file) {
+                var formData = new FormData();
+                formData.append('chat_id', TELEGRAM_CHAT_ID);
+                if (captionText.length <= 1000) {
+                    formData.append('caption', captionText);
                 } else {
-                    localStorage.removeItem(getLikedStorageKey(nodeNama, reviewId));
+                    formData.append('caption', captionText.substring(0, 997) + '...');
                 }
-            } catch (e) {
-                // Abaikan jika penyimpanan lokal dibatasi browser lama
+
+                var endpoint = '/sendDocument';
+                var fieldName = 'document';
+
+                if (mediaObj.kind === 'image') {
+                    endpoint = '/sendPhoto';
+                    fieldName = 'photo';
+                } else if (mediaObj.kind === 'video') {
+                    endpoint = '/sendVideo';
+                    fieldName = 'video';
+                } else if (mediaObj.kind === 'audio') {
+                    endpoint = '/sendVoice';
+                    fieldName = 'voice';
+                }
+
+                formData.append(fieldName, mediaObj.file, mediaObj.name || 'lampiran_sppg');
+
+                return fetch(baseUrl + endpoint, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(function(res) { return res.json(); })
+                .then(function(data) {
+                    // Fallback ke sendDocument jika format audio/video tertentu ditolak endpoint khusus
+                    if (!data || !data.ok) {
+                        var fallbackForm = new FormData();
+                        fallbackForm.append('chat_id', TELEGRAM_CHAT_ID);
+                        fallbackForm.append('caption', captionText.substring(0, 1000));
+                        fallbackForm.append('document', mediaObj.file, mediaObj.name || 'lampiran_sppg');
+                        return fetch(baseUrl + '/sendDocument', {
+                            method: 'POST',
+                            body: fallbackForm
+                        }).catch(function() {});
+                    }
+                })
+                .catch(function(err) {
+                    console.warn('Gagal mengirim media ke Telegram:', err);
+                });
+            } else {
+                return fetch(baseUrl + '/sendMessage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: captionText
+                    })
+                }).catch(function(err) {
+                    console.warn('Gagal mengirim teks ke Telegram:', err);
+                });
             }
         }
 
-        function toggleSukaiUlasan(reviewId) {
-            if (!reviewId || !targetNamaFileAktif) return;
-            if (!window.database || !window.dbRef || !window.dbRunTransaction) {
-                alert("Koneksi database belum siap. Mohon tunggu sebentar.");
+        // =====================================================================
+        // FITUR AUTO-REPLY AI RAMAH & SOPAN (@admin)
+        // =====================================================================
+        function buatBalasanAIOtomatis(namaPengirim, teksPesan) {
+            var namaAman = (namaPengirim || 'Sahabat Gizi').trim();
+            var pesanLower = (teksPesan || '').toLowerCase();
+            var infoMenuSingkat = '';
+
+            if (menuAktifSekarang && Array.isArray(menuAktifSekarang.items) && menuAktifSekarang.items.length > 0) {
+                infoMenuSingkat = menuAktifSekarang.items.join(', ');
+            }
+
+            var isiJawaban = '';
+
+            if (/(halo|hai|assalamualaikum|selamat pagi|selamat siang|selamat sore|selamat malam|permisi)/i.test(pesanLower) && pesanLower.length < 45) {
+                isiJawaban = 'Halo Kak ' + namaAman + ', selamat datang di layanan informasi menu SPPG Kota Serang 2. Terima kasih sudah menyapa! Ada yang bisa kami bantu terkait menu makanan bergizi hari ini?';
+            } else if (/(apa menu|menunya apa|menu hari ini|lauk|sayur|buah|makanan apa|isinya apa)/i.test(pesanLower)) {
+                if (infoMenuSingkat) {
+                    isiJawaban = 'Terima kasih atas pertanyaannya, Kak ' + namaAman + '. Untuk menu pada tanggal ' + tanggalTeksAktif + ' terdiri dari: ' + infoMenuSingkat + '. Semoga berkenan dan bermanfaat ya Kak.';
+                } else {
+                    isiJawaban = 'Terima kasih atas pertanyaannya, Kak ' + namaAman + '. Detail komponen menu untuk tanggal ' + tanggalTeksAktif + ' sedang kami perbarui pada halaman ini. Silakan cek secara berkala ya Kak.';
+                }
+            } else if (/(gizi|kalori|energi|protein|lemak|karbo|serat|nutrisi|manfaat|sehat)/i.test(pesanLower)) {
+                if (menuAktifSekarang && menuAktifSekarang.nutrition && menuAktifSekarang.nutrition.besar) {
+                    var b = menuAktifSekarang.nutrition.besar;
+                    isiJawaban = 'Terima kasih sudah bertanya, Kak ' + namaAman + '. Kandungan gizi porsi besar pada menu ' + tanggalTeksAktif + ' mencakup Energi ' + (b.energi || '-') + ', Protein ' + (b.protein || '-') + ', Lemak ' + (b.lemak || '-') + ', Karbohidrat ' + (b.karbo || '-') + ', dan Serat ' + (b.serat || '-') + '. Rincian lengkap porsi besar & kecil juga tersedia di bagian Analisis Kandungan Gizi di atas.';
+                } else {
+                    isiJawaban = 'Terima kasih atas perhatiannya terhadap kandungan gizi, Kak ' + namaAman + '. Setiap menu SPPG Kota Serang 2 disusun mengikuti standar kebutuhan gizi seimbang Badan Gizi Nasional.';
+                }
+            } else if (/(jam|pukul|kapan|antar|distribusi|jadwal|pengiriman|datang|sampai)/i.test(pesanLower)) {
+                isiJawaban = 'Terima kasih atas pertanyaannya, Kak ' + namaAman + '. Distribusi makanan bergizi dilaksanakan sesuai jadwal operasional harian SPPG Kota Serang 2 ke masing-masing satuan pendidikan/penerima manfaat. Jika ada kendala ketepatan waktu di lokasi, silakan sampaikan detail sekolah/wilayahnya agar segera kami tindak lanjuti.';
+            } else if (/(alergi|pedas|pantang|tidak makan|khusus)/i.test(pesanLower)) {
+                isiJawaban = 'Terima kasih informasinya, Kak ' + namaAman + '. Catatan mengenai kondisi alergi atau kebutuhan khusus penerima manfaat sangat kami perhatikan. Mohon koordinasikan juga dengan pihak sekolah/pendamping setempat agar penyesuaian porsi dapat tercatat dengan baik.';
+            } else if (/(kurang|asin|tawar|dingin|basi|keras|saran|kritik|keluhan|masukan|perbaiki|kecewa)/i.test(pesanLower)) {
+                isiJawaban = 'Mohon maaf atas ketidaknyamanannya dan terima kasih banyak atas masukan yang membangun dari Kak ' + namaAman + '. Evaluasi ini langsung kami catat dan teruskan ke tim dapur serta ahli gizi SPPG Kota Serang 2 untuk peningkatan kualitas layanan ke depannya.';
+            } else if (/(enak|mantap|lezat|bagus|suka|terima kasih|makasih|keren|puas|segar)/i.test(pesanLower)) {
+                isiJawaban = 'Terima kasih banyak atas apresiasi dan dukungan hangatnya, Kak ' + namaAman + '! Senang sekali menu hari ini disukai. Kami akan terus menjaga kualitas rasa, kebersihan, dan nilai gizi di setiap sajian.';
+            } else if (teksPesan.indexOf('?') !== -1 || /(bagaimana|gimana|kenapa|mengapa|berapa|dimana|di mana|apakah|bolehkah|bisa)/i.test(pesanLower)) {
+                isiJawaban = 'Terima kasih atas pertanyaannya, Kak ' + namaAman + '. Pesan Anda sudah kami terima dengan baik dan akan segera ditindaklanjuti oleh tim pengelola SPPG Kota Serang 2. Apabila ada informasi tambahan yang ingin disampaikan, silakan balas komentar ini ya Kak.';
+            } else {
+                isiJawaban = 'Terima kasih banyak atas ulasan dan partisipasi Kak ' + namaAman + ' untuk menu SPPG Kota Serang 2. Masukan Anda sangat berarti bagi peningkatan kualitas pelayanan gizi kami.';
+            }
+
+            return isiJawaban + '\n\n#admin @admin';
+        }
+
+        function kirimBalasanOtomatisAI(dbPathReplies, namaPengirim, pesanPengirim) {
+            if (!window.database || !window.dbRef || !window.dbPush || !window.dbSet) return;
+            if (!namaPengirim || namaPengirim.toLowerCase().indexOf('@admin') !== -1) return;
+
+            var teksBalasanAI = buatBalasanAIOtomatis(namaPengirim, pesanPengirim);
+            var now = new Date();
+            var waktuStr = now.getDate() + ' ' + namaBulanPanjang[now.getMonth()] + ' ' + now.getFullYear() + ', ' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+
+            setTimeout(function() {
+                var targetRepliesRef = window.dbRef(window.database, dbPathReplies);
+                var autoReplyRef = window.dbPush(targetRepliesRef);
+
+                window.dbSet(autoReplyRef, {
+                    nama: '@admin',
+                    isAdmin: true,
+                    pesan: teksBalasanAI,
+                    likes: 0,
+                    dislikes: 0,
+                    waktu: waktuStr,
+                    timestamp: Date.now()
+                }).then(function() {
+                    kirimDataKeTelegram({
+                        jenis: 'Balasan Otomatis AI (@admin)',
+                        nama: '@admin',
+                        membalasKe: namaPengirim,
+                        pesan: teksBalasanAI,
+                        waktu: waktuStr
+                    });
+                }).catch(function(err) {
+                    console.warn('Gagal menyimpan balasan AI:', err);
+                });
+            }, 600);
+        }
+
+        // =====================================================================
+        // FITUR SUKA & TIDAK SUKA (UNTUK ULASAN UTAMA MAUPUN BALASAN)
+        // =====================================================================
+        function getReactionStorageKey(dbItemPath) {
+            return 'sppg_react_' + dbItemPath.replace(/[^a-zA-Z0-9_-]/g, '_');
+        }
+
+        function getUserReaction(dbItemPath) {
+            try {
+                return localStorage.getItem(getReactionStorageKey(dbItemPath)) || '';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function setUserReaction(dbItemPath, val) {
+            try {
+                if (val) {
+                    localStorage.setItem(getReactionStorageKey(dbItemPath), val);
+                } else {
+                    localStorage.removeItem(getReactionStorageKey(dbItemPath));
+                }
+            } catch (e) {}
+        }
+
+        function toggleReaksiItem(dbItemPath, tipe) {
+            if (!dbItemPath || !window.database || !window.dbRef || !window.dbRunTransaction) return;
+
+            var reaksiSebelumnya = getUserReaction(dbItemPath);
+            var reaksiBaru = (reaksiSebelumnya === tipe) ? '' : tipe;
+
+            var deltaLike = 0;
+            var deltaDislike = 0;
+
+            if (reaksiSebelumnya === 'like') deltaLike -= 1;
+            if (reaksiSebelumnya === 'dislike') deltaDislike -= 1;
+            if (reaksiBaru === 'like') deltaLike += 1;
+            if (reaksiBaru === 'dislike') deltaDislike += 1;
+
+            setUserReaction(dbItemPath, reaksiBaru);
+
+            if (deltaLike !== 0) {
+                var likesRef = window.dbRef(window.database, dbItemPath + '/likes');
+                window.dbRunTransaction(likesRef, function(curr) {
+                    var next = (Number(curr) || 0) + deltaLike;
+                    return next < 0 ? 0 : next;
+                }).catch(function() {});
+            }
+
+            if (deltaDislike !== 0) {
+                var dislikesRef = window.dbRef(window.database, dbItemPath + '/dislikes');
+                window.dbRunTransaction(dislikesRef, function(curr) {
+                    var next = (Number(curr) || 0) + deltaDislike;
+                    return next < 0 ? 0 : next;
+                }).catch(function() {});
+            }
+        }
+
+        // =====================================================================
+        // PENGELOLAAN FILE (FOTO, VIDEO, DOKUMEN) & VOICE NOTE
+        // =====================================================================
+        function deteksiJenisFile(file) {
+            var mime = (file && file.type) ? file.type.toLowerCase() : '';
+            var name = (file && file.name) ? file.name.toLowerCase() : '';
+            if (mime.indexOf('image/') === 0 || /\.(jpg|jpeg|png|gif|webp|bmp)$/.test(name)) return 'image';
+            if (mime.indexOf('video/') === 0 || /\.(mp4|webm|mov|avi|mkv|3gp)$/.test(name)) return 'video';
+            if (mime.indexOf('audio/') === 0 || /\.(mp3|wav|ogg|m4a|aac|opus)$/.test(name)) return 'audio';
+            return 'document';
+        }
+
+        function siapkanObjekMediaDariFile(file, callback) {
+            var kind = deteksiJenisFile(file);
+            var maxUploadBytes = isLowSpec ? 12 * 1024 * 1024 : 25 * 1024 * 1024;
+            if (file.size > maxUploadBytes) {
+                alert('Ukuran file maksimal ' + (isLowSpec ? '12MB' : '25MB') + ' agar tetap lancar dikirim.');
+                callback(null);
                 return;
             }
 
-            var nodeNama = getNodeUlasanAktif();
-            var sudahSuka = isReviewSudahDisukai(nodeNama, reviewId);
-            var delta = sudahSuka ? -1 : 1;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var rawResult = e.target.result || '';
 
-            // Simpan status suka secara optimis agar respons instan di semua device
-            setReviewSudahDisukai(nodeNama, reviewId, !sudahSuka);
+                if (kind === 'image') {
+                    var img = new Image();
+                    img.onload = function() {
+                        try {
+                            var maxDim = isLowSpec ? 560 : 800;
+                            var w = img.width;
+                            var h = img.height;
+                            if (w > h && w > maxDim) {
+                                h = Math.round((h * maxDim) / w);
+                                w = maxDim;
+                            } else if (h > maxDim) {
+                                w = Math.round((w * maxDim) / h);
+                                h = maxDim;
+                            }
+                            var canvas = document.createElement('canvas');
+                            canvas.width = w;
+                            canvas.height = h;
+                            var ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, w, h);
+                            var compressedUrl = canvas.toDataURL('image/jpeg', isLowSpec ? 0.55 : 0.68);
+                            canvas.width = 1;
+                            canvas.height = 1;
 
-            var likesRef = window.dbRef(window.database, nodeNama + '/' + reviewId + '/likes');
-            window.dbRunTransaction(likesRef, function(currentLikes) {
-                var val = Number(currentLikes) || 0;
-                var next = val + delta;
-                return next < 0 ? 0 : next;
-            }).catch(function(error) {
-                // Kembalikan status jika transaksi gagal
-                setReviewSudahDisukai(nodeNama, reviewId, sudahSuka);
-                console.error("Gagal memperbarui suka ulasan:", error);
+                            callback({
+                                file: file,
+                                dataUrl: compressedUrl.length <= 1400000 ? compressedUrl : '',
+                                name: file.name,
+                                mime: file.type || 'image/jpeg',
+                                kind: 'image'
+                            });
+                        } catch (err) {
+                            callback({
+                                file: file,
+                                dataUrl: rawResult.length <= 1400000 ? rawResult : '',
+                                name: file.name,
+                                mime: file.type || 'image/jpeg',
+                                kind: 'image'
+                            });
+                        }
+                    };
+                    img.onerror = function() {
+                        callback({
+                            file: file,
+                            dataUrl: '',
+                            name: file.name,
+                            mime: file.type || 'application/octet-stream',
+                            kind: 'document'
+                        });
+                    };
+                    img.src = rawResult;
+                } else {
+                    // Simpan dataUrl ke Firebase jika ukuran <= 1.2MB agar langsung dapat diputar/diunduh di web,
+                    // dan tetap kirim file ukuran penuh ke Telegram!
+                    var safeDbUrl = (rawResult && rawResult.length <= 1250000) ? rawResult : '';
+                    callback({
+                        file: file,
+                        dataUrl: safeDbUrl,
+                        name: file.name,
+                        mime: file.type || 'application/octet-stream',
+                        kind: kind
+                    });
+                }
+            };
+            reader.onerror = function() {
+                alert('Gagal membaca file yang dipilih.');
+                callback(null);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function prosesPilihMediaUtama(event) {
+            var file = event.target && event.target.files && event.target.files[0];
+            if (!file) {
+                hapusMediaUtama();
+                return;
+            }
+            siapkanObjekMediaDariFile(file, function(hasil) {
+                if (!hasil) {
+                    hapusMediaUtama();
+                    return;
+                }
+                mediaUtamaState = hasil;
+                tampilkanPreviewMediaUtama();
             });
         }
 
-        function toggleFormBalas(reviewId) {
-            if (!reviewId) return;
-            var box = document.getElementById('replyFormBox_' + reviewId);
+        function tampilkanPreviewMediaUtama() {
+            var wrap = document.getElementById('photoPreviewWrap');
+            var img = document.getElementById('photoPreviewImg');
+            var badge = document.getElementById('filePreviewBadge');
+            if (!wrap) return;
+
+            if (!mediaUtamaState.file) {
+                wrap.style.display = 'none';
+                return;
+            }
+
+            wrap.style.display = 'flex';
+            if (mediaUtamaState.kind === 'image' && mediaUtamaState.dataUrl) {
+                img.src = mediaUtamaState.dataUrl;
+                img.style.display = 'block';
+                badge.style.display = 'none';
+            } else {
+                img.style.display = 'none';
+                var ikon = mediaUtamaState.kind === 'video' ? '🎬' : (mediaUtamaState.kind === 'audio' ? '🎤' : '📎');
+                badge.textContent = ikon + ' ' + mediaUtamaState.name;
+                badge.style.display = 'inline-block';
+            }
+        }
+
+        function hapusMediaUtama() {
+            mediaUtamaState = { file: null, dataUrl: "", name: "", mime: "", kind: "" };
+            var input = document.getElementById('inputFotoUlasan');
+            var wrap = document.getElementById('photoPreviewWrap');
+            var img = document.getElementById('photoPreviewImg');
+            var badge = document.getElementById('filePreviewBadge');
+            if (input) input.value = '';
+            if (img) { img.src = ''; img.style.display = 'none'; }
+            if (badge) { badge.textContent = ''; badge.style.display = 'none'; }
+            if (wrap) wrap.style.display = 'none';
+        }
+
+        function prosesPilihMediaBalasan(event, safeKey) {
+            var file = event.target && event.target.files && event.target.files[0];
+            if (!file) {
+                hapusMediaBalasan(safeKey);
+                return;
+            }
+            siapkanObjekMediaDariFile(file, function(hasil) {
+                if (!hasil) {
+                    hapusMediaBalasan(safeKey);
+                    return;
+                }
+                mediaBalasanMap[safeKey] = hasil;
+                var infoEl = document.getElementById('replyFileInfo_' + safeKey);
+                if (infoEl) {
+                    var ikon = hasil.kind === 'image' ? '🖼️' : (hasil.kind === 'video' ? '🎬' : (hasil.kind === 'audio' ? '🎤' : '📎'));
+                    infoEl.innerHTML = '<span>' + ikon + ' ' + escapeHtml(hasil.name) + '</span> <button type="button" class="btn-remove-photo" onclick="hapusMediaBalasan(\'' + safeKey + '\')">Hapus</button>';
+                    infoEl.style.display = 'flex';
+                }
+            });
+        }
+
+        function hapusMediaBalasan(safeKey) {
+            delete mediaBalasanMap[safeKey];
+            var fileInput = document.getElementById('replyFile_' + safeKey);
+            var infoEl = document.getElementById('replyFileInfo_' + safeKey);
+            if (fileInput) fileInput.value = '';
+            if (infoEl) {
+                infoEl.innerHTML = '';
+                infoEl.style.display = 'none';
+            }
+        }
+
+        function toggleRekamVoice(targetKey) {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === 'undefined') {
+                alert('Perangkat atau browser Anda belum mendukung perekaman suara langsung. Anda tetap dapat melampirkan file rekaman suara melalui tombol pilih file.');
+                return;
+            }
+
+            // Jika sedang merekam untuk target ini, hentikan dan simpan
+            if (activeRecorder && activeRecorder.state === 'recording') {
+                var targetLama = activeRecordTarget;
+                activeRecorder.stop();
+                if (targetLama === targetKey) {
+                    return;
+                }
+            }
+
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function(stream) {
+                    activeRecordStream = stream;
+                    activeRecordTarget = targetKey;
+                    activeRecordChunks = [];
+
+                    var mimeType = '';
+                    if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) {
+                        mimeType = 'audio/ogg;codecs=opus';
+                    } else if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+                        mimeType = 'audio/webm;codecs=opus';
+                    } else if (MediaRecorder.isTypeSupported('audio/webm')) {
+                        mimeType = 'audio/webm';
+                    }
+
+                    var recorder = mimeType ? new MediaRecorder(stream, { mimeType: mimeType }) : new MediaRecorder(stream);
+                    activeRecorder = recorder;
+
+                    var btnEl = (targetKey === 'utama')
+                        ? document.getElementById('btnVoiceUtama')
+                        : document.getElementById('btnVoiceReply_' + targetKey);
+
+                    if (btnEl) {
+                        btnEl.classList.add('recording');
+                        btnEl.textContent = '⏹️ Stop Rekam';
+                    }
+
+                    recorder.ondataavailable = function(e) {
+                        if (e.data && e.data.size > 0) {
+                            activeRecordChunks.push(e.data);
+                        }
+                    };
+
+                    recorder.onstop = function() {
+                        if (btnEl) {
+                            btnEl.classList.remove('recording');
+                            btnEl.textContent = (targetKey === 'utama') ? '🎤 Pesan Suara' : '🎤 Pesan Suara';
+                        }
+
+                        if (activeRecordStream) {
+                            activeRecordStream.getTracks().forEach(function(t) { t.stop(); });
+                            activeRecordStream = null;
+                        }
+
+                        var finalMime = recorder.mimeType || 'audio/ogg';
+                        var ext = finalMime.indexOf('ogg') !== -1 ? 'ogg' : 'webm';
+                        var blob = new Blob(activeRecordChunks, { type: finalMime });
+                        var fileName = 'voice_note_' + Date.now() + '.' + ext;
+                        var audioFile = new File([blob], fileName, { type: finalMime });
+
+                        siapkanObjekMediaDariFile(audioFile, function(hasil) {
+                            if (!hasil) return;
+                            hasil.kind = 'audio';
+                            if (targetKey === 'utama') {
+                                mediaUtamaState = hasil;
+                                tampilkanPreviewMediaUtama();
+                            } else {
+                                mediaBalasanMap[targetKey] = hasil;
+                                var infoEl = document.getElementById('replyFileInfo_' + targetKey);
+                                if (infoEl) {
+                                    infoEl.innerHTML = '<span>🎤 Pesan Suara Siap (' + escapeHtml(fileName) + ')</span> <button type="button" class="btn-remove-photo" onclick="hapusMediaBalasan(\'' + targetKey + '\')">Hapus</button>';
+                                    infoEl.style.display = 'flex';
+                                }
+                            }
+                        });
+
+                        activeRecorder = null;
+                        activeRecordTarget = null;
+                    };
+
+                    recorder.start();
+                })
+                .catch(function() {
+                    alert('Izin mikrofon ditolak atau tidak tersedia pada perangkat ini.');
+                });
+        }
+
+        // =====================================================================
+        // FORM BALAS BERTINGKAT (BISA SALING MEMBALAS PADA SEMUA LEVEL)
+        // =====================================================================
+        function toggleFormBalas(safeKey) {
+            if (!safeKey) return;
+            var box = document.getElementById('replyFormBox_' + safeKey);
             if (!box) return;
 
             var isOpen = box.classList.contains('open');
             if (isOpen) {
                 box.classList.remove('open');
-                delete openReplyFormIds[reviewId];
+                delete openReplyFormIds[safeKey];
             } else {
                 box.classList.add('open');
-                openReplyFormIds[reviewId] = true;
+                openReplyFormIds[safeKey] = true;
 
-                // Otomatis isi nama jika sudah pernah diisi pada form utama
                 var namaUtama = document.getElementById('inputNama');
-                var namaBalas = document.getElementById('replyNama_' + reviewId);
+                var namaBalas = document.getElementById('replyNama_' + safeKey);
                 if (namaUtama && namaBalas && !namaBalas.value && namaUtama.value.trim()) {
                     namaBalas.value = namaUtama.value.trim();
                 }
 
-                // Jeda auto-scroll saat pengguna mengetik balasan
                 if (typeof jedaAutoScrollSementara === 'function') {
                     jedaAutoScrollSementara();
                 }
             }
         }
 
-        function kirimBalasanUlasan(event, reviewId) {
+        function kirimBalasanBertingkat(event, dbRepliesPath, safeKey, namaTujuanBalas) {
             event.preventDefault();
-            if (!reviewId || !targetNamaFileAktif) return;
+            if (!dbRepliesPath || !targetNamaFileAktif) return;
 
-            var namaInput = document.getElementById('replyNama_' + reviewId);
-            var pesanInput = document.getElementById('replyPesan_' + reviewId);
-            var btnKirim = document.getElementById('btnReplySend_' + reviewId);
+            var namaInput = document.getElementById('replyNama_' + safeKey);
+            var pesanInput = document.getElementById('replyPesan_' + safeKey);
+            var btnKirim = document.getElementById('btnReplySend_' + safeKey);
 
             if (!namaInput || !pesanInput) return;
 
             var nama = namaInput.value.trim();
             var pesan = pesanInput.value.trim();
-            if (!nama || !pesan) return;
+            var mediaTerpilih = mediaBalasanMap[safeKey] || null;
+
+            if (!nama || (!pesan && !mediaTerpilih)) return;
 
             if (!window.database || !window.dbRef || !window.dbPush || !window.dbSet) {
                 alert("Koneksi database belum siap. Mohon tunggu sebentar.");
@@ -1037,20 +1645,44 @@
             var now = new Date();
             var waktuStr = now.getDate() + ' ' + namaBulanPanjang[now.getMonth()] + ' ' + now.getFullYear() + ', ' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
 
-            var nodeNama = getNodeUlasanAktif();
-            var repliesRef = window.dbRef(window.database, nodeNama + '/' + reviewId + '/replies');
+            var repliesRef = window.dbRef(window.database, dbRepliesPath);
             var newReplyRef = window.dbPush(repliesRef);
+            var newReplyKey = newReplyRef.key;
 
-            window.dbSet(newReplyRef, {
+            var payloadBalasan = {
                 nama: nama,
-                pesan: pesan,
+                replyTo: namaTujuanBalas || '',
+                pesan: pesan || (mediaTerpilih ? '[Mengirim lampiran: ' + mediaTerpilih.name + ']' : ''),
+                mediaDataUrl: (mediaTerpilih && mediaTerpilih.dataUrl) ? mediaTerpilih.dataUrl : null,
+                mediaKind: (mediaTerpilih && mediaTerpilih.kind) ? mediaTerpilih.kind : null,
+                mediaName: (mediaTerpilih && mediaTerpilih.name) ? mediaTerpilih.name : null,
+                likes: 0,
+                dislikes: 0,
                 waktu: waktuStr,
                 timestamp: Date.now()
-            })
+            };
+
+            window.dbSet(newReplyRef, payloadBalasan)
             .then(function() {
+                // Kirim ke Telegram (teks + foto/video/voice note/dokumen)
+                kirimDataKeTelegram({
+                    jenis: 'Balasan Komentar',
+                    nama: nama,
+                    membalasKe: namaTujuanBalas || '-',
+                    pesan: payloadBalasan.pesan,
+                    waktu: waktuStr,
+                    media: mediaTerpilih
+                });
+
+                // AI otomatis membalas tepat di bawah balasan ini agar bisa saling membalas
+                if (newReplyKey) {
+                    kirimBalasanOtomatisAI(dbRepliesPath + '/' + newReplyKey + '/replies', nama, payloadBalasan.pesan);
+                }
+
                 pesanInput.value = '';
-                delete openReplyFormIds[reviewId];
-                var box = document.getElementById('replyFormBox_' + reviewId);
+                hapusMediaBalasan(safeKey);
+                delete openReplyFormIds[safeKey];
+                var box = document.getElementById('replyFormBox_' + safeKey);
                 if (box) box.classList.remove('open');
                 if (btnKirim) {
                     btnKirim.disabled = false;
@@ -1122,97 +1754,6 @@
             avgTextEl.textContent = rata.toFixed(1) + ' (' + jumlahRating + ' rating)';
         }
 
-        function hapusFotoTerpilih() {
-            fotoUlasanBase64 = "";
-            var inputFoto = document.getElementById('inputFotoUlasan');
-            var wrap = document.getElementById('photoPreviewWrap');
-            var img = document.getElementById('photoPreviewImg');
-            if (inputFoto) inputFoto.value = '';
-            if (img) img.src = '';
-            if (wrap) wrap.style.display = 'none';
-        }
-
-        function prosesPilihFotoUlasan(event) {
-            var file = event.target && event.target.files && event.target.files[0];
-            if (!file) {
-                hapusFotoTerpilih();
-                return;
-            }
-
-            if (!file.type || file.type.indexOf('image/') !== 0) {
-                alert('Silakan pilih file gambar (JPG, PNG, WEBP, dll).');
-                hapusFotoTerpilih();
-                return;
-            }
-
-            // Batasi ukuran file mentah awal agar HP RAM 1GB tidak kehabisan memori saat membaca
-            var maxMentahBytes = isLowSpec ? 8 * 1024 * 1024 : 15 * 1024 * 1024;
-            if (file.size > maxMentahBytes) {
-                alert('Ukuran foto terlalu besar. Silakan pilih foto yang lebih kecil.');
-                hapusFotoTerpilih();
-                return;
-            }
-
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var img = new Image();
-                img.onload = function() {
-                    try {
-                        // Kompresi ukuran gambar agar ringan di Firebase Realtime Database & semua HP
-                        var maxDim = isLowSpec ? 560 : 800;
-                        var width = img.width;
-                        var height = img.height;
-
-                        if (width > height && width > maxDim) {
-                            height = Math.round((height * maxDim) / width);
-                            width = maxDim;
-                        } else if (height > maxDim) {
-                            width = Math.round((width * maxDim) / height);
-                            height = maxDim;
-                        }
-
-                        var canvas = document.createElement('canvas');
-                        canvas.width = width;
-                        canvas.height = height;
-                        var ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-
-                        var kualitas = isLowSpec ? 0.55 : 0.68;
-                        var dataUrl = canvas.toDataURL('image/jpeg', kualitas);
-
-                        // Bersihkan referensi canvas/img untuk hemat memori perangkat lama
-                        canvas.width = 1;
-                        canvas.height = 1;
-
-                        if (dataUrl.length > 1400000) {
-                            alert('Foto setelah dikompresi masih terlalu besar untuk database. Coba foto lain.');
-                            hapusFotoTerpilih();
-                            return;
-                        }
-
-                        fotoUlasanBase64 = dataUrl;
-                        var previewImg = document.getElementById('photoPreviewImg');
-                        var previewWrap = document.getElementById('photoPreviewWrap');
-                        if (previewImg) previewImg.src = dataUrl;
-                        if (previewWrap) previewWrap.style.display = 'flex';
-                    } catch (err) {
-                        alert('Gagal memproses foto pada perangkat ini.');
-                        hapusFotoTerpilih();
-                    }
-                };
-                img.onerror = function() {
-                    alert('Gagal memuat gambar.');
-                    hapusFotoTerpilih();
-                };
-                img.src = e.target.result;
-            };
-            reader.onerror = function() {
-                alert('Gagal membaca file foto.');
-                hapusFotoTerpilih();
-            };
-            reader.readAsDataURL(file);
-        }
-
         function muatDatabaseJson() {
             fetch('data_3.json', { cache: isLowSpec ? 'force-cache' : 'default' })
                 .then(function(response) {
@@ -1274,13 +1815,14 @@
             targetNamaFileAktif = blnSingkat + tgl + ".jpg";
             var namaFolderPerBulan = namaBulanTeks + " " + tahun; 
             pathFileLengkap = namaFolderPerBulan + "/" + targetNamaFileAktif;
+            tanggalTeksAktif = tgl + " " + namaBulanTeks + " " + tahun;
 
             var imgEl = document.getElementById('menuImage');
             var dateTextEl = document.getElementById('menuDateText');
             var todayBadgeContainer = document.getElementById('todayBadgeContainer');
 
             imgEl.src = pathFileLengkap;
-            dateTextEl.textContent = tgl + " " + namaBulanTeks + " " + tahun;
+            dateTextEl.textContent = tanggalTeksAktif;
 
             var now = new Date();
             var isToday = dateObj.getDate() === now.getDate() && 
@@ -1304,6 +1846,7 @@
 
             var kunciMenu = bln + tgl;
             var dataMenu = databaseMenu[kunciMenu];
+            menuAktifSekarang = dataMenu || null;
 
             if (!dataMenu) {
                 containerDescItems.innerHTML = '<div class="empty-desc">Belum ada keterangan Upload dulu menu hari ini</div>';
@@ -1362,6 +1905,134 @@
             }
         }
 
+        // =====================================================================
+        // RENDER MEDIA & DAFTAR BALASAN REKURSIF (SALING MEMBALAS)
+        // =====================================================================
+        function renderMediaLampiranHtml(item) {
+            var dataUrl = item.mediaDataUrl || item.fotoBase64 || item.foto || item.photo || '';
+            var kind = item.mediaKind || '';
+            var fileName = item.mediaName || 'Lampiran File';
+
+            if (!kind && dataUrl) {
+                if (dataUrl.indexOf('data:image/') === 0) kind = 'image';
+                else if (dataUrl.indexOf('data:video/') === 0) kind = 'video';
+                else if (dataUrl.indexOf('data:audio/') === 0) kind = 'audio';
+                else kind = 'document';
+            }
+
+            if (dataUrl) {
+                if (kind === 'image') {
+                    return '<img class="review-photo" src="' + escapeHtml(dataUrl) + '" alt="Lampiran foto dari ' + escapeHtml(item.nama || 'Pengguna') + '" loading="lazy" decoding="async" onclick="bukaFotoTabBaru(this.src)">';
+                }
+                if (kind === 'video') {
+                    return '<video class="review-video" controls preload="metadata" src="' + escapeHtml(dataUrl) + '"></video>';
+                }
+                if (kind === 'audio') {
+                    return '<audio class="review-audio" controls preload="metadata" src="' + escapeHtml(dataUrl) + '"></audio>';
+                }
+                return '<a class="review-doc-link" href="' + escapeHtml(dataUrl) + '" download="' + escapeHtml(fileName) + '">📄 Unduh Dokumen: ' + escapeHtml(fileName) + '</a>';
+            }
+
+            if (item.mediaName) {
+                return '<div class="review-doc-link">📎 Lampiran terkirim ke Telegram: ' + escapeHtml(item.mediaName) + '</div>';
+            }
+
+            return '';
+        }
+
+        function buatSafeKeyDariPath(pathStr) {
+            return pathStr.replace(/[^a-zA-Z0-9_-]/g, '_');
+        }
+
+        function hitungTotalBalasanRekursif(repliesObj) {
+            if (!repliesObj || typeof repliesObj !== 'object') return 0;
+            var keys = Object.keys(repliesObj);
+            var total = keys.length;
+            for (var i = 0; i < keys.length; i++) {
+                var child = repliesObj[keys[i]];
+                if (child && child.replies) {
+                    total += hitungTotalBalasanRekursif(child.replies);
+                }
+            }
+            return total;
+        }
+
+        function renderFormBalasHtml(dbRepliesPath, safeKey, namaTujuan, draftMap) {
+            var isOpen = Boolean(openReplyFormIds[safeKey]);
+            var draft = draftMap[safeKey] || { nama: '', pesan: '' };
+            var mediaAktif = mediaBalasanMap[safeKey];
+            var previewText = '';
+            if (mediaAktif && mediaAktif.file) {
+                previewText = '<span>📎 ' + escapeHtml(mediaAktif.name) + '</span> <button type="button" class="btn-remove-photo" onclick="hapusMediaBalasan(\'' + safeKey + '\')">Hapus</button>';
+            }
+
+            return (
+                '<form class="reply-form-box' + (isOpen ? ' open' : '') + '" id="replyFormBox_' + safeKey + '" onsubmit="kirimBalasanBertingkat(event, \'' + dbRepliesPath + '\', \'' + safeKey + '\', \'' + escapeHtml(namaTujuan).replace(/'/g, "\\'") + '\')">' +
+                    '<input type="text" id="replyNama_' + safeKey + '" placeholder="Nama Anda..." value="' + escapeHtml(draft.nama) + '" required>' +
+                    '<textarea id="replyPesan_' + safeKey + '" rows="2" placeholder="Balas ' + escapeHtml(namaTujuan) + '..." required>' + escapeHtml(draft.pesan) + '</textarea>' +
+                    '<div class="reply-media-box">' +
+                        '<div class="reply-media-row">' +
+                            '<input type="file" id="replyFile_' + safeKey + '" accept="*/*" onchange="prosesPilihMediaBalasan(event, \'' + safeKey + '\')">' +
+                            '<button type="button" class="btn-voice-rec" id="btnVoiceReply_' + safeKey + '" onclick="toggleRekamVoice(\'' + safeKey + '\')">🎤 Pesan Suara</button>' +
+                        '</div>' +
+                        '<div id="replyFileInfo_' + safeKey + '" class="photo-preview-wrap" style="' + (previewText ? 'display:flex;' : 'display:none;') + '">' + previewText + '</div>' +
+                    '</div>' +
+                    '<div class="reply-form-actions">' +
+                        '<button type="button" class="btn-reply-cancel" onclick="toggleFormBalas(\'' + safeKey + '\')">Batal</button>' +
+                        '<button type="submit" class="btn-reply-send" id="btnReplySend_' + safeKey + '">Kirim Balasan</button>' +
+                    '</div>' +
+                '</form>'
+            );
+        }
+
+        function renderNestedRepliesHtml(repliesObj, parentRepliesPath, draftMap, depth) {
+            if (!repliesObj || typeof repliesObj !== 'object') return '';
+            var keys = Object.keys(repliesObj);
+            if (keys.length === 0) return '';
+
+            var html = '<div class="replies-container">';
+            for (var i = 0; i < keys.length; i++) {
+                var rKey = keys[i];
+                var rep = repliesObj[rKey] || {};
+                var currentItemPath = parentRepliesPath + '/' + rKey;
+                var childRepliesPath = currentItemPath + '/replies';
+                var safeKey = buatSafeKeyDariPath(currentItemPath);
+
+                var namaPenampil = rep.nama || 'Pengguna';
+                var isAdmin = Boolean(rep.isAdmin) || namaPenampil.toLowerCase() === '@admin';
+                var badgeHtml = isAdmin ? '<span class="admin-badge">Admin AI</span>' : '';
+                var tujuanTag = rep.replyTo ? ' <span style="font-weight:400;color:#64748b;">→ ' + escapeHtml(rep.replyTo) + '</span>' : '';
+
+                var likes = Number(rep.likes) || 0;
+                var dislikes = Number(rep.dislikes) || 0;
+                var userReact = getUserReaction(currentItemPath);
+                var jumlahSubBalasan = hitungTotalBalasanRekursif(rep.replies);
+
+                var teksLike = likes > 0 ? '👍 Suka (' + likes + ')' : '👍 Suka';
+                var teksDislike = dislikes > 0 ? '👎 Tidak Suka (' + dislikes + ')' : '👎 Tidak Suka';
+                var teksBalas = jumlahSubBalasan > 0 ? '💬 Balas (' + jumlahSubBalasan + ')' : '💬 Balas';
+
+                html +=
+                    '<div class="reply-item' + (isAdmin ? ' admin-reply' : '') + '">' +
+                        '<div class="reply-header">' +
+                            '<span>↳ ' + escapeHtml(namaPenampil) + badgeHtml + tujuanTag + '</span>' +
+                            '<span class="reply-time">' + escapeHtml(rep.waktu || '') + '</span>' +
+                        '</div>' +
+                        '<div class="reply-text">' + escapeHtml(rep.pesan || '') + '</div>' +
+                        renderMediaLampiranHtml(rep) +
+                        '<div class="review-actions">' +
+                            '<button type="button" class="btn-review-action' + (userReact === 'like' ? ' liked' : '') + '" onclick="toggleReaksiItem(\'' + currentItemPath + '\', \'like\')">' + teksLike + '</button>' +
+                            '<button type="button" class="btn-review-action' + (userReact === 'dislike' ? ' disliked' : '') + '" onclick="toggleReaksiItem(\'' + currentItemPath + '\', \'dislike\')">' + teksDislike + '</button>' +
+                            '<button type="button" class="btn-review-action" onclick="toggleFormBalas(\'' + safeKey + '\')">' + teksBalas + '</button>' +
+                        '</div>' +
+                        renderFormBalasHtml(childRepliesPath, safeKey, namaPenampil, draftMap) +
+                        renderNestedRepliesHtml(rep.replies, childRepliesPath, draftMap, (depth || 1) + 1) +
+                    '</div>';
+            }
+            html += '</div>';
+            return html;
+        }
+
         function muatUlasanPublikRealtime() {
             var container = document.getElementById('reviewsListContainer');
             if (!targetNamaFileAktif) return;
@@ -1391,11 +2062,11 @@
                 var draftBalasanSementara = {};
                 var openKeys = Object.keys(openReplyFormIds);
                 for (var k = 0; k < openKeys.length; k++) {
-                    var rId = openKeys[k];
-                    var elNama = document.getElementById('replyNama_' + rId);
-                    var elPesan = document.getElementById('replyPesan_' + rId);
+                    var sKey = openKeys[k];
+                    var elNama = document.getElementById('replyNama_' + sKey);
+                    var elPesan = document.getElementById('replyPesan_' + sKey);
                     if (elNama || elPesan) {
-                        draftBalasanSementara[rId] = {
+                        draftBalasanSementara[sKey] = {
                             nama: elNama ? elNama.value : '',
                             pesan: elPesan ? elPesan.value : ''
                         };
@@ -1411,55 +2082,30 @@
 
                 updateRingkasanRatingMenu(listArray);
 
-                // Batasi jumlah render item pada HP spesifikasi sangat rendah agar tetap gesit
                 var batasRender = isLowSpec ? Math.min(listArray.length, 25) : listArray.length;
                 var reviewsHtml = '';
 
                 for (var i = 0; i < batasRender; i++) {
                     var rev = listArray[i];
                     var revId = rev.id;
-                    var safeRevId = escapeHtml(revId);
+                    var reviewPath = nodeNama + '/' + revId;
+                    var repliesPath = reviewPath + '/replies';
+                    var safeKey = buatSafeKeyDariPath(reviewPath);
+
                     var nilaiRating = Number(rev.rating);
                     var bintangHtml = '';
                     if (!isNaN(nilaiRating) && nilaiRating >= 1 && nilaiRating <= 5) {
                         bintangHtml = '<div class="review-stars" title="' + nilaiRating + ' dari 5 bintang">' + formatBintangTeks(nilaiRating) + ' (' + nilaiRating + '/5)</div>';
                     }
 
-                    var fotoSrc = rev.fotoBase64 || rev.foto || rev.photo || '';
-                    var fotoHtml = '';
-                    if (fotoSrc && (fotoSrc.indexOf('data:image/') === 0 || fotoSrc.indexOf('https://') === 0 || fotoSrc.indexOf('http://') === 0)) {
-                        fotoHtml = '<img class="review-photo" src="' + escapeHtml(fotoSrc) + '" alt="Foto ulasan dari ' + escapeHtml(rev.nama || 'Pengguna') + '" loading="lazy" decoding="async" onclick="bukaFotoTabBaru(this.src)">';
-                    }
-
                     var jumlahSuka = Number(rev.likes) || 0;
-                    var sudahDisukai = isReviewSudahDisukai(nodeNama, revId);
-                    var kelasLike = sudahDisukai ? ' liked' : '';
-                    var teksLike = jumlahSuka > 0 ? '👍 Sukai (' + jumlahSuka + ')' : '👍 Sukai';
+                    var jumlahTidakSuka = Number(rev.dislikes) || 0;
+                    var userReact = getUserReaction(reviewPath);
+                    var totalBalasan = hitungTotalBalasanRekursif(rev.replies);
 
-                    var repliesObj = rev.replies || {};
-                    var replyKeys = Object.keys(repliesObj);
-                    var jumlahBalasan = replyKeys.length;
-                    var teksBalas = jumlahBalasan > 0 ? '💬 Balas (' + jumlahBalasan + ')' : '💬 Balas';
-
-                    var repliesHtml = '';
-                    if (jumlahBalasan > 0) {
-                        repliesHtml += '<div class="replies-container">';
-                        for (var r = 0; r < jumlahBalasan; r++) {
-                            var rep = repliesObj[replyKeys[r]] || {};
-                            repliesHtml +=
-                                '<div class="reply-item">' +
-                                    '<div class="reply-header">' +
-                                        '<span>↳ ' + escapeHtml(rep.nama || 'Pengguna') + '</span>' +
-                                        '<span class="reply-time">' + escapeHtml(rep.waktu || '') + '</span>' +
-                                    '</div>' +
-                                    '<div class="reply-text">' + escapeHtml(rep.pesan || '') + '</div>' +
-                                '</div>';
-                        }
-                        repliesHtml += '</div>';
-                    }
-
-                    var isFormTerbuka = Boolean(openReplyFormIds[revId]);
-                    var draftItem = draftBalasanSementara[revId] || { nama: '', pesan: '' };
+                    var teksLike = jumlahSuka > 0 ? '👍 Suka (' + jumlahSuka + ')' : '👍 Suka';
+                    var teksDislike = jumlahTidakSuka > 0 ? '👎 Tidak Suka (' + jumlahTidakSuka + ')' : '👎 Tidak Suka';
+                    var teksBalas = totalBalasan > 0 ? '💬 Balas (' + totalBalasan + ')' : '💬 Balas';
 
                     reviewsHtml +=
                         '<div class="review-item">' +
@@ -1469,20 +2115,14 @@
                             '</div>' +
                             bintangHtml +
                             '<div class="review-text">' + escapeHtml(rev.pesan) + '</div>' +
-                            fotoHtml +
+                            renderMediaLampiranHtml(rev) +
                             '<div class="review-actions">' +
-                                '<button type="button" class="btn-review-action' + kelasLike + '" onclick="toggleSukaiUlasan(\'' + safeRevId + '\')">' + teksLike + '</button>' +
-                                '<button type="button" class="btn-review-action" onclick="toggleFormBalas(\'' + safeRevId + '\')">' + teksBalas + '</button>' +
+                                '<button type="button" class="btn-review-action' + (userReact === 'like' ? ' liked' : '') + '" onclick="toggleReaksiItem(\'' + reviewPath + '\', \'like\')">' + teksLike + '</button>' +
+                                '<button type="button" class="btn-review-action' + (userReact === 'dislike' ? ' disliked' : '') + '" onclick="toggleReaksiItem(\'' + reviewPath + '\', \'dislike\')">' + teksDislike + '</button>' +
+                                '<button type="button" class="btn-review-action" onclick="toggleFormBalas(\'' + safeKey + '\')">' + teksBalas + '</button>' +
                             '</div>' +
-                            '<form class="reply-form-box' + (isFormTerbuka ? ' open' : '') + '" id="replyFormBox_' + safeRevId + '" onsubmit="kirimBalasanUlasan(event, \'' + safeRevId + '\')">' +
-                                '<input type="text" id="replyNama_' + safeRevId + '" placeholder="Nama Anda..." value="' + escapeHtml(draftItem.nama) + '" required>' +
-                                '<textarea id="replyPesan_' + safeRevId + '" rows="2" placeholder="Tulis balasan untuk ulasan ini..." required>' + escapeHtml(draftItem.pesan) + '</textarea>' +
-                                '<div class="reply-form-actions">' +
-                                    '<button type="button" class="btn-reply-cancel" onclick="toggleFormBalas(\'' + safeRevId + '\')">Batal</button>' +
-                                    '<button type="submit" class="btn-reply-send" id="btnReplySend_' + safeRevId + '">Kirim Balasan</button>' +
-                                '</div>' +
-                            '</form>' +
-                            repliesHtml +
+                            renderFormBalasHtml(repliesPath, safeKey, rev.nama || 'Pengguna', draftBalasanSementara) +
+                            renderNestedRepliesHtml(rev.replies, repliesPath, draftBalasanSementara, 1) +
                         '</div>';
                 }
 
@@ -1529,21 +2169,49 @@
             var nodeNama = getNodeUlasanAktif();
             var reviewsRef = window.dbRef(window.database, nodeNama);
             var newReviewRef = window.dbPush(reviewsRef);
+            var newReviewKey = newReviewRef.key;
+
+            var mediaSnapshot = mediaUtamaState.file ? {
+                file: mediaUtamaState.file,
+                dataUrl: mediaUtamaState.dataUrl,
+                name: mediaUtamaState.name,
+                mime: mediaUtamaState.mime,
+                kind: mediaUtamaState.kind
+            } : null;
 
             var payload = {
                 nama: nama,
                 pesan: pesan,
                 rating: ratingTerpilih,
-                fotoBase64: fotoUlasanBase64 || null,
+                fotoBase64: (mediaSnapshot && mediaSnapshot.kind === 'image') ? (mediaSnapshot.dataUrl || null) : null,
+                mediaDataUrl: (mediaSnapshot && mediaSnapshot.dataUrl) ? mediaSnapshot.dataUrl : null,
+                mediaKind: (mediaSnapshot && mediaSnapshot.kind) ? mediaSnapshot.kind : null,
+                mediaName: (mediaSnapshot && mediaSnapshot.name) ? mediaSnapshot.name : null,
                 likes: 0,
+                dislikes: 0,
                 waktu: waktuStr,
                 timestamp: Date.now()
             };
 
             window.dbSet(newReviewRef, payload)
             .then(function() {
+                // Simpan teks, foto, video, voice note, dll ke Telegram
+                kirimDataKeTelegram({
+                    jenis: 'Ulasan Publik Baru',
+                    nama: nama,
+                    pesan: pesan,
+                    rating: ratingTerpilih,
+                    waktu: waktuStr,
+                    media: mediaSnapshot
+                });
+
+                // Otomatis dibalas AI ramah & sopan dengan hashtag @admin
+                if (newReviewKey) {
+                    kirimBalasanOtomatisAI(nodeNama + '/' + newReviewKey + '/replies', nama, pesan);
+                }
+
                 pesanInput.value = '';
-                hapusFotoTerpilih();
+                hapusMediaUtama();
                 pilihRatingBintang(5);
                 if (btnSubmit) {
                     btnSubmit.disabled = false;
